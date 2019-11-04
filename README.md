@@ -1,1 +1,1 @@
-# lecture-notes
+# Part II Lecture Notes (aka just PoS...)
