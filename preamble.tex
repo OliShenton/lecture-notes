@@ -1,0 +1,169 @@
+% Some basic packages
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{geometry}[margin=1in]
+% Don't indent paragraphs, leave some space between them
+\usepackage{parskip}
+
+% Footnotes at bottom
+\usepackage[bottom]{footmisc}
+
+% Hide page number when page is empty
+\usepackage{emptypage}
+\usepackage{subcaption}
+\usepackage{multicol}
+
+% Math stuff
+\usepackage{amsmath, amsfonts, mathtools, amsthm, wasysym, braket}
+% Fancy script capital
+\usepackage{mathrsfs}
+\usepackage{cancel}
+% Bold math
+\usepackage{bm}
+% Some shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand{\bigzero}{\mbox{\normalfont\Large 0}}
+\renewcommand\P{\ensuremath{\mathbb{P}}}
+\newcommand\E{\ensuremath{\mathbb{E}}}
+\DeclareMathOperator{\dim}{dim}
+\DeclareMathOperator{\intr}{int}
+
+% Add inline-code support
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+% Hyperlink support
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	linkcolor= blue
+}
+% Put x \to \infty below \lim
+\let\svlim\lim\def\lim{\svlim\limits}
+
+%Make implies and impliedby shorter
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+
+% Add \contra symbol to denote contradiction
+\newcommand\contra{\scalebox{1.5}{$\lightning$}}
+
+% horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% hide parts
+\newcommand\hide[1]{}
+
+% Number equations from within sections
+\numberwithin{equation}{section}
+
+% Environments
+\makeatother
+% For box around Definition, Theorem, \ldots
+\usepackage{mdframed}
+\mdfsetup{skipabove=1em,skipbelow=0em}
+\theoremstyle{definition}
+\newmdtheoremenv[nobreak=true]{defn}[equation]{Definition}
+\newmdtheoremenv[nobreak=true]{prob}[equation]{Problem}
+\newmdtheoremenv[nobreak=true]{apprx}[equation]{Approximation}
+\newmdtheoremenv[nobreak=true]{property}[equation]{Property}
+\newmdtheoremenv[nobreak=true]{lemma}[equation]{Lemma}
+\newmdtheoremenv[nobreak=true]{prop}[equation]{Proposition}
+\newmdtheoremenv[nobreak=true]{thm}[equation]{Theorem}
+\newmdtheoremenv[nobreak=true]{corol}[equation]{Corollary}
+\newmdtheoremenv[nobreak=true]{law}[equation]{Law}
+\newmdtheoremenv[nobreak=true]{nremark}[equation]{Remark}
+\newmdtheoremenv[nobreak=true]{postulate}[equation]{Postulate}
+\newmdtheoremenv[nobreak=true]{conc}[equation]{Conclusion}
+\newtheorem*{notation}{Notation}
+\newtheorem*{observation}{Observation}
+\newtheorem*{ex}{Exercise}
+\newtheorem*{note}{Note}
+\newtheorem*{application}{Application}
+\newtheorem*{eg}{Example}
+\newtheorem*{remark}{Remark}
+\newtheorem*{question}{Question}
+\newtheorem*{observe}{Observe}
+\newtheorem*{intuition}{Intuition}
+\newtheorem{assumption}{Assumption}
+\renewcommand*{\theassumption}{\Alph{assumption}}
+\newtheorem{q}{Question}
+\newtheorem*{idea}{Idea}
+
+% End example and intermezzo environments with a small diamond (just like proof
+% environments end with a small square)
+\usepackage{etoolbox}
+\AtEndEnvironment{vb}{\null\hfill$\diamond$}%
+\AtEndEnvironment{intermezzo}{\null\hfill$\diamond$}%
+% \AtEndEnvironment{opmerking}{\null\hfill$\diamond$}%
+
+% Fix some spacing
+% http://tex.stackexchange.com/questions/22119/how-can-i-change-the-spacing-before-theorems-with-amsthm
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=0pt
+}
+
+
+% These are the fancy headers
+\usepackage{fancyhdr}
+
+% Todonotes and inline notes in fancy boxes
+\usepackage{todonotes}
+\usepackage{tcolorbox}
+
+% Make boxes breakable
+\tcbuselibrary{breakable}
+
+% Figure support as explained in my blog post.
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+% Fix some stuff
+% %http://tex.stackexchange.com/questions/76273/multiple-pdfs-with-page-group-included-in-a-single-page-warning
+\pdfsuppresswarningpagegroup=1
+
