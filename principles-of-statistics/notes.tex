@@ -957,4 +957,130 @@ A general purpose test can be constructed from the Likelihood ratio test statist
 by liberal usage of Slutsky's lemma, the previous proposition, and the continuous mapping theorem for the map $x \mapsto x^{T}I(\theta_0)x$ from $\R^{p} \to \R$. Moreover, by standard linear algebra, $Z^{T}I_{\theta_0}Z = \sum_{i=1}^{p} W_{i}^2$, $W_i \stackrel{iid}{\sim} N$, so $\sim \chi^2_{p}$ 
 \end{proof}
 
+\section*{Lecture 11}
+
+\section{Bayesian Inference}
+
+For a given statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}, \Theta \subseteq \R^{p}$, we will now regard $\theta$ as drawn at random from some \textit{prior} distribution $\pi$ on $\Theta$. This may
+
+\begin{enumerate}[label=\roman*)]
+	\item Model an intrinsically random state of nature $\Theta$.
+	\item Model subjective beliefs about the state of nature $\Theta$.
+	\item Serve as a way to generate statistical decision rules/estimators in our inference problem.
+\end{enumerate}
+
+\begin{eg}
+	Consider a countable set of (scientific) hypotheses $H_i, i \in \Theta$, about the state of nature, each of prior probability $\pi_i, \sum_{i \in \Theta} \pi = 1$, and such that
+	\[
+		\mathbb{P}\left( X=x \mid H_i \right) = f_i(x)
+	,\]
+	where $x$ is a random outcome that can be measured. Then by the Bayes rule for conditional probabilities,
+	\[
+		\mathbb{P}\left( H_i  \mid  X = x \right) = \frac{f_i(x) \pi_i}{\sum_{j\in \Theta} f_j(x) \pi_j}
+	\]
+
+	To check whether $H_i$ is more likely than $H_j$ given  $X=x$, we compare
+	 \[
+		 \frac{\mathbb{P}\left( H_i  \mid X=x \right)}{\mathbb{P}\left( H_j  \mid X=x \right)} = \frac{f_i(x)\pi_i}{f_j(x)\pi_j}
+	\]
+
+	If all $\pi_i$ agree ($\Theta$ is finite), then this just reduces to the likelihood ratio test. In a general setting, $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$, we wish to model the observation $X \mid \theta \sim f(\cdot , \theta)$ and $\theta \sim \pi$ on $\Theta$, where $\pi$ is the prior distribution. The \textit{posterior distribution} is then the conditional distribution of $\theta  \mid X$. To make this rigorous, consider a sample space $\chi \subseteq \R^{d}$ supporting $\{f\left( \cdot , \theta \right) : \theta \in \Theta \subseteq \R^{p}\}$, and on the product space $\chi \times \Theta \left( \subseteq \R^{d} \times \R^{p} \right) $ consider a probability distribution $Q$ with pmf $f$
+	 \[
+		 dQ(x,\theta) = f(x,\theta)\pi(\theta)dxd\theta
+	 .\]
+
+	 By the usual rules for conditional densities, if $(X,\Theta) \sim Q$, then
+	 \[
+		 X | \Theta \sim \frac{f(x,\theta)\pi(\theta)}{\int_{\chi}f(x,\theta)\pi(\theta)dx} = f(x,\theta)
+	 \]
+
+	 Likewise,
+	 \[
+		 \theta  | X \sim \frac{f(x,\theta)\pi(\theta)}{\int_{\Theta} f(x,\theta) \pi(\theta) d\theta} = \pi(\theta \mid X)
+	 \]
+
+	 is the pdf/pmf of the posterior distribution. If $X_1, \ldots, X_n$ are i.i.d copies of $X \mid \theta$ then the same argument gives that the posterior distribution is given by  
+	 \[
+		 \theta|(X_1, \ldots, X_n) \sim \frac{\prod_{i=1}^{n}f(X_i, \theta) \pi(\theta)}{\int_{\Theta} \prod_{i=1}^{n} f(X_i, \theta) \pi(\theta) \pi(\theta) d\theta} = \pi(\theta|X_1, \ldots, X_n)
+	 \] 
+	 
+\end{eg}
+
+\begin{eg}
+	Consider a $N(\theta, 1)$ model with prior $\pi\sim N(0,1)$ on $\Theta = \R $. Given $X_1, \ldots, X_n$ i.i.d copies of $X|\theta$, we see that
+	\begin{align*}
+		\pi(\theta |X_1, \ldots, X_n) &\overset{\text{in $\theta$}}{\propto} e^{\frac{1}{2}\sum_{i=1}^{n}(X_i - \theta)^2}e^{-\frac{\theta^2}{2}} \\
+		&= e^{-\frac{1}{2} \sum_{i=1}^{n}X_i^2 + \sum_{i=1}^{n}X_i \theta - \frac{n\theta^2}{2} - \frac{\theta^2}{2}} \\
+		&\propto e^{n\overline{X}\theta - \frac{n+1}{2}\theta^2} \\
+		&\propto e^{-\frac{1}{2} \left( \frac{n}{\sqrt{n+1}} \overline{X} - \sqrt{n+1} \theta  \right)^2 } \\
+		= e^{-\frac{n+1}{2}\left(\frac{n}{n+1}\overline{X} - \theta  \right)^2 }
+	 \end{align*}
+	 And so $\pi(\theta|X_1, \ldots, X_n) \sim N(\frac{1}{n+1}\sum_{i=1}^{n}X_i, \frac{1}{n+1})$.
+\end{eg}
+
+One shows more generally that for normal prior and normal 'sampling' models $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$, the posterior distribution is again a normal distribution. This is an example of a \textit{conjugate prior} where the posterior distribution after sampling belongs to the same family of probability distributions.
+
+\begin{eg} We have some other examples of conjugate priors.
+
+	\begin{enumerate}[label=\roman*)]
+		\item Beta prior $+$ Binomial sampling $\to $ Beta posterior
+		\item Gamma prior $+$ Poisson sampling $\to $ Gamma posterior
+	\end{enumerate}
+\end{eg}
+
+Even when $\pi$ is not a proper probability distribution, the expression
+\[
+	\pi(\theta | X_1, \ldots, X_n) = \frac{\prod_{i=1}^{n}f(X_i, \theta) \pi(\theta)}{ \int_{\Theta} \prod_{i=1}^{n}f(X_i, \theta) \pi(\theta) d\theta}
+\]
+may still be well defined, in which case we speak of a posterior distribution arising from an 'improper' prior. Specifically, the family of 'Jeffrey's' priors which are such that $\pi(\theta) \propto \sqrt{\det(I(\theta))} $ often fall into this class. For instance, for the $N(\theta, \sigma^2)$ model (with $\sigma^2$ known), one sees that the Jeffrey's prior is proportionally constant, and one shows that the 'improper' posterior is equal to a $N(\overline{X}_n, \frac{\sigma^2}{n}) = N(\hat{\theta}_{MLE}, \frac{\sigma^2}{n})$ distribution (see ex. sheet). Note however (see ex. sheet) that uniform priors do not necessarily return 'Bayes estimators' that coincide with MLEs, as the $\text{Bin}(n,p)$ model with $p\sim U(0,1)$ prior shows.
+
+\subsection{Statistical Inference with Posterior Distributions}
+
+The posterior distribution $\pi(\cdot, X_1, \ldots, X_n)$ is a (random) probability distribution on $\Theta$, and hence can be used in principle to construct inference procedures for $\theta$.
+\begin{enumerate}[label=\roman*)]
+	\item Estimation - One may use the posterior mean $\E^{\pi} [\theta | X_1, \ldots, X_n]$ as an estimator $\overline{\theta}_n = \overline{\theta}(X_1, \ldots, X_n)$ for $\theta$, or alternatively (when appropriately  defined) the posterior mode or median.
+	\item Uncertainty quantification - Any subset $C_n \subseteq \Theta$ for which $\pi(C_n|X_1, \ldots, X_n) = 1-\alpha$ is a level $1-\alpha$ \textit{credible} set (but it has, a fortiori, no interpretation in terms of coverage probabilities $P_{\theta} (\theta  \in C_n))$ 
+	\item Hypothesis testing - Given $\Theta_0, \Theta_1 \subseteq \Theta$, we can compute Bayes-factors
+		\[
+			\frac{\pi(\Theta | X_1, \ldots, X_n)}{\pi(\Theta_1|X_1, \ldots, X_n)} = \frac{\int_{\Theta_0} \prod_{i=1}^{n} f(X_i, \theta)\pi(\theta)d\theta}{\int_{\Theta_1} \prod_{i=1}^{n}f(X_i, \theta) \pi(\theta) d\theta} = \frac{\mathbb{P}\left( X_1, \ldots, X_n | \Theta_0) \right)}{\mathbb{P}\left( X_1, \ldots, X_n| \Theta_1) \right)}
+		\]
+		So we may 'test' for (choose to prefer) $H_0$ if $\phi_n 1_{\{\text{Bayes factor} <1\}}$
+\end{enumerate}
+
+\subsection{Frequentist Analysis of Bayes Methods}
+
+Bayesian inference procedures $\overline{\theta}(X_1, \ldots, X_n), C(X_1, \ldots, X_n), \Psi(X_1, \ldots, X_n)$ can be analysed as statistical algorithms in their own right under the \textit{frequentist} sampling assumption that $X_i \stackrel{iid}{\sim} f(\cdot, \theta_0), \theta_0 \in \Theta$.
+
+\begin{eg}
+	$X_1, \ldots, X_n \stackrel{iid}{\sim}$ copies of $X|\theta \sim N(\theta, 1)$ with $\theta \sim N(0, 1)$ prior. Then the posterior is
+	 \[
+		 \theta | X_1, \ldots, X_n \sim N\left( \frac{1}{n+1} \sum_{i=1}^{n}X_i, \frac{1}{n+1} \right) 
+	\]
+\end{eg}
+
+One shows easily that $\overline{\theta}_n = \frac{1}{n+1} \sum_{i=1}^{n} X_i \to^{a.s} \theta_0 $ under $P_{\theta_0}^{\N}$, and also that $\sqrt{n}(\overline{\theta}_n - \theta \to ^{d} N(0, I(\theta_0)^{-1})$ under $P_{\theta_0}^{\N}$. To corroborate Bayesian credible sets, however, more is required, as these are based not on the 'limit distribution' $N(0, I(\theta_0)^{-1})$, but on $\pi(\cdot , X_1, \ldots, X_n)$.
+
+\begin{thm}(Bernstein-von Mises)
+	
+	Suppose a statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$ satisfies assumption B, and let the prior have a continuous and positive density $\pi$ near $\theta_0$. Denote by $\pi_n = \pi(\cdot , X_1, \ldots, X_n)$, and let $\hat{\phi}_n$ be the pdf of a $N(\hat{\theta}_{MLE}, \frac{1}{n}I(\theta_0)^{-1})$. Then
+	\[
+		\|\pi_n - \hat{\phi}_n\|_{L^{1}} = \int_{\R} |\pi_n - \hat{\phi}_n(\theta)d\theta \underset{n\to \infty}{\to ^{a.s}} 0
+	\] 
+\end{thm}
+
+\begin{proof}
+	The general proof requires LeCam theory, so we only prove $X|\theta \sim N(\theta, 1)$ with  $\theta \sim N(0,1)$, in which case $I(\theta) = 1$ and $\hat{\theta}_{MLE} = \overline{X}_{n}$. Recall $\pi_n$ is the pdf of a $N(\overline{\theta}$ distribution where $ \overline{\theta} = \frac{n}{n+1}$, and so
+	\[
+		\sqrt{n} (\hat{\theta}_{MLE} - \theta) = - \sqrt{n} \frac{1}{n+1} (\overline{X}_n - \theta_0 + \theta_0) \underset{n\to \infty}{\to ^{P}} 0 \text{ by SLLN.}
+	\] 
+	Since $\int_{\R} \pi_n - \hat{\phi}_n(\theta) d\theta = 1-1 = 0$, we have 
+	\begin{align*}
+		\int_{\R} |\pi_n (\theta) - \hat{\phi}_n(\theta) d\theta &= 2\int_{\R} \left( \pi_n(\theta) - \hat{\phi}(\theta) \right)^{+} d\theta  \\
+		&= 2\int_{\R} \left( 1 - \frac{\pi_n(\theta)}{\hat{\phi}(\theta)} \right) ^{+} \hat{\phi}(\theta) d\theta \\
+		&= 2\int_{\R} \left( 1 - \frac{\sqrt{\frac{n+1}{2\pi}} \exp\left(-\frac{n+1}{2}(\theta - \hat{\theta} + \hat{\theta} - \hat{\theta})^2\right) }{\sqrt{\frac{n}{2\pi}} \exp(-\frac{n}{2}(\theta - \overline{\theta})^2) } \right)^{+} \sqrt{\frac{n}{2\pi}} \exp\left( -\frac{n}{2}(\theta - \hat{\theta})^2 \right) d\theta  \\
+		&= 2\int_{\R} \left( 1 - \sqrt{\frac{n+1}{n}} \frac{\exp\left( - \frac{n+1}{2n} (v + \sqrt{n} (\hat{\theta} - \theta))^2) \right) }{\exp(-\frac{1}{2}v^2) } \right)^{+} \frac{1}{\sqrt{2\pi} } e^{-\frac{v^2}{2}} dv
+	\end{align*}
+	Where we substituted $v = \sqrt{n} (\theta - \hat{\theta})$. Fixing  $\omega \in \Omega_0 \subseteq \Omega$ such that $\mathbb{P}\left( \Omega_0 \right) = 1$, so $\sqrt{n} (\hat{\theta}(\omega) - \overline{\theta}(\omega) \underset{n\to \infty}{\to } 0 $ (as scalars), note that for $Z\ge 0$, $(1-Z)^{+} \in [0,1]$, so that by integrability of $e^{-\frac{v^2}{2}}$ on $\R$, an application of the dominated convergence theorem implies that the whole last integral tends to $0$ $\forall \omega \in \Omega_0$. Since $\mathbb{P}\left( \Omega_0 \right) = 1$, the limit holds almost surely.
+\end{proof}
+
 \end{document}
