@@ -1060,7 +1060,7 @@ Bayesian inference procedures $\overline{\theta}(X_1, \ldots, X_n), C(X_1, \ldot
 
 One shows easily that $\overline{\theta}_n = \frac{1}{n+1} \sum_{i=1}^{n} X_i \to^{a.s} \theta_0 $ under $P_{\theta_0}^{\N}$, and also that $\sqrt{n}(\overline{\theta}_n - \theta \to ^{d} N(0, I(\theta_0)^{-1})$ under $P_{\theta_0}^{\N}$. To corroborate Bayesian credible sets, however, more is required, as these are based not on the 'limit distribution' $N(0, I(\theta_0)^{-1})$, but on $\pi(\cdot , X_1, \ldots, X_n)$.
 
-\begin{thm}(Bernstein-von Mises)
+\begin{thm}(Bernstein-von Misses)
 	
 	Suppose a statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$ satisfies assumption B, and let the prior have a continuous and positive density $\pi$ near $\theta_0$. Denote by $\pi_n = \pi(\cdot , X_1, \ldots, X_n)$, and let $\hat{\phi}_n$ be the pdf of a $N(\hat{\theta}_{MLE}, \frac{1}{n}I(\theta_0)^{-1})$. Then
 	\[
@@ -1083,4 +1083,91 @@ One shows easily that $\overline{\theta}_n = \frac{1}{n+1} \sum_{i=1}^{n} X_i \t
 	Where we substituted $v = \sqrt{n} (\theta - \hat{\theta})$. Fixing  $\omega \in \Omega_0 \subseteq \Omega$ such that $\mathbb{P}\left( \Omega_0 \right) = 1$, so $\sqrt{n} (\hat{\theta}(\omega) - \overline{\theta}(\omega) \underset{n\to \infty}{\to } 0 $ (as scalars), note that for $Z\ge 0$, $(1-Z)^{+} \in [0,1]$, so that by integrability of $e^{-\frac{v^2}{2}}$ on $\R$, an application of the dominated convergence theorem implies that the whole last integral tends to $0$ $\forall \omega \in \Omega_0$. Since $\mathbb{P}\left( \Omega_0 \right) = 1$, the limit holds almost surely.
 \end{proof}
 
+\section*{Lecture 13}
+
+The last theorem remains true when $\hat{\theta}_{MLE}$ is replaced by any estimator $\overline{\theta}_n$ s,t $\sqrt{n} (\hat{\theta}_{MLE} - \overline{\theta}_n) \underset{n\to \infty}{\to } 0 P_{\theta_0}^{\N}$-a.s, typically permitting the alternative centring at $\overline{\theta} = \E^{\pi} \theta(X_1, \ldots, X_n)$. One important consequence of the BvM-theorem is that certain posterior \textit{credible sets} are in fact proper (asymptotic) frequentist confidence sets.
+
+For instance, consider $C_n = \{\theta : |\theta - \hat{\theta}_{MLE} \le \frac{R_n}{\sqrt{r} }\} $, where $R_n$ are random quantile constants chosen s.t $\prod (C_n | X_1,\ldots,X_n) = 1- \alpha, 0 < \alpha < 1$. Recall $\hat{\phi}_n$ was the pdf of $N(\hat{\theta}_{MLE}, \frac{1}{n}I(\theta_0)^{-1})$distribution, and defined further $\phi_0$ to be the pdf of $Z\sim N(0, I(\theta)^{-1})$. We can define $\Phi(t) = \mathbb{P}\left( |Z| \le t \right) = \int_{-t}^{t} \phi_0 (v) dv$ , which is strictly increasing in t, and also continuously differentiable, hence admits a continuous inverse $\Phi ^{-1} : [0,1] \to \R$.
+
+Now, we can write $\Phi (R_n) = \int_{-R_n}^{R_n} \phi_0(v)dv$, and substituting $v = \sqrt{n} (\theta - \hat{\theta})$ so that $-R_n \le v \le R_n$ becomes the set $C_n$ and since $v ~ N(0, I(\theta_0)^{-1}) \iff \sqrt{n} (\theta - \hat{\theta}) \sim N(\hat{\theta}, \frac{1}{n}I(\theta_0)^{-1})$, the last integral gives
+
+\begin{align*}
+	\Phi(R_n) &= \int_{C_n} \hat{\phi}_n (\theta) d\theta \\
+	&= \int_{C_n} (\hat{\phi}_n(\theta) - \pi_n(\theta)) d\theta + \int_{C_n} \pi_n(\theta) \\
+	&= \pi (C_n |X_1, \ldots, X_n) \text{ by BvM theorem} \\
+	= 1 - \alpha \forall n
+\end{align*} 
+
+So by the BvM theorem we know $\Phi(R_n) \underset{n\to \infty}{\to } 1 - \alpha$ a.s under $P_{\theta_0}$, hence applying the continuous mapping theorem to $\Phi ^{-1}$, we deduce
+
+\[
+	R_n = \Phi ^{-1}(\Phi(R_n)) \underset{n\to \infty}{\to ^{a.s}} \Phi ^{-1}(1-\alpha) \text{ under } P_{\theta_0}.
+\] 
+In particular, by Slutsky's lemma and asymptotic normality of $\hat{\theta}_{MLE}$, we have 
+
+\[
+	\frac{\Phi ^{-1} (1- \alpha}{R_n}\sqrt{n} (\hat{\theta_{MLE}} - \theta_0) \underset{n\to \infty}{\to ^{d}} N(0, I(\theta_0)^{-1}) \text{ under } P_{\theta_0}
+\] 
+
+Now,
+\begin{align*}
+	P_{\theta_0}^{\N} (\theta_0 \in C_n) &= P_{\theta_0}^{\N} \left( |\theta_0 - \hat{\theta}_{MLE} | \le \frac{R_n}{\sqrt{n} }\right) \\
+	&= P_{\theta_0}^{\N} \left( \frac{\Phi ^{-1} (1-\alpha)}{R_n} \sqrt{n} |\hat{\theta}_{MLE} - \theta_0| \le \Phi ^{-1}(1-\alpha)  \right)  \\
+	&\underset{n\to \infty}{\to} \mathbb{P}\left( |Z| \le \Phi ^{-1} (1- \alpha) \right) \text{ by $(\dagger)$ and continuous mapping theorem on $|\cdot |$ }\\
+	&= \Phi (\Phi ^{-1} (1-\alpha)) \\
+	&= 1 - \alpha
+\end{align*}
+
+Replacing $|\cdot |$ by $\|\cdot \|$, the argument extends to parameter spaces $\Theta \subseteq \R^{p}$.
+
+We conclude that credible sets computed for priors $\pi$ with positive continuous density functions on $\Theta$ give rise to asymptotically exact level $1- \alpha$ (frequentist) confidence regions. [A version for discrete priors can be proved as well]
+
+\section{Decision Theory}
+
+Consider a (single) observation $X$ from some statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$ of pdf/pmfs on $\chi \subseteq \R^{d}$. In a decision we consider decision maps $\delta : \chi \to \mathcal{A}$, where $\mathcal{A}$ is some 'action space'
+
+\begin{eg}
+	\begin{enumerate}[label=\roman*)]
+		\item $\mathcal{A} = \{0,1\} $, a binary decision problem, where $\delta(X) \in \{0,1\} $ will be a test function, or more generally a finite decision problem $\mathcal{A} = \{1,\ldots,M\} $
+		\item $\mathcal{A} = \Theta$, and decision rules are estimators $\hat{\Theta}(X) \in  \Theta$
+		\item $\mathcal{A} = \{ \text{All (meas) subsets of } \Theta\} $, set-valued estimation, decision rule $\delta(X) = C(X)$ are confidence regions.
+	\end{enumerate}
+\end{eg}
+
+For general decision problems, we consider \textit{loss functions}
+\[
+	L: \mathcal{A} x \Theta \to [0, \infty)
+\] 
+measuring the error $L(\delta(X), \theta)$ incurred by  $\delta(X)$ for observation $X$ and parameter value $\theta$.
+
+\begin{eg}
+	\begin{enumerate}[label=\roman*)]
+		\item (Testing) $L(a,\theta) = 1_{\{a \neq  a(\theta)\} }$, where $a(\theta)$ is the index in $\mathcal{A}$ corresponding to $\theta$.
+		\itemi (Estimation) $\Theta \subset \R$, absolute loss $L(a,\theta) = |a-\theta|$, squared loss $L(a,\theta) = (a-\theta)^2$
+	\end{enumerate}
+\end{eg}
+
+\begin{defn}
+	The risk of a decision rule $\delta(X)$ from $X \sim P_{\theta}$, for loss $L$, is defined as 
+	\[
+		R(\delta, \theta) = \E_{\theta} L(\delta(X),\theta) = \int_{\chi} L(\delta(x),\theta) f(x,\theta)dx
+	\] 
+\end{defn}
+
+\begin{eg}
+	For squared loss, in estimation problems with estimator $\overline{\theta}(X) = \delta(X)$,
+	\[
+		R(\delta,\theta) = \E_{\theta} (\overline{\theta} - \theta)^2
+	\]
+	I.e our risk is the mean squared error (MSE)
+\end{eg}
+
+\begin{defn}
+	Given a prior $\pi$ on $\Theta$, the $\pi$-Bayes risk in a decision rule $\delta$ is 
+	\[
+		R_{\pi}(\delta) = \int_{\Theta} R(\delta, \theta) \pi(\theta) d\theta
+	\]
+	A $\pi$-Bayes decision rule $\delta_{\pi}$ is any decision rule for which $R_{\pi}(\delta)$ is minimised in $\delta$
+\end{defn}
+ 
 \end{document}
