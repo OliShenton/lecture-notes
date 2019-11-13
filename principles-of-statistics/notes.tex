@@ -1159,7 +1159,7 @@ measuring the error $L(\delta(X), \theta)$ incurred by  $\delta(X)$ for observat
 	\[
 		R(\delta,\theta) = \E_{\theta} (\overline{\theta} - \theta)^2
 	\]
-	I.e our risk is the mean squared error (MSE)
+	I.e our risk is the mean squared error (MSE) (quadratic risk)
 \end{eg}
 
 \begin{defn}
@@ -1169,5 +1169,111 @@ measuring the error $L(\delta(X), \theta)$ incurred by  $\delta(X)$ for observat
 	\]
 	A $\pi$-Bayes decision rule $\delta_{\pi}$ is any decision rule for which $R_{\pi}(\delta)$ is minimised in $\delta$
 \end{defn}
- 
+
+\newpage
+
+\section*{Lecture 14}
+
+We can rewrite, interchanging the order of integration,
+
+\begin{align*}
+	R_{\pi}(\delta) &= \int_{\chi} \int_{\Theta} L(\delta(x), \theta) \frac{f(x, \theta) \pi(\theta)}{\int_{\Theta} f(x, v) \pi(v) dv} \left( \int_{\Theta} f(x, v) \pi(v) dv \right) d\theta dx \\
+	&:= \int_{\chi} \int_{\Theta} L(\delta(x), \theta) \pi(\theta |x) m(x) d\theta dx \text{ where } m\ge 0 \\
+	&= \int_{\chi} \E^{\pi}\left[ L(\delta(x), \theta)  | x \right] m(x) dx \\
+\end{align*}
+where $\E^{\pi}\left[ L(\delta(x), \theta)  | x \right]$ is the posterior risk.
+
+We conclude that any decision rule $\overline{\delta}(X)$ which minimises the posterior risk in the sense that $\forall X, \delta$,
+\[
+	\E^{\pi}\left[ L(\overline{\delta}(X), \theta)  | X \right] \le \E^{\pi}\left[ L(\delta(X), \theta)  | X \right]
+,\]
+then this inequality can be $m(x)dx$-integrated to deduce that $\overline{\delta}(X)$ is a Bayes rule $\delta_{\pi}$ minimising the $\pi$-Bayes risk.
+
+\begin{remark}
+	One shows (ex. sheet) that for squared loss, the unique $\pi$-Bayes rule $\delta_{\pi}(X)$ equals the posterior mean $\E^{\pi}[\theta | X]$, and this is the unique Bayes rule. For absolute loss, the $\pi$-Bayes rule will be the posterior median $(p=1)$
+\end{remark}
+
+\begin{prop}
+	In an estimation problem, suppose a decision rule $\delta(X)$ is unbiased for $\Theta$, i.e $\E_{\theta} \delta(X) = \theta \text{ } \forall \theta \in \Theta$. Assume further that $\delta$ is a $\pi$-Bayes rule for some prior $\pi$ on $\Theta$ with squared loss. Then, where $Q$ has density on $\chi \times \Theta$ given by $dQ(x, \theta) = f(x, \theta) \pi(\theta) dx d\theta$,
+	\begin{align*}
+		\E_Q [\delta(X) - \theta]^2 = \int_{\chi} \int_{\Theta} (\delta(x) - \theta)^2 f(x, \theta) \pi(\theta) d\theta dx = 0
+	\end{align*}
+	[It is sometimes said that $\delta(X) =  \theta$ almost surely under Q]
+\end{prop}
+
+\begin{proof}
+	Recall the 'tower property' of iterated expectations
+
+	\begin{align*}
+		\E[Z(X,\theta)] &= \E [\E^{\pi} [|(X,\theta)|X]] \\
+				&\overset{\text{or}}{=} \E [\E_{\theta} [Z(X,\theta)]]
+	\end{align*}
+	
+	Moreover, by the previous remark, $\delta(X) = \delta_{\pi}(X) = \E^{\pi}[\theta|X]$ (by uniqueness). Thus
+	\begin{align*}
+		\E [delta(X) \theta] = \E [ \E^{\pi} [\theta |X] \delta(X) ] = \E [\delta ^2 (X)]
+	\end{align*}
+	and likewise
+	\[
+		\E [\delta(X) \theta] = \E [ E_{\theta} \delta (X) \theta ] = E[\theta ^2]
+	\] 
+	Now, 
+	\begin{align*}
+	\E[\delta(X) - \theta]^2 &= \E[\delta^2(X)] - 2 E[\theta \delta(X)] + \E[\theta ^2] \\
+				 &= 0
+	\end{align*}
+\end{proof}
+
+From what precedes, unbiased estimators are typically \textit{not} $\pi$-Bayes rules for any prior $\pi$.
+
+\begin{eg}
+	$\overline{X}_n = \hat{\theta}_{MLE}$ in $N(\theta, 1), \theta \in \Theta = \R$ is \textit{not} a Bayes rule for any prior in quadratic risk.
+\end{eg}
+
+\begin{eg}
+	$\frac{X}{n}$ in a $Bin(n,\theta), \theta \in \Theta =[0,1]$ is a $\pi$-Bayes rule for quadratic risk only for degenerate pairs.
+\end{eg}
+
+\subsection{Minimax Risk}
+
+\begin{defn}
+	A decision rule $\delta(X)$ in a decision problem is called \textit{minimax} if it attains the \textit{minimax risk} (for loss $L$)
+	\[
+		\inf_{\delta(X)} \sup_{\theta \in \Theta} R(\delta, \theta)
+	\]
+	where $R_{m}(\delta, \Theta) = \sup_{\theta \in \Theta}$ is the maximal/worst case risk.
+\end{defn}
+
+Clearly, the Bayes risk for any prior is dominated by the minimax risk, since
+\[
+	R_{\pi}(\delta) = \int_{\Theta} R(\delta,\theta) \pi(\theta) d\theta \le R_{m}(\delta, \Theta) \int_{\Theta} \pi(\theta) d\theta = R_{m}(\delta, \Theta)
+\] 
+
+A prior $\lambda$ on $\Theta$ is called least favourable (for a decision problem) if
+\[
+	R_{\lambda}(\delta_{\lambda}) \ge R_{\lambda'}(\delta_{\lambda'}) \text{ } \forall \lambda' \text{ priors on } \Theta
+\] 
+
+\begin{prop}
+	In a decision problem, suppose for some prior $\pi$ on $\Theta$, we have that 
+	\begin{align*}
+		R_{m}(\delta_{\pi}) = \sup_{\theta \in  \Theta} R(\delta_{\pi}, \theta)
+	\end{align*}
+	(the $\pi$-Bayes risk of $\delta_{\pi}$ coincides with the worst case risk of $\delta_{\pi}$).
+	Then,
+
+	\begin{enumerate}[label=\roman*)]
+		\item $\delta_{\pi}$ is minimax.
+
+		\item If $\delta_{\pi}$ is the unique Bayes rule, then $\delta_{\pi}$ is the unique minimax.
+
+		\item $\pi$ is least favourable.
+		
+	\end{enumerate}
+\end{prop}
+
+\begin{corol}
+	If $\delta_{\pi}$ has constant risk in $\theta$, then it is minimax, and if $\delta_{\pi}$ is unique, then it is unique minimax.
+\end{corol}
+
 \end{document}
