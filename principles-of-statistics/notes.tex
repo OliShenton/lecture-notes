@@ -525,7 +525,7 @@ From this, and the SLLN, we can bound in probability the deviations.
 
 	Define for any $\epsilon > 0$ 
 	\[
-		\Theta_{\epsilon} = \{\theta \in  \Theta : \|\theta - \theta_0 \ge \epsilon\|\} 
+		\Theta_{\epsilon} = \{\theta \in  \Theta : \|\theta - \theta_0\| \ge \epsilon\} 
 	\] 
 	which is again a compact subset of $\R^{p}$ intersection of closed and compact). Thus the function $l(\theta)$ attains its bounds on  $\Theta_{\epsilon}$, so
 	\[
@@ -562,8 +562,8 @@ From this, and the SLLN, we can bound in probability the deviations.
 	.\] 
 	Now, by $(\ast)$,  $\mathbb{P}\left( A_n(\epsilon) \right) \to 1$. We conclude that
 	 \begin{align*}
-		&\mathbb{P}\left( \| \hat{\theta}_n - \theta_0 \| < \epsilon  \right) \underset{n\to \infty}{\to } \text{ or } \\
-		&\mathbb{P}\left( \| \hat{\theta}_n - \theta_0\| < \epsilon \right) \underset{n\to \infty}{\to }
+		&\mathbb{P}\left( \| \hat{\theta}_n - \theta_0 \| < \epsilon  \right) \underset{n\to \infty}{\to } 1 \text{ or } \\
+		&\mathbb{P}\left( \| \hat{\theta}_n - \theta_0\| < \epsilon \right) \underset{n\to \infty}{\to } 0
 	\end{align*}
 
 	Since $\epsilon$ is non arbitrary,  $\hat{\theta}_n \underset{n\to \infty}{\to^{P} } \theta_0$, and the proof is complete modulo the verification of $(\ast)$.
@@ -859,7 +859,7 @@ This suggests an asymptotic confidence interval (CI) $C_n = \{v \in \R : |\hat{\
 Indeed by the continuous mapping theorem,
 
 \begin{align*}
-	\mathbb{P}\left( \theta_j \in C_n \right) &= \mathbb{P}\left( \sqrt{n} (I(\theta)^{-1})^{- \frac{1}{2}}_{jj}  |\hat{theta}_{n,j} - \theta_j| \le  z_{\alpha}\right) \\
+	\mathbb{P}\left( \theta_j \in C_n \right) &= \mathbb{P}\left( \sqrt{n} (I(\theta)^{-1})^{- \frac{1}{2}}_{jj}  |\hat{\theta}_{n,j} - \theta_j| \le  z_{\alpha}\right) \\
 	&\underset{n\to \infty}{\to } \mathbb{P}\left( |Z| \le z_{\alpha} \right) \\
 	&= 1- \alpha
 \end{align*}
@@ -937,17 +937,17 @@ A general purpose test can be constructed from the Likelihood ratio test statist
 	\[
 		\Lambda_{n}(\Theta, \Theta_0) \underset{n\to \infty}{\to ^{d}} \chi^2_{p-p_0} \text{ under  } P_{\theta}, \theta \in \Theta_0
 	\]
-\item We can construct a test $\Psi_{n} = 1_{\{ \Lambda_n (\Theta, \Theta_0) > \xi_{alpha}\} }$ for $H_0$, where type-I errors are controlled at asymptotic level $\alpha$ if $\xi_{\alpha}$ are the $\alpha$-quantiles of  $\chi^2_{p-p_0}$-distribution.
+\item We can construct a test $\Psi_{n} = 1_{\{ \Lambda_n (\Theta, \Theta_0) > \xi_{\alpha}\} }$ for $H_0$, where type-I errors are controlled at asymptotic level $\alpha$ if $\xi_{\alpha}$ are the $\alpha$-quantiles of  $\chi^2_{p-p_0}$-distribution.
 	\end{enumerate}
 \end{remark}
 
 \begin{proof}
-	We restrict to events $\hat{\theta}_n \in\intr \Theta$ (of probability approaching $1$). Then since $\hat{\theta}_{n,0} - \theta_0$, we can write 
+	We restrict to events $\hat{\theta}_n \in\intr \Theta$ (of probability approaching $1$). Then since $\hat{\theta}_{n,0} = \theta_0$, we can write 
 	\begin{align*}
-		\Lambda_n(\Theta,\Theta_0) &= 2\log(\hat{\theta}_n) - 2\log(\theta_0) \\
-		&= (-2\log(\theta_0)) -(-2\log(\hat{\theta}_n)) \\
-		&= -2 \frac{\partial }{\partial \theta} \log(\hat{\theta}_n) - \frac{2}{2} (\theta_0 - \hat{\theta}_n)^{T} \frac{\partial ^2}{\partial \theta\partial\theta} \log(\overline{\theta}_n)(\theta_0 - \hat{\theta}_n) \text{ (Taylor expansion)} \\ 
-		&= 0 - (\theta_0 - \hat{\theta}_n)^{T} \frac{\partial ^2}{\partial \theta\partial\theta} \log(\overline{\theta}_n)(\theta_0 - \hat{\theta}_n) \text{ as $\hat{\theta}_n \in\intr \Theta$, as the gradient at maximiser must vanish }
+		\Lambda_n(\Theta,\Theta_0) &= 2l_n(\hat{\theta}_n) - 2\log(\theta_0) \\
+		&= (-2l_n(\theta_0)) -(-2l_n(\hat{\theta}_n)) \\
+		&= -2 \frac{\partial }{\partial \theta} l_n(\hat{\theta}_n) - \frac{2}{2} (\theta_0 - \hat{\theta}_n)^{T} \frac{\partial ^2}{\partial \theta\partial\theta} l_n(\overline{\theta}_n)(\theta_0 - \hat{\theta}_n) \text{ (Taylor expansion)} \\ 
+		&= 0 - (\theta_0 - \hat{\theta}_n)^{T} \frac{\partial ^2}{\partial \theta\partial\theta} l_n(\overline{\theta}_n)(\theta_0 - \hat{\theta}_n) \text{ as $\hat{\theta}_n \in\intr \Theta$, as the gradient at maximiser must vanish }
 	,\end{align*}
 	where $\overline{\theta}_n$ are mean values lying on the line segment connecting $\hat{\theta}_n, \theta_0$. The second order term can be written
 
@@ -1211,7 +1211,7 @@ then this inequality can be $m(x)dx$-integrated to deduce that $\overline{\delta
 	
 	Moreover, by the previous remark, $\delta(X) = \delta_{\pi}(X) = \E^{\pi}[\theta|X]$ (by uniqueness). Thus
 	\begin{align*}
-		\E [delta(X) \theta] = \E [ \E^{\pi} [\theta |X] \delta(X) ] = \E [\delta ^2 (X)]
+		\E [\delta(X) \theta] = \E [ \E^{\pi} [\theta |X] \delta(X) ] = \E [\delta ^2 (X)]
 	\end{align*}
 	and likewise
 	\[
@@ -1275,5 +1275,103 @@ A prior $\lambda$ on $\Theta$ is called least favourable (for a decision problem
 \begin{corol}
 	If $\delta_{\pi}$ has constant risk in $\theta$, then it is minimax, and if $\delta_{\pi}$ is unique, then it is unique minimax.
 \end{corol}
+
+\begin{proof}
+	\begin{enumerate}[label=\roman*)]
+		\item Let $\delta$ be any decision rule with maximal risk 
+			\begin{align*}
+				sup_{\theta\in \Theta} R(\delta,\theta) &\ge  \int_{\Theta} R(\delta,\theta)\pi(\theta)d\theta \\
+				&= R\pi(\delta) \\
+				&\ge R\pi(\delta_{\pi}) \\
+				&= \sup_{\theta \in \Theta} R(\delta_{\pi},\theta) \text{ by assumption}
+			\end{align*}
+
+			So, taking inf over all $\delta$ we see
+			\[
+				\inf_{\delta} \sup_{\theta \in  \Theta} R(\delta,\theta) \ge  \sup_{\theta \in  \Theta} R(\delta_{\pi},\theta)
+			,\]
+			and hence $\delta_{\pi}$ attains the minimax risk.
+
+		\item Moreover, the second preceding inequality is strict when $\delta_{\pi}$ is the unique $\pi$-Bayes rule, and if $\delta \neq \delta_{\pi}$ so that for such $\delta$ we have
+			\[
+				\sup_{\theta \in \Theta} R(\delta, \theta) > \sup_{\theta \in \Theta} R(\delta_{\pi},\theta)
+			,\]
+			so $\delta_{\pi}$ is the unique minimax.
+		\item Let $\pi'$ be any prior on $\Theta$. Then
+			\begin{align*}
+				R_{\pi'}(\delta_{\pi'}) &\le R_{\pi'}(\delta_{\pi}) \\
+				&= \int_{\Theta} R(\delta_{\pi}, \theta) \pi'(\theta)d\theta \\
+				&\le sup_{\theta \in \Theta} R(\delta_{\pi},\theta) \\
+				&= R_{\pi}(\delta_{\pi}) \text{ by assumption}
+			\end{align*}
+			]Hence $\pi$ maximises the $\pi$-risk of the $\pi$-Bayes rule among all $\pi$ 's, i.e is \textit{least favourable}.
+	\end{enumerate}
+
+	The corollary also follows, since for $\delta_{\pi}$ with risk constant in $\theta$ we must have equality.
+\end{proof}
+
+In such situations, the (unique) minimax decision rule is characterised by a (unique) $\pi$-Bayes rule corresponding to a least favourable prior $\pi$.
+
+\begin{eg}
+	In a $\text{Bin}(n,\theta) $ model with $\theta \in \Theta = [0,1]$ and quadratic risk, consider priors $\pi_{a, b}$ arising from the $\text{Beta}(a,b)$ distribution. In this case, the unique $\pi_{a, b}$-Bayes rule is given by the posterior mean $\delta_{a, b}(X) = \E^{\pi_{a,b}} [\theta |X]$, available in closed form as the mean of an 'updated' Beta distribution (ex. sheet).
+
+	One then solves in a,b the equation
+	\begin{align*}
+		R_{\pi_{a,b}}(\delta_{\pi_{a,b}}, \theta) = \text{ const}
+	,\end{align*}
+	to obtain a unique Bayes rule $\delta_{\pi_{\overline{a},\overline{b}}}$ at constant quadratic risk. By what precedes, this gives the unique minimax rule for a $\text{Bin}(n, \theta)$ model, which is seen to be distinct from the MLE, and moreover biased. One shows further that as $n\to \infty$, the minimax risk of $\delta_{\pi_{\overline{a},\overline{b}}}$ aligns with the risk of the MLE.
+\end{eg}
+
+\begin{remark}
+	In a $N(\theta, I_{p})$ model, $\theta \in \Theta = \R^{p}$, we will show later that $\overline{X}_n = \hat{\theta}_{MLE}$ is minimax, however.
+\end{remark}
+
+\subsection{Admissibility}
+
+\begin{defn}
+	In a decision problem, a decision rule $\delta$ is called \textit{inadmissible} if $\exists \delta' $ s.t $R(\delta', \theta) \le \R(\delta, \theta) \text{ } \forall \theta \in \Theta$, and $R(\delta', \theta) < R(\delta, \theta) \text{ for some } \theta$. We say that $\delta'$ dominates $\delta$.
+
+	$\delta$ is called admissible if no such $\delta'$ exists.
+\end{defn}
+
+\begin{prop}
+	\begin{enumerate}[label=\roman*)]
+		\item Every unique Bayes rule is admissible
+
+		\item If $\delta$ is admissible and has risk constant in $\theta$, then it is minimax.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	See example sheet.
+\end{proof}
+
+\begin{remark}
+	The unique minimax rule from the previous $\text{Bin}(n, \theta)$ model is thus also admissible.
+\end{remark}
+
+\begin{thm}
+	Let $X_1, \ldots, X_n \stackrel{iid}{\sim} N(\theta, \sigma^2)$, where  $\sigma^2$ is known, $\theta \in \Theta = \R$. Then $\hat{\theta}_{MLE} = \overline{X}_n$ is admissible and minimax for quadratic risk.
+\end{thm}
+
+\begin{remark}
+	Admissibility extends to $p=2$, and minimaxity to any $p \in \N$, but this will not be proved.
+\end{remark}
+
+However, for $p\ge 3$ we have\ldots
+
+\begin{thm}
+	If $X \sim N_p(\theta, I_p), \theta \in \Theta = \R^{p}, p\ge 3$, then $\hat{\theta}_{MLE} = \overline{X}_n$ is inadmissible for quadratic risk. 	
+\end{thm}
+
+\begin{proof}(12.9)
+	We can set $\sigma^2=1$ as the proof will show. Also, the risk of $\overline{X}_n$ is given by
+
+	\[
+		R(\overline{X}_n, \theta) = \E_{\theta} (\overline{X}_n - \theta)^2 =\frac{1}{n} \text{ which is constant in } \theta
+	,\]
+
+	hence by the previous proposition,  it suffices to prove that $\overline{X}_n$ is admissible.
+\end{proof}
 
 \end{document}
