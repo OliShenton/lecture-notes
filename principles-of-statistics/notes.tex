@@ -1423,7 +1423,7 @@ To prove theorem $12.10$, we first need a new estimator.
 	Define the \textit{James-Stein Estimator}, for $X \sim N_p(\theta, I)$ by
 
 	 \[
-		 \delta^{JS} := \begin{pmatrix} \delta_1^{JS} \\ \vdots \\ \delta_p^{JS} \end{pmatrix}, \delta_j^{JS} = 1 - \frac{p-2}{\|X\|_2^2} (p\ge 3)
+		 \delta^{JS} := \begin{pmatrix} \delta_1^{JS} \\ \vdots \\ \delta_p^{JS} \end{pmatrix}, \delta_j^{JS} = \left(1 - \frac{p-2}{\|X\|_2^2}\right) X (p\ge 3)
 	\] 
 \end{defn}
 
@@ -1453,8 +1453,7 @@ We now show that the risk of $\delta^{JS}$ dominates the quadratic risk
 Now,
 \begin{align*}
 	R(\delta^{JS}, \theta) &= \E_{\theta} \|\delta^{JS} - \theta\|^2 \\
-	&= \E_{\theta} \|1 - \frac{p-2}{ \|X\|^2} - \theta\|^2 \\
-	&= \E_{\theta} \|X - \theta - \frac{p-2}{\|X\|^2}X\|^2 \text{ by Stein's lemma } \\
+	&= \E_{\theta} \|X - \theta - \frac{p-2}{\|X\|^2}X\|^2 \\
 	&= \E_{\theta} \|X-\theta\|^2 + (p-2)^2\E_{\theta}\frac{\|X\|^2}{\|X\|^{4}} - 2(p-2) \E_{\theta} (X-\theta)^{T}\frac{X}{\|X\|^2}
 \end{align*}
 
