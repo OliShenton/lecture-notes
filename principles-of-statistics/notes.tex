@@ -1143,7 +1143,7 @@ measuring the error $L(\delta(X), \theta)$ incurred by  $\delta(X)$ for observat
 \begin{eg}
 	\begin{enumerate}[label=\roman*)]
 		\item (Testing) $L(a,\theta) = 1_{\{a \neq  a(\theta)\} }$, where $a(\theta)$ is the index in $\mathcal{A}$ corresponding to $\theta$.
-		\itemi (Estimation) $\Theta \subset \R$, absolute loss $L(a,\theta) = |a-\theta|$, squared loss $L(a,\theta) = (a-\theta)^2$
+		\item (Estimation) $\Theta \subset \R$, absolute loss $L(a,\theta) = |a-\theta|$, squared loss $L(a,\theta) = (a-\theta)^2$
 	\end{enumerate}
 \end{eg}
 
@@ -1372,6 +1372,88 @@ However, for $p\ge 3$ we have\ldots
 	,\]
 
 	hence by the previous proposition,  it suffices to prove that $\overline{X}_n$ is admissible.
+
+	So, let $\delta$ be any other decision rule. Then
+	\begin{align*}
+		R(\delta,\theta) &= \E_{\theta} [(\delta - \theta)^2] \\
+		&= \E_{\theta} [(\delta - \E_{\theta} \delta)^2] + (\E_{\theta} \delta - \theta)^2 + \underbrace{\E_{\theta}[\delta -\E_{\theta}\delta ]}_{=0} \cdot (\E_{\theta}\delta - \theta)\\
+		&= var_{\theta}(\delta) + B^2(\theta)
+	\end{align*}
+	for $B(\theta) = \E_{\theta}\delta - \theta$
+
+	Recalling the Cramer-Rao inequality for biased estimators, we know that
+	\[
+	var_{\theta}\delta(X) \ge  \frac{(\frac{d}{d\theta} \E_{\theta}\delta)^2}{nI(\theta)} = \frac{(1+B'(\theta))^2}{n}
+	,\]
+	by definition of $B$ and $I(\theta)$. Hence, if  $\delta $ dominates $\overline{X}_n$, then necessarily
+	\[
+		\frac{1}{n} = R(\overline{X}_n, \theta) \ge R(\delta, \theta) \ge B^2(\theta) + \frac{(1+B'(\theta))^2}{n} \text{ } \forall \theta\in \R
+	\]
+
+	We deduce that $|B(\theta)| \le \frac{1}{\sqrt{n} }$, in particular $B$ is bounded on $\R$. Moreover, we also have
+	 \[
+		 (1+B'(\theta))^2 = 1 +2B'(\theta) + (B'(\theta))^2 \le 1 
+	,\]
+	so $B'(\theta) \le 0 \text{ } \forall \theta \in \R$.
+
+	$\forall \epsilon >0, i \in \N$, there must exist $\theta_i$ large enough such that $B'(\theta_i) \ge - \epsilon$, as otherwise $\forall |\theta| \ge \theta_i $ we would have $B'(\theta) \le - \epsilon$, so that by the MVT $B$ is unbounded. In other words, for these sequences $B'(\theta_i) \to 0$.
+
+	Now, evaluating these limits in the above inequality, we see that $\lim_{i\to \infty}\left[ B^2(\theta_i) + \frac{(1+B'(\theta_i))^2}{n} \right] \le \frac{1}{n} $ gives as that $\lim_{i\to \infty} B^2(\theta_i) = 0$. Therefore by monotonicity $B(-\infty) = B(\theta) = B(\infty) = 0$, and so the bias vanishes identically.
+
+	So,
+	\[
+		R(\delta, \theta) \ge \frac{1}{n} = R(\overline{X}_n, \theta) \text{ } \forall \theta \in \Theta
+	\] 
 \end{proof}
+
+\begin{remark}
+	\begin{enumerate}[label=\roman*)]
+		\item One shows (example sheet) that $\overline{X}_n$ is not a $\pi$-Bayes rule $\delta_{\pi}$ for any prior $\pi$ on $\Theta = \R$, hence there exists and admissible minimax decision rule which is not $\pi$-Bayes for any $\pi$. One may show that $\overline{X}_n$ is a 'limiting Bayes' in the sense that is is the limit as $\nu \to \infty$ of the Bayes rule for a $N(0, \nu^2)$ prior on $\Theta$.
+		\item The unboundedness of $\Theta$ in the last proof is crucial. When  $\Theta = [0,\infty)$, then $\overline{X}_n$ is inadmissible (it is still minimax, however), and when $\Theta = [a,b]$, then $\overline{X}_n$ is also no longer minimax (see example sheet).
+		\item Minimaxity of $\overline{X}_n$ on $\R$ extends to $X_i \stackrel{iid}{\sim} N_p(\theta, I), \theta\in \Theta = \R^{p}$ for $p \in \N$.
+		
+	\end{enumerate}
+\end{remark}
+
+To prove theorem $12.10$, we first need a new estimator.
+
+\begin{defn} (James-Stein Estimator)
+	Define the \textit{James-Stein Estimator}, for $X \sim N_p(\theta, I)$ by
+
+	 \[
+		 \delta^{JS} := \begin{pmatrix} \delta_1^{JS} \\ \vdots \\ \delta_p^{JS} \end{pmatrix}, \delta_j^{JS} = 1 - \frac{p-2}{\|X\|_2^2} (p\ge 3)
+	\] 
+\end{defn}
+
+We now show that the risk of $\delta^{JS}$ dominates the quadratic risk
+\[
+	R(\hat{\theta}_{MLE}, \theta) = \E_{\theta} \|X - \theta\|^2 = \E_{\theta} \sum_{j=1}^{p}(X_j - \theta_j)^2 = p
+.\] 
+
+\begin{lemma} (Stein)
+
+	Let $X \sim N(\theta, 1)$ and let $g: \R \to \R$ be differentiable and such that $\E_{\theta} g(X) < inf$. Then $\forall \theta \in \R$,
+	\[
+		\E_{\theta} [g(X)(X-\theta)] = \E_{\theta} g'(X)
+	\] 
+	
+\end{lemma}
+
+\begin{proof}
+	\begin{align*}
+		\E_{\theta} [g(X)(X-\theta)] &= \frac{1}{\sqrt{2\pi} } \int_{\R} g(x)(x-\theta) e^{-\frac{1}{2} (x-\theta)^2} dx\\
+			&= -\frac{1}{\sqrt{2\pi} } \int_{\R} g(x) \frac{d}{dx} e^{- \frac{1}{2} (x-\theta)^2} dx \\
+			&= \left[ -\frac{1}{\sqrt{2\pi} } g(x) e^{- \frac{1}{2} (x-\theta)^2} \right]_{-\infty}^{\infty} + \frac{1}{\sqrt{2\pi} } \int_{\R} g'(x) e^{- \frac{1}{2} (x-\theta)^2}\\
+			&= \E_{\theta} g'(X) \text{, as $g$ has finite expectation} 
+	\end{align*}
+\end{proof}
+
+Now,
+\begin{align*}
+	R(\delta^{JS}, \theta) &= \E_{\theta} \|\delta^{JS} - \theta\|^2 \\
+	&= \E_{\theta} \|1 - \frac{p-2}{ \|X\|^2} - \theta\|^2 \\
+	&= \E_{\theta} \|X - \theta - \frac{p-2}{\|X\|^2}X\|^2 \text{ by Stein's lemma } \\
+	&= \E_{\theta} \|X-\theta\|^2 + (p-2)^2\E_{\theta}\frac{\|X\|^2}{\|X\|^{4}} - 2(p-2) \E_{\theta} (X-\theta)^{T}\frac{X}{\|X\|^2}
+\end{align*}
 
 \end{document}
