@@ -8,8 +8,6 @@
 	
 \maketitle
 
-\section*{Lecture 1}
-
 \section{Introduction}
 
 Consider a random variable (r.v.) $X$ defined on some probability space: $ X: (\Omega, A, \mathbb{P}) \to \R$. ($\Omega$ is the set of outcomes, $A$ is the measurable events in $\Omega$, $\mathbb{P}$ is the probability measure on $A $), with distribution function $F\left( t \right) = \mathbb{P}\left( \omega \in  \Omega : X\left( \omega \right) \le  t\right), t \in \R$.
@@ -75,8 +73,6 @@ over $(0, \infty)$. Then  $l_{n}'\left( \theta \right) = -n + \frac{1}{\theta}\s
 Also, $l_{n}''\left( \theta \right) = - \frac{1}{\theta ^2} \sum_{i=1}^{n} X_{i} < 0$ if not all $X_{i} = 0$ (in which case $\hat{\theta} = 0 = \frac{1}{n} \sum_{i=1}^{n} X_{i}$).
 
 \newpage
-
-\section*{Lecture 2}
 
 \begin{defn}
 	Given a statistical model $\{f\left( \cdot , \theta : \theta \in \Theta \right) \} $ of pdf/pmf's for the law $P$ of $X$, and given 'numerical' observations  $\left( x_{i}: i=1,\ldots,n \right) $ arising as iid copies $X_{i}\stackrel{iid}{\sim}P$, the \textit{likelihood function of the model} is defined as
@@ -164,8 +160,6 @@ The quantity
 	&\equiv KL\left( P_{\theta_{0}}, P_{\theta} \right) 
 \end{align*}
 is called the Kullback-Leibler divergence (entropy-distance), which builds the basis of statistical information theory. In particular, the differential geometry of the map $\theta \to KL\left( P_{\theta_{0}}, P_{\theta} \right)$ determines what 'optimal' inference in a statistical model could be.
-
-\section*{Lecture 3}
 
 Let us say a statistical model $\{f(\cdot , \theta) : \theta \in \Theta\} $ is regular if $\frac{d}{d \theta} \frac{d^2}{d \theta d \theta ^{T}} ( = \nabla_{\theta}, \nabla_{\theta} \nabla_{\theta}^{T} )$ of $f(x, \theta)$ can be interchanged with $\int (\cdot ) dx$ integration.
 
@@ -275,8 +269,6 @@ Let us recall also
 	\] - to be called: CR-inequality for biased estimators. 
 \end{corol}
 
-\section*{Lecture 4}
-
 A multi-dimensional version of the CRLB can be obtained from considering estimation of general differentiable functions $\Phi : \Theta \to \R, \Theta \in \R^{p}$. Then one shows that for any unbiased estimator $\tilde{\Phi} = \tilde{\Phi}(X_1, \ldots, X_n)$, where $X_i \stackrel{iid}{\sim} \{f(\cdot , \theta) : \theta \in \Theta\} $, we have
 \[
 	Var_{\theta} \tilde{\Phi} \ge \frac{1}{n} \frac{\partial\Phi}{\partial\theta}^{T}(\theta)I(\theta)^{-1}\frac{\partial\Phi}{\partial\theta}(\theta) \text{,  } \forall \theta \in\intr(\Theta)
@@ -368,8 +360,6 @@ The following facts on stochastic convergence will be frequently used, and can b
 	 4) If $X_n \to^{d} X \text{ as } n \to \infty$, then $X_n$ is stochastically bounded $\left[ = O_P(1) \right]$, that is $\forall \epsilon > 0, \exists M_{\epsilon}$ s.t. for all sufficiently large  $n, \mathbb{P}\left( \|X_n\| > M_{\epsilon} \right) < \epsilon$ 
 
 \end{prop}
-
-\section*{Lecture 5}
 
 \section{Law of Large Numbers (LLN) and Central Limit Theorem (CLT)}
 
@@ -475,8 +465,6 @@ From this, and the SLLN, we can bound in probability the deviations.
 	\] 
 \end{eg}
 
-\section*{Lecture 6}
-
 \section{Consistency of MLEs}
 
 \begin{defn}
@@ -572,8 +560,6 @@ From this, and the SLLN, we can bound in probability the deviations.
 \begin{remark}
 	The previous proof works as well if $(\Theta, d)$ is any compact metric space, and if continuity in assumption A is for the metric d.
 \end{remark}
-
-\section{Lecture 7}
 
 To verify ($\ast$), we now make the following (non-examinable) digression:
 
@@ -698,8 +684,6 @@ From this proposition, we deduce
 		\sqrt{n} (\hat{\theta} - \theta_0) = \frac{\sqrt{n} l_{n}' (\theta_0)}{- \frac{1}{n} l_{n}''(\overline{\theta}_n)} = \frac{\sqrt{n} \sum_{i=1}^{n} \frac{d}{d\theta} \log f(X_i, \theta) - \E(\cdot , 1) }{- \frac{1}{n} \sum_{i=1}^{n} \frac{d^2}{d\theta ^2} \log f(X_i, \overline{\theta}_n)} \underset{n\to \infty}{\to^{d}}  \frac{N(0, I(\theta_0)}{I(\theta_0)} = N(0, I(\theta_0)^{-1})
 	\] 
 \end{idea}
-
-\section*{Lecture 8}
 		
 \begin{lemma}
 	Observations 2 and 3 from the Information Geometry section are valid.		
@@ -778,8 +762,6 @@ From this proposition, we deduce
 
 \end{proof}
 
-\section*{Lecture 9}
-
 \begin{remark}
 	\begin{enumerate}
 		\item The assumption that $\theta \mapsto f(x,\theta)$ is $C^2$ can be relaxed to the existence of first derivatives (weak ones) by more involved proof methods (Le Cam Theory, see van der Vaart (1998)), including in particular the Laplace distribution (where one may show $I_n(\theta) = n)$. However, this cannot be weakened further, and for non-smooth parameterisation, the asymptotic theory for MLEs may be different as the example of $U(0, \theta), \theta \in [0,\infty)$ shows (see Ex. sheet).
@@ -853,8 +835,6 @@ Suppose we want to make inference on $\theta_i$, the $i^{th}$ component of $\the
 \end{align*}
 
 This suggests an asymptotic confidence interval (CI) $C_n = \{v \in \R : |\hat{\theta}_i - v| \le  \frac{(I(\theta)^{-1}_{ii})^{\frac{1}{2}}}{\sqrt{n} } z_{\alpha}\} $
-
-\section*{Lecture 10}
 
 Indeed by the continuous mapping theorem,
 
@@ -956,8 +936,6 @@ A general purpose test can be constructed from the Likelihood ratio test statist
 		\]
 by liberal usage of Slutsky's lemma, the previous proposition, and the continuous mapping theorem for the map $x \mapsto x^{T}I(\theta_0)x$ from $\R^{p} \to \R$. Moreover, by standard linear algebra, $Z^{T}I_{\theta_0}Z = \sum_{i=1}^{p} W_{i}^2$, $W_i \stackrel{iid}{\sim} N$, so $\sim \chi^2_{p}$ 
 \end{proof}
-
-\section*{Lecture 11}
 
 \section{Bayesian Inference}
 
@@ -1083,8 +1061,6 @@ One shows easily that $\overline{\theta}_n = \frac{1}{n+1} \sum_{i=1}^{n} X_i \t
 	Where we substituted $v = \sqrt{n} (\theta - \hat{\theta})$. Fixing  $\omega \in \Omega_0 \subseteq \Omega$ such that $\mathbb{P}\left( \Omega_0 \right) = 1$, so $\sqrt{n} (\hat{\theta}(\omega) - \overline{\theta}(\omega) \underset{n\to \infty}{\to } 0 $ (as scalars), note that for $Z\ge 0$, $(1-Z)^{+} \in [0,1]$, so that by integrability of $e^{-\frac{v^2}{2}}$ on $\R$, an application of the dominated convergence theorem implies that the whole last integral tends to $0$ $\forall \omega \in \Omega_0$. Since $\mathbb{P}\left( \Omega_0 \right) = 1$, the limit holds almost surely.
 \end{proof}
 
-\section*{Lecture 13}
-
 The last theorem remains true when $\hat{\theta}_{MLE}$ is replaced by any estimator $\overline{\theta}_n$ s,t $\sqrt{n} (\hat{\theta}_{MLE} - \overline{\theta}_n) \underset{n\to \infty}{\to } 0 P_{\theta_0}^{\N}$-a.s, typically permitting the alternative centring at $\overline{\theta} = \E^{\pi} \theta(X_1, \ldots, X_n)$. One important consequence of the BvM-theorem is that certain posterior \textit{credible sets} are in fact proper (asymptotic) frequentist confidence sets.
 
 For instance, consider $C_n = \{\theta : |\theta - \hat{\theta}_{MLE} \le \frac{R_n}{\sqrt{r} }\} $, where $R_n$ are random quantile constants chosen s.t $\prod (C_n | X_1,\ldots,X_n) = 1- \alpha, 0 < \alpha < 1$. Recall $\hat{\phi}_n$ was the pdf of $N(\hat{\theta}_{MLE}, \frac{1}{n}I(\theta_0)^{-1})$distribution, and defined further $\phi_0$ to be the pdf of $Z\sim N(0, I(\theta)^{-1})$. We can define $\Phi(t) = \mathbb{P}\left( |Z| \le t \right) = \int_{-t}^{t} \phi_0 (v) dv$ , which is strictly increasing in t, and also continuously differentiable, hence admits a continuous inverse $\Phi ^{-1} : [0,1] \to \R$.
@@ -1171,8 +1147,6 @@ measuring the error $L(\delta(X), \theta)$ incurred by  $\delta(X)$ for observat
 \end{defn}
 
 \newpage
-
-\section*{Lecture 14}
 
 We can rewrite, interchanging the order of integration,
 
@@ -1373,8 +1347,6 @@ However, for $p\ge 3$ we have\ldots
 
 	hence by the previous proposition,  it suffices to prove that $\overline{X}_n$ is admissible.
 
-\section*{Lecture 16}
-
 	So, let $\delta$ be any other decision rule. Then
 	\begin{align*}
 		R(\delta,\theta) &= \E_{\theta} [(\delta - \theta)^2] \\
@@ -1432,6 +1404,8 @@ We now show that the risk of $\delta^{JS}$ dominates the quadratic risk
 	R(\hat{\theta}_{MLE}, \theta) = \E_{\theta} \|X - \theta\|^2 = \E_{\theta} \sum_{j=1}^{p}(X_j - \theta_j)^2 = p
 .\] 
 
+\newpage
+
 \begin{lemma} (Stein)
 
 	Let $X \sim N(\theta, 1)$ and let $g: \R \to \R$ be differentiable and such that $\E_{\theta} g(X) < inf$. Then $\forall \theta \in \R$,
@@ -1450,11 +1424,158 @@ We now show that the risk of $\delta^{JS}$ dominates the quadratic risk
 	\end{align*}
 \end{proof}
 
-Now,
+\begin{proof} (12.10)
+
 \begin{align*}
 	R(\delta^{JS}, \theta) &= \E_{\theta} \|\delta^{JS} - \theta\|^2 \\
 	&= \E_{\theta} \|X - \theta - \frac{p-2}{\|X\|^2}X\|^2 \\
 	&= \E_{\theta} \|X-\theta\|^2 + (p-2)^2\E_{\theta}\frac{\|X\|^2}{\|X\|^{4}} - 2(p-2) \E_{\theta} (X-\theta)^{T}\frac{X}{\|X\|^2}
 \end{align*}
 
-\end{document}
+Now, the last expectation can be written as
+\[
+	\E_{\theta} \sum_{j=1}^{p} \E_{j} \left[ \frac{(X_j - \theta_j}{\|X\|^2} \right] 
+,\]
+where $\E_j = \E [\cdot | X_{(-j)}]$, with $X_{(-j)} = \{X_i : -i \neq j\} $. The $j ^{th}$ expectation can be written as $\E_j [(X_j - \theta_j) g(X_j)]$, where $g(y) = \frac{y}{y^2+1}$, $a = \sum_{i\neq j} X_i^2$, which (since $\mathbb{P}\left( a=0 \right) =0)$ is a bounded, differentiable function with 
+\[
+	g'(y) = \frac{y^2+a-2y^2}{(y^2+a)^2}
+,\] which is also bounded on $\R$.
+
+Hence we can apply Stein's lemma to this expectation, giving
+\begin{align*}
+	\E_j g'(X_j) &= \E_j \frac{X_j^2 + \sum_{i\neq j}X_i^2 - 2X_j^2}{\|X\|^4} \\
+\end{align*}
+
+So going back to our original statement,
+
+\begin{align*}
+	R(\delta^{JS}, \theta) &= \E_{\theta}\|X-\theta\|^2 + (p-2)^2\E_{\theta}\frac{1}{\|X\|^2} - 2(p-2) \E_{\theta} \sum_{j=1}^{p} \frac{ \|X\|^2 -2X_{j}^2}{\|X\|^{4}} \\
+	&= \E_{\theta}\|X-\theta\|^2 + (p-2)^2\E_{\theta}\frac{1}{\|X\|^2} - 2(p-2) \E_{\theta} [\frac{p}{\|X\|^2} -\frac{2}{\|X\|^2} \\
+	&= \underbrace{\E_{\theta}\|X-\theta\|^2}_{=p} - (p-2)^2\E_{\theta}\frac{1}{\|X\|^2} \\
+	&<p
+\end{align*}
+Since
+\begin{align*}
+	\E_{\theta} \frac{1}{\|X\|^2} &= \int_{\R^{p}} \frac{1}{\|X\|^2} \phi(x-\theta) dx \\
+	&\ge c \int_{c_0 \le \|X\| \le c_1} \phi(x-\theta)dx \\
+	&\ge c \P_{\theta} (\|X\|\in (c_0, c_1)) \\
+	&> 0
+\end{align*}
+where here $\phi$ is our $N(\theta, I_p )$ pdf.
+\end{proof}
+
+\begin{remark}
+	\enumerate[label=\roman*)]
+\item
+	While $\delta^{JS}$ strictly dominates $\delta_{MLE} = X$, the worst case (minimax) risk
+	\[
+		\sup_{\theta \in \R^{p}} R(\delta^{JS}, \theta) = \sup_{\theta \in \R^{p} R(X, \theta)} \text{ (see ex sheet)}
+	\] 
+
+\item
+	The James-Stein estimator itself is also inadmissible, and for instance is dominated by
+	\[
+		\delta^{JS, +} =  \left(1-\frac{p-2}{\|X\|^2}\right)^{+}X\text{, where } (\cdot )^{+} = \max(\cdot , 0)
+	,\] known as the 'positive part JS-estimator. This is also not admissible.
+
+\item
+	Other shrinkage factors are also permitted, but among the decision rules
+	\[
+	\delta^{c} := \left(1-c \frac{p-2}{\|X\|^2}\right) X, 0<c
+	,\] the choice $c=1$ is optimal.
+
+\item While $\delta^{JS}$ is attractive from a decision-theoretic perspective, its use for inference (confidence regions and tests) is less clear, as its distributional properties are more involved than those of $\delta_{MLE}(X) = X \sim N(\theta, I_p)$.
+\end{remark}
+
+\newpage
+
+\subsection{Classification Problems}
+
+For two pdf/pmfs $f_1, f_2$ defined on $\chi$, consider observing X drawn from $f_i$ with probability $q_1$, and from $f_2$ with probability $q_2 = 1-q_1$. Given an outcome $X=x$, we wish to classify it into the correct category $i$. This can be cast as a binary decision problem with $\Theta = \{1,2\} $ and prior  $\pi$ on $\{q_1, q_2\} $.
+
+A \textit{classification rule} $\delta = \delta_{R}$ is given by a region $R\subseteq \chi (\subseteq \R^{d})$ such that
+	\[
+		\delta_R(X) = \left{ \begin{cases}
+			1 \text{ if } X\in R \\
+			2 \text{ if } X \in R^{c}
+		\end{cases} 
+	\]
+
+	The classification errors are given by 
+\[
+	\mathbb{P}\left( 2| 1, R) \right) = P_{f_1}(X\in R^{c} = \int_{R^{c}} f_1(x) dx
+,\] and by
+\[
+	\mathbb{P}\left( 1|2, R \right) = p_{f_2}(x\in R) = \int_{R} f_2(x) dx
+\] 
+
+The $\pi$-Bayes risk now becomes
+\[
+	R_{\pi}(\delta_{R}) = \mathbb{P}\left(1|2, R \right) \pi_2) + \mathbb{P}\left( 2|1,R \right) \pi(1)
+,\] where $\pi$ is a fixed 'prior' sampling the probabilities $q_1, q_2$. The Bayes factors are given by
+\[
+	\frac{\pi(1|X=x)}{\pi(2|X=x)} = \frac{f_1(x) q_1}{f_2(x)q_2}
+,\] and the $\pi$-Bayes classifier can be shown to choose $\{1\} $ whenever $\frac{f_1(x)}{f_2(x)} > \frac{q_2}{q_1}$. 
+
+\begin{prop}
+	Suppose that for all $i$, $P_{f_i} \left( \frac{f_1(x)}{f_2(x)} = \frac{1-q}{q} \right) = 0$. Then the unique $\pi$-Bayes classification rule for prior $\pi(\{1\})=q$arises from
+	\[
+		R = \left\{x\in \chi : \frac{f_1(x)}{f_2(x)} > \frac{1-q}{q}\right\} 
+	,\]
+	and in fact $\delta_R$ is also admissible.
+\end{prop}
+
+\begin{proof}
+	Let $S \subset \chi$ be any other classification region with classification risk
+	\begin{align*}
+		q \int_{S^{c}} f_1(x) dx + (q-1) \int_{S}f_2(x) dx &= \int_{S^{c}} qf_1(x) - (1-q)f_2(x) dx + \int_{\chi} (1-q)f_2(x) \\
+	\end{align*}
+
+	The first term is minimal when $S^{c}$ includes precisely all $x \in \chi$ s.t. the integrand
+	\[ 
+		qf_1(x) - (1-q)f_2(x) < 0 \iff \frac{f_1(x)}{f_2(x)} < 1-\frac{q}{q}
+	\]
+(Uniqueness since $\mathbb{P}\left( \frac{f_1(x)}{f_2(x)} = \frac{1-q}{q} \right) = 0$. Thus $S = R$ and the first claim follows. Since unique Bayes rules are admissible, the result is proved. 
+\end{proof}
+
+Similarly, one can find minimax classifiers $\delta_{R}$ by choosing $R$ s.t. 
+\[
+	q \mathbb{P}\left( 2|1,R \right) + (1-q)\mathbb{P}\left( 1|2,R \right) = \text{ const in } q \in [0,1]
+\] 
+For the case where $f_i \sim N_p(\mu_i, \Sigma_i)$, those classifiers can be explicitly computed in dependence of the \textit{discriminant function} $D = X^{T} \Sigma (\mu_1 - \mu_2)$ (see ex sheet).
+
+\section{Further Topics}
+
+\subsection{Basic Multivariate Analysis}
+
+Consider random vectors $X, Y$, here assumed to be from $N(\mu_x, \sigma_x), N(\mu_y, \sigma_y)$. Then their correlation is $\rho_{x,y} = \frac{Cov(X,Y)}{\sqrt{VarX}\sqrt{VarY}}$. For $X_1, \ldots, X_n;Y_1,\ldots,Y_n$ jointly iid, this can be estimated by the empirical correlation
+\[
+	\hat{\rho}_{x,y} = \frac{\frac{1}{n}\sum_{i=1}^{n} (X_i - \overline{X}_n)(Y_i - \overline{Y}_n)}{\sqrt{S_{n,x}} \sqrt{S_{n,y}} }
+,\] where $S_{n,x} = \frac{1}{n} \sum_{i=1}^{n}(X_i - \overline{X}_n)^2$ etc. 
+
+The finite sample distribution of $\hat{\rho}_{x,y}$ can in principle be computed analytically; it is given by $f_{\hat{\rho}_{x,y}}(r) \propto (1-r^2)^{\frac{1}{2}(n-4)}, -1\le r\le 1 $.
+
+Alternatively, we can regard $\rho_{x,y} = \Phi(\theta)$, with samples from $N\left(\begin{pmatrix} \mu_{x} \\ \mu_y \end{pmatrix}, \Sigma\right) $, where $\theta = \left( \begin{pmatrix} \mu_x \\ \mu_y \end{pmatrix}, \Sigma  \right) $. 
+
+One shows that $\hat{\rho} = \Phi(\hat{\theta}_{MLE})$, and by the general theory developed earlier (plus Delta method for $\Phi $), we deduce $\sqrt{n} (\hat{\rho}_{x,y} - \rho) \underset{n\to \infty}{\to ^{d}} N(0, Var(\Phi, \theta))$ for some asymptotic variance $Var(\Phi, \theta)$
+
+More generally, consider a partitioned random vector $X \in \R^{p}$ 
+\[
+	X = \begin{pmatrix} X^{(1)} \\ X^{(2)} \end{pmatrix}, X\sim N(0, \Sigma)
+	,\] such that $X \in \R^{q} \times \R ^{p-q}$, with $\Sigma$ a $p\times p$ positive definite matrix. The conditional variance of $X^{(1)} | X^{(2)}$ is given by $\underbrace{\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{12}}_{\equiv \Sigma_{11\cdot 2}}$, where $\Sigma = \begin{pmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{12} & \Sigma_{22} \end{pmatrix} $.
+
+One further defines the partial correlations of $X_i, X_j, i\neq j, i,j \le q$, as
+\[
+	\rho_{ij\cdot 2} = \frac{\left(\Sigma_{11\cdot 2}\right)_{ij}}{\sqrt{\left(\Sigma_{11\cdot 2}\right)_{ii} \left( \Sigma_{11\cdot 2} \right)_{jj} } }
+\] 
+Here likewise, the plug-in MLE $\hat{\rho}_{ij\cdot 2}$ equals the 'empirical partial correlation coefficient' $\Phi(\hat{\Sigma}_{MLE})$, where $\left( \hat{\Sigma} \right)_{ij} = \frac{1}{n}\sum_{k=1}^{n} (X_k X_k^{T})_{ij}$, where $\Phi$ is again a smooth map on $\Theta = \{\Sigma \text{ positive definite}\} $
+
+The previous theory again implies that $\sqrt{n}(\hat{\rho}_{ij\cdot 2} - \rho_{ij\cdot 2}) \underset{n\to \infty}{\to ^{d}} N(0,?)$
+
+Finally, consider $X \sim N(0, \Sigma)$, again with $\Sigma$ a $p\times p$ positive definite symmetric. Then there exists an orthonormal matrix $T$ s.t.
+\[
+	\Sigma = T^{T}\Lambda T \text{, } \Lambda = diag(\lambda_1, \ldots, \lambda_p), \lambda_1 >  \lambda_2 > \ldots > \lambda_p > 0.
+\] 
+
+In this case, we can define $U = TX \sim N(0, T\Sigma T^{T}) = N(0, \Lambda)$, and the entries of the random vector $U\in \R^{p}$ are called the principal components corresponding to the principle subspaces spanned by the column vectors of T (eigenvectors of  $\Sigma)$, arranged in decreasing order of 'explained variance'. Here again, if $\left( \hat{\Sigma} \right)_{ij} = \frac{1}{n} \sum_{k=1}^{n}(X_m, X_m^{T})_{ij} $, then the plug-in MLE will give asymptotically efficient estimators $ \lambda_i, u_i$ provided that $\Sigma$ has no multiplicity in its eigenvalues.  
+\end{document} 
