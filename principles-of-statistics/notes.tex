@@ -1548,7 +1548,7 @@ For the case where $f_i \sim N_p(\mu_i, \Sigma_i)$, those classifiers can be exp
 
 \subsection{Basic Multivariate Analysis}
 
-Consider random vectors $X, Y$, here assumed to be from $N(\mu_x, \sigma_x), N(\mu_y, \sigma_y)$. Then their correlation is $\rho_{x,y} = \frac{Cov(X,Y)}{\sqrt{VarX}\sqrt{VarY}}$. For $X_1, \ldots, X_n;Y_1,\ldots,Y_n$ jointly iid, this can be estimated by the empirical correlation
+Consider random vectors $X, Y$, here assumed to be from $N(\mu_x, \sigma_x), N(\mu_y, \sigma_y)$. [The assumption of normality is not required if we instead assume that we can work to just the order of the first two moments]. Then their correlation is $\rho_{x,y} = \frac{Cov(X,Y)}{\sqrt{VarX}\sqrt{VarY}}$. For $X_1, \ldots, X_n;Y_1,\ldots,Y_n$ jointly iid, this can be estimated by the empirical correlation
 \[
 	\hat{\rho}_{x,y} = \frac{\frac{1}{n}\sum_{i=1}^{n} (X_i - \overline{X}_n)(Y_i - \overline{Y}_n)}{\sqrt{S_{n,x}} \sqrt{S_{n,y}} }
 ,\] where $S_{n,x} = \frac{1}{n} \sum_{i=1}^{n}(X_i - \overline{X}_n)^2$ etc. 
@@ -1577,5 +1577,103 @@ Finally, consider $X \sim N(0, \Sigma)$, again with $\Sigma$ a $p\times p$ posit
 	\Sigma = T^{T}\Lambda T \text{, } \Lambda = diag(\lambda_1, \ldots, \lambda_p), \lambda_1 >  \lambda_2 > \ldots > \lambda_p > 0.
 \] 
 
-In this case, we can define $U = TX \sim N(0, T\Sigma T^{T}) = N(0, \Lambda)$, and the entries of the random vector $U\in \R^{p}$ are called the principal components corresponding to the principle subspaces spanned by the column vectors of T (eigenvectors of  $\Sigma)$, arranged in decreasing order of 'explained variance'. Here again, if $\left( \hat{\Sigma} \right)_{ij} = \frac{1}{n} \sum_{k=1}^{n}(X_m, X_m^{T})_{ij} $, then the plug-in MLE will give asymptotically efficient estimators $ \lambda_i, u_i$ provided that $\Sigma$ has no multiplicity in its eigenvalues.  
+In this case, we can define $U = TX \sim N(0, T\Sigma T^{T}) = N(0, \Lambda)$, and the entries of the random vector $U\in \R^{p}$ are called the principal components corresponding to the principle subspaces spanned by the column vectors of T (eigenvectors of  $\Sigma)$, arranged in decreasing order of 'explained variance'. Here again, if $\left( \hat{\Sigma} \right)_{ij} = \frac{1}{n} \sum_{k=1}^{n}(X_m, X_m^{T})_{ij} $, then the plug-in MLE will give asymptotically efficient estimators $ \lambda_i, u_i$ provided that $\Sigma$ has no multiplicity in its eigenvalues. 
+
+\subsection{Monte Carlo Methods}
+
+We will discuss algorithms to generate random samples from given probability distributions, which are useful to construct numerical approximations of inference methods (e.g. non-conjugate posterior distributions).
+
+One can generate, with a pseudorandom number generator (see Computer Science), random samples $U_1, \ldots, U_N \stackrel{iid}{\sim} U[0,1], N \in \N$. If $F$ is a cdf of some r.v. $X$, with quantile transform 
+\[
+	F^{-}(u) = inf \{x_i : u \le F(x)\} 
+,\]
+then one shows that $X_i^{\ast} = F^{-} (U_i)$ are iid r.v's with distribution $F$
+
+For normal r.v's, $F^{-}$ is not available in closed form, but one can still simulate $X \sim N_2 (0, I_2)$ starting from $U_1, U_2 \stackrel{iid}{\sim} U(0,1)$ by the Box-M{\"u}ller transform (see ex. sheet).
+
+More elaborate MC-algorithms arise from \textit{importance sampling}, e.g. as in the following 'Accept-Reject' algorithm, where we want to sample from some pdf $f$ on $\chi$, and have another density $h$ that we can sample from, s.t. 
+\[
+	f(x) \le Mh(x) \text{  } \forall x \in \chi \text{, some } M>0
+\] 
+
+\begin{enumerate}
+	\item Draw $X \sim h$, and independently $U \sim U[0,1]$
+	\item Set $Y=X$ if $U \le \frac{f(X)}{M h(X)}$, otherwise return to step 1.
+\end{enumerate}
+
+One shows (ex sheet) that $Y \sim f$ on $\chi$.
+
+In the preceding settings, if we can generate $\left(X_i^{\ast}\right)_{i = 1,\ldots,N}$ iid from a fixed distribution $P_F$, then we can numerically approximate integrals 
+\[
+	\E_{P_F} g(X) = \int_{\chi} g(x) dP_F(x) \text{, $g$ given}
+\] 
+by the MC-average
+\[
+	\frac{1}{N} \sum_{i=1}^{N} g(X_i^{\ast}) \underset{N\to \infty}{\overset{SLLN}{\to }} \E_{P_F} g(X)
+\] 
+
+\subsection{Markov Chain Monte Carlo (MCMC) Algorithms}
+
+A discrete time Markov chain $(\vartheta_m : m\in \N)$ started at $\vartheta_0$ is a sequence of random variables whose 'transition probabilities' are of the form
+\begin{align*}
+\mathbb{P}\left( \vartheta_m \in \mathcal{B} | \vartheta_{m-1}, \vartheta_{m-2}, \ldots \right) &= \mathbb{P}\left( \vartheta_m \in \mathcal{B} | \vartheta_{m-1} = t \right) \\
+&= \mathbb{P}\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 = t \right) \\
+&= K(t,\mathcal{B}) \\
+\end{align*}
+where $\mathcal{B} \subseteq \Theta$ (meas), and where $K$ is a \textit{Markov kernel} s.t. $K(t, \cdot )$ is a pdf on $\Theta$, the state space of $(\vartheta_m)$.
+
+A pdf/pmf  $\mu$ on $\Theta$ is called invariant for $K$ if
+\begin{align*}
+	\int_{\Theta} K(t,B) \mu(t) dt &= \int_{\Theta} \mathbb{P}\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 = t \right) \mu(t) dt \\
+	&= \mu(t) \\
+\end{align*}
+
+Under additional hypotheses (ergodicity of $(\vartheta_m)$), one shows that the distribution of  $\vartheta_m$ 'mixes towards' (converges to in some sense) its invariant measure $\mu$, and we can then use MC-averages $(\vartheta_m : m=1,\ldots,N)$ to approximate $\E_{\mu} g(X)$ by $\frac{1}{N} \sum_{i=1}^{N}g(\vartheta_m)$
+
+An important MCMC method, known as the \textit{Metropolis-Hastings} algorithm, requires an auxiliary (conditional) pdf $q(\cdot , t), t\in \Theta$ that we can sample from, and proceeds as follows:
+\begin{enumerate}
+	\item Given $m\in \N, \vartheta_m \in \Theta$, generate $s_m \sim q(\cdot |\vartheta_m)$.
+	\item Set $\vartheta_{m+1} = \begin{cases}
+			s_m \text{ with probability } \rho(\vartheta_m, s_m) \\
+			\vartheta_m \text{ with probability } 1 - \rho(\vartheta_m, s_m)
+	\end{cases}$ 
+\end{enumerate}
+where
+\[         
+	\rho(t,s) = min\{ 1,  \frac{\mu(s)}{\mu(t)} \frac{q(t|s)}{q(s|t)} \} 
+,\]        
+and $\mu$ is a prescribed pdf/pmf (in fact our invariant measure).
+
+\begin{prop}
+	For the above Markov chain, assuming $\mu, q(\cdot |t)$ are strictly positive on $\Theta$, the invariant measure of $(\vartheta_m : m \in \N)$ equals $\mu$.
+\end{prop}
+
+ \begin{proof}
+	 (Uniqueness requires Probability and Measure).
+
+	 The transition Markov kernel $K$ has 'density' k,
+	 \[
+		 k(t,s) = \rho(t,s)q(s|t) + (1-r(\tau))d\delta_{\tau}(s), s \in \Theta
+	 ,\]
+	 where $\delta_{\tau}$ is the Dirac point mass probability measure at $\tau$, and where $r(t) = \int_{\Theta} \rho(t, \tau)q(\tau|t) d\tau$.
+
+	 We have that
+	 \begin{align*}
+		 \rho(t,s)q(s|t)\mu(t) &= min\left( q(s|t)\mu(t), \frac{\mu(s)}{\mu(t)} \frac{q(t|s)}{q(s|t)} q(s|t)\mu(t) \right)  \\
+		 &= min\left( \mu(t)q(s|t), \mu(s) q(t|s) \right)  \\
+		 &= min\left( \frac{\mu(t)}{\mu(s)} \frac{q(s|t)}{q(t|s)} q(t|s)\mu(s), q(t|s)\mu(s) \right)  \\ 
+		 &= \rho(s,t)q(t|s)\mu(s)
+	 \end{align*}
+	So our detailed balance conditions hold.
+
+	Then
+	\begin{align*}
+		\int_{\Theta} \mathbb{P}\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 =t \right) \mu(t) dt &= \int_{\Theta}\int_{\mathcal{B}} \rho(t,s)q(s|t)\mu(t) dsdt + \int_{\Theta}\int_{\mathcal{B}} (1-r(t))d\delta_{t}(s)\mu(t)dt \\
+		&= \int_{\mathcal{B}}\int_{\Theta} \rho(s,t)q(t|s)\mu(s) dt ds + \int_{\Theta} 1_{\{t\in \mathcal{B}\} } (1-r(t))\mu(t) dt \\
+		&= \int_{\mathcal{B}} r(s) \mu(s) ds + \int_{\mathcal{B}} (1-r(t)) \mu(t) dt \\
+		&= \int_{\mathcal{B}} \mu(s) ds \\
+		&= \mu(\mathcal{B})
+	\end{align*}
+\end{proof}
+
 \end{document} 
