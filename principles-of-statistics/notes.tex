@@ -1653,7 +1653,7 @@ and $\mu$ is a prescribed pdf/pmf (in fact our invariant measure).
 
 	 The transition Markov kernel $K$ has 'density' k,
 	 \[
-		 k(t,s) = \rho(t,s)q(s|t) + (1-r(\tau))d\delta_{\tau}(s), s \in \Theta
+		 k(t,s) = \rho(t,s)q(s|t) + (1-r(t))d\delta_{t}(s), s \in \Theta
 	 ,\]
 	 where $\delta_{\tau}$ is the Dirac point mass probability measure at $\tau$, and where $r(t) = \int_{\Theta} \rho(t, \tau)q(\tau|t) d\tau$.
 
@@ -1676,4 +1676,55 @@ and $\mu$ is a prescribed pdf/pmf (in fact our invariant measure).
 	\end{align*}
 \end{proof}
 
+The Metropolis-Hastings Markov chain can be used to approximately compute general posterior distributions arising from data $X_1, \ldots, X_n$ in a statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}, \Theta = \R^{p}, p \in \N$, when the prior $\pi$ is $N(0, \Sigma_p)$ where $\Sigma_p$ is a $p\times p$ non-singular covariance matrix. In this case, the 'target' density $\mu$ should be
+\[
+	\pi(\theta|X_1,\ldots,X_n) \propto e^{l_n(\theta) - \frac{1}{2} \theta^{T}\Sigma_p^{-1} \theta}, \theta \in \R^{p}
+\] 
+
+If in the Metropolis-Hastings algorithm, we choose auxiliary densities $q(\cdot ,t) \sim N(\sqrt{1-2\delta}t, 2\delta \Sigma_p )$, which is possible by results from previous lectures, and then the corresponding steps are
+\begin{enumerate}
+	\item Given $\vartheta_m, m \in \N$, generate $\xi \sim N(0, \Sigma_p)$, define
+		 \[
+		S_m = \sqrt{1-2\delta} \vartheta_m + \sqrt{2\delta} \xi 
+		\]
+	\item Set $\vartheta_{m+1} = \begin{cases}
+			S_m \text{ with probability } \rho(\vartheta_m, S_m) \\
+			\vartheta_m \text{ with probability } 1 - \rho(\vartheta_m, S_m)
+	\end{cases}$ 
+	where $\rho(\vartheta_m, S_m) = min(1, e^{l(S_m) - l(\vartheta_m)}$
+\end{enumerate}
+This is sometimes called  pCN (preconditioned Crank-Nicolson) algorithm.
+
+One shows (ex sheet) that an invariant (it is unique by P&M) measure of $(\vartheta_m: m \in \N)$ is given by $\pi(\cdot |X_1, \ldots, X_n)$ from our target density $\mu$. This is valid for any $\delta > 0$, and we can think of $\vartheta_m$ as a Gaussian random walk, which moves forward calibrated by a sequence of corresponding likelihood ratio tests between $\vartheta_m$ and $S_m$. This way we can use Monte Carlo samples $(\vartheta_m : m=M_0, \ldots, M_0+M)$ where $M_0$ is some turn after initialisation at $\vartheta_0$, to approximate the posterior mean $\E [\theta |X_1,\ldots,X_n]$ by $\frac{1}{M}\sum_{m=M_0+1}^{M_0+M} \vartheta_m$, and likewise the posterior quantiles $R_n$ by empirical quantiles of the chain. In particular, we can approximately compute credible sets 
+\[
+	C_n = \{\theta : \|\theta - \E [\theta|X_1,\ldots,X_n]\| \le R_n\}, \pi(C_n|X_1,\ldots,X_n) = 1-\alpha
+,\] which by the Bernstein-von Mises theorem are approximate $1-\alpha$ confidence sets, without requiring estimation of $I(\theta)^{-1}$.
+
+\subsection{Gibbs Sampling}
+
+In Bayesian statistics, often hierarchical prior specifications are of interest, e.g.
+\[
+	X|\theta \sim N(\theta,1), \theta \sim N(0, \sigma^2), \sigma^2 \sim \pi_{\sigma}, \pi_{\sigma} \text{ a \textit{hyperprior}}
+.\]
+If $X, Y$ are any r.v's with joint pdf/pmf $f_{X,Y}$ s.t. we can sample from the conditional distributions $f_{X|Y}, F_{Y|X}$, then the following 'Gibbs sampling' scheme can be used.
+
+Initialise $X= x_0$, then draw $Y_1 \sim f_{Y|X}(\cdot |x_0)$, then $X_1 \sim f_{X|Y}(\cdot , y_1)$. Repeating, we have $Y_m \sim f_{Y|X}(\cdot |X_m-1), X_m \sim f_{X|Y}(\cdot |Y_m), m \in \N$.
+
+One shows that $(X_m, Y_m), X_m, Y_m$ form Markov chains with invariant densities equal to $f_{X,Y}, f_{X|Y}, f_{Y|X}$ respectively.
+
+\section{Bootstrap Methods}
+
+There are non-Bayesian ways to bootstrap the 'asymptotic' quantiles of confidence sets, known often as 'bootstrap methods', the first of which (due to B. Efron) we will now study.
+
+Given data $X_1, \ldots, X_n$, consider, conditional on the observed values, a new sample space $\chi_n^{b} = \{X_1, \ldots, X_n\} $, and draw bootstrap r.v's $X_{nj}^{b}, j=1,\ldots,n$ randomly from $\chi_n^{b}$ with replacement, i.e. precisely with law $\P_n = \P_n(\cdot |X_1,\ldots,X_n)$, $\P_n (X_{nj}^{b} = X_i) = \frac{1}{n} \forall i,j \text{ ($n$ fixed) }$ (This is easily done by sampling uniform variables and partitioning  $[0,1]$ into n equal parts).
+
+The bootstrap sample mean 
+\[
+\overline{X_n^{b}} = \frac{1}{n} \sum_{j=1}^{n} X_{nj}^{b} 
+\] has $\E$-expectation
+\[
+	\E X_{nj}^{b} = \sum_{i=1}^{n} X_i \P(X_{nj}^{b} = X_i) = \overline{X}_n
+\] 
+
+The idea is to use the 'known' distribution of $\overline{X_{n}^{b}} - \overline{X}_n$ as a proxy for the unknown distribution of $\overline{X}_n - \mu, \mu - \E X_i$.
 \end{document} 
