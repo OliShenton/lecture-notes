@@ -1,8 +1,9 @@
 \documentclass[a4paper]{article}
 \input{../../../preamble.tex}
 
-\title{Principles of Statistics}
+\title{Principles of Statistics \\ \large{As lectured (roughly) by Richard Nickl (Michaelmas 2019)}}
 \date{}
+\author{Typeset by Oliver Shenton}
 
 \begin{document}
 	
@@ -10,7 +11,7 @@
 
 \section{Introduction}
 
-Consider a random variable (r.v.) $X$ defined on some probability space: $ X: (\Omega, A, \mathbb{P}) \to \R$. ($\Omega$ is the set of outcomes, $A$ is the measurable events in $\Omega$, $\mathbb{P}$ is the probability measure on $A $), with distribution function $F\left( t \right) = \mathbb{P}\left( \omega \in  \Omega : X\left( \omega \right) \le  t\right), t \in \R$.
+Consider a random variable (r.v.) $X$ defined on some probability space: $ X: (\Omega, A,\P) \to \R$. ($\Omega$ is the set of outcomes, $A$ is the measurable events in $\Omega$, $\P$ is the probability measure on $A $), with distribution function $F\left( t \right) = \P\left( \omega \in  \Omega : X\left( \omega \right) \le  t\right), t \in \R$.
 
 If $X$ is a discrete r.v. Then
 \[
@@ -21,18 +22,20 @@ and, if $X$ is a continuous r.v., then
 	F(t) = \int_{- \infty}^{t} f(x) dx \textrm{, where f is the probability density function (pdf)}
 .\] 
 
-We typically only write $F(t) = \mathbb{P}\left( X \le  t\right)$, where $P$ is the \textit{law} of  $X$ (i.e. the image measure  $P = \mathbb{P} \cdot X^{-1} $
+We typically only write $F(t) = P\left( X \le  t\right)$, where $P$ is the \textit{law} of  $X$ (i.e. the image measure  $P = \P \cdot X^{-1} $)
 
 \begin{defn}
 	A statistical model for the law $P$ of $X$ is any collection $\{ f\left(\cdot, \theta \right): \theta \in \Theta \} $, or $\{ P_{\theta} : \theta \in \Theta\} $ of pdf/pmf's or probability distributions. The index set $\Theta$ is the parameter space.
 \end{defn}
 
 \begin{eg}
-	1) $N\left( \theta, 1 \right), \theta \in \Theta = \R $, or $\Theta = \left[ -1, 1 \right] $
+	\begin{enumerate}
+		\item $N\left( \theta, 1 \right), \theta \in \Theta = \R $, or $\Theta = \left[ -1, 1 \right] $
 
-	2) $N\left( \mu, \sigma ^2 \right), \left( \mu, \sigma ^2 \right) = \theta \in  \Theta = \R \times \left( 0, \infty \right)  $
+		\item $N\left( \mu, \sigma ^2 \right), \left( \mu, \sigma ^2 \right) = \theta \in  \Theta = \R \times \left( 0, \infty \right)  $
 	
-	3) $Exp\left( \theta \right) , \theta \in \Theta = \left( 0, \infty) \right)  $
+		\item $Exp\left( \theta \right) , \theta \in \Theta = \left( 0, \infty \right)  $
+	\end{enumerate}
 \end{eg}
 
 \begin{defn}
@@ -47,7 +50,7 @@ The tasks of statistical inference comprise at least:
 
 3) Confidence Regions (Inference): Find regions (intervals) $C_{n} = C \left( X_{1}, \ldots, X_{n} \right) \subseteq   \Theta $ of confidence in that $P_{\theta} \left( \theta \in  C_{n} \right) \ge 1 - \alpha, \forall \theta \in  \Theta$. This quantifies the uncertainty in the inference on $\Theta$ by the size/diameter of $C_{n}$. Here, $0 < \alpha < 1$ is a pre-described significance level.
 
-\section{Likelihood Principle}
+\subsection{Likelihood Principle}
 
 \begin{eg}
         Consider a sample $X_{1}, \ldots, X_{n} \sim ^{iid} Poi\left( \theta \right) $ with (unknown) $\theta > 0$. If the actual observed values are  $X_{1} = x_{1}, \ldots, X_{n} = x_{n}$, then the probability of this particular occurrence of $x_{1}, \ldots, x_{n}$ as a function of $\theta$ is 
@@ -59,10 +62,10 @@ The tasks of statistical inference comprise at least:
 \end{align*} 
 \end{eg}
 
-\begin{remark}
+\begin{idea}
 	(C.F. Gauss, R. Fisher): 
 	Maximise $L_{n}\left( \theta \right)$ over $\Theta$, and for continuous variables, replace pmf's by pdf's.
-\end{remark}
+\end{idea}
 
 In the example, we can equivalently maximise 
 \[
@@ -75,7 +78,7 @@ Also, $l_{n}''\left( \theta \right) = - \frac{1}{\theta ^2} \sum_{i=1}^{n} X_{i}
 \newpage
 
 \begin{defn}
-	Given a statistical model $\{f\left( \cdot , \theta : \theta \in \Theta \right) \} $ of pdf/pmf's for the law $P$ of $X$, and given 'numerical' observations  $\left( x_{i}: i=1,\ldots,n \right) $ arising as iid copies $X_{i}\stackrel{iid}{\sim}P$, the \textit{likelihood function of the model} is defined as
+Given a statistical model $\{f\left( \cdot , \theta \right): \theta \in \Theta \} $ of pdf/pmf's for the law $P$ of $X$, and given 'numerical' observations  $\left( x_{i}: i=1,\ldots,n \right) $ arising as iid copies $X_{i}\stackrel{iid}{\sim}P$, the \textit{likelihood function of the model} is defined as
 	\begin{align*}
 		L_{n} : \Theta \to \R \text{, } L_{n}\left( \theta \right) = \prod_{i=1}^{n} f\left( x_{i}, \theta \right)   
 	.\end{align*}
@@ -119,12 +122,12 @@ We regard these functions as ('random' via the $X_{i}'s$) maps of $\theta$.
 \end{remark}
 
 \begin{remark}
-	The likelihood principle 'works' as soon as a joint pdf/pmf (family $\{f\left( ., \theta \right) : \theta \in  \Theta\} $) of $X_{1}, \ldots, X_{n}$ can be specified, and does note rely on the iid assumption. For instance in the normal linear model, $N\left( \chi \beta, \sigma^2 I \right) $, where $\chi$ is an $n\times p$ matrix, $(\beta, \sigma^2) = \theta \in \R^{p} \times (0, \infty)$, the MLE coincides with the LS-estimator (not iid, but independent).
+	The likelihood principle 'works' as soon as a joint pdf/pmf (family $\{f\left( \cdot , \theta \right) : \theta \in  \Theta\} $) of $X_{1}, \ldots, X_{n}$ can be specified, and does note rely on the iid assumption. For instance in the normal linear model, $N\left( \chi \beta, \sigma^2 I \right) $, where $\chi$ is an $n\times p$ matrix, $(\beta, \sigma^2) = \theta \in \R^{p} \times (0, \infty)$, the MLE coincides with the LS-estimator (not iid, but independent).
 \end{remark}
 
 \section{Information Geometry}
 
-For a r.v. $X$ of law/distribution $P_{\theta}$ on $\chi \subseteq \R^{d}$, and let $g: \chi \to  \R$be given. We will write
+For a r.v. $X$ of law/distribution $P_{\theta}$ on $\chi \subseteq \R^{d}$, and let $g: \chi \to  \R$ be given. We will write
 \begin{align*}
 	\E_{\theta} g(X) &= \E_{P_{\theta}} g(X) \\
 	&= \int_{\chi} g(x) dP_{\theta}(x)
@@ -132,7 +135,7 @@ For a r.v. $X$ of law/distribution $P_{\theta}$ on $\chi \subseteq \R^{d}$, and 
 which in the continuous case equals $\int_{\chi} g(x) f(x, \theta) dx$, and in the discrete case is $\sum_{x \in \chi}g(x) f(x, \theta)$.
 
 \begin{observation}[1]
-	Consider a model $\{f(., \theta) : \theta \in \Theta\}$ for $X$ of law $P$ on $\chi$, and assume $\E_{P} |\log f(x, \theta)| < \infty$. Then $\overline{l}_{n}(\theta) = \frac{1}{n}\sum_{i=1}^{n}\log f(X_{i}, \theta)$ as a sample approximation of
+	Consider a model $\{f(\cdot , \theta) : \theta \in \Theta\}$ for $X$ of law $P$ on $\chi$, and assume $\E_{P} |\log f(x, \theta)| < \infty$. Then $\overline{l}_{n}(\theta) = \frac{1}{n}\sum_{i=1}^{n}\log f(X_{i}, \theta)$ is a sample approximation of
 	\begin{align*}
 		l(\theta) = \E_{P} \log f(X, \theta), \theta \in \Theta
 	.\end{align*}
@@ -151,7 +154,7 @@ which in the continuous case equals $\int_{\chi} g(x) f(x, \theta) dx$, and in t
 
 	Thus $l(\theta) \le l(\theta_{0}) \text{ }\forall \theta \in \Theta$, and approximately maximising $l(\theta)$ appears sensible.
 
-	Note next that by the strict version of Jensen's inequality,  $l(\theta) = l(\theta_{0})$ can only occur when $\frac{f(X, \theta)}{f(X, \theta_{0})} = \text{const (in $X$) }$, which since $\int_{\chi} f(x, \theta) dx = 1$ can only happen when $f(\cdot , \theta) \stackrel{o.s}{=} f(\cdot , \theta_{0})$.
+	Note next that by the strict version of Jensen's inequality,  $l(\theta) = l(\theta_{0})$ can only occur when $\frac{f(X, \theta)}{f(X, \theta_{0})} = \text{const (in $X$) }$, which since $\int_{\chi} f(x, \theta) dx = 1$ can only happen when $f(\cdot , \theta) \stackrel{a.s}{=} f(\cdot , \theta_{0})$.
 \end{observation}
 
 The quantity 
@@ -202,7 +205,7 @@ Let us say a statistical model $\{f(\cdot , \theta) : \theta \in \Theta\} $ is r
 	Moreover, using the chain/product rule, we have
 	\begin{align*}
 		\frac{d^2}{d\theta d\theta^{T}}\log f(X, \theta) &= \frac{d}{d \theta^{T}} \left[ \frac{1}{f(X, \theta)} \frac{d}{d\theta} f(X,\theta) \right] \\
-		&= \frac{1}{f_(X,\theta)} \frac{d^2}{d\theta d\theta^{T}} f(X, \theta) - \frac{1}{f^2(X, \theta)} \frac{d}{d \theta} f(X, \theta) \frac{d}{d \theta} f(X, \theta)^{T}
+		&= \frac{1}{f(X,\theta)} \frac{d^2}{d\theta d\theta^{T}} f(X, \theta) - \frac{1}{f^2(X, \theta)} \frac{d}{d \theta} f(X, \theta) \frac{d}{d \theta} f(X, \theta)^{T}
 	\end{align*}
 	Then, taking $\E_{\theta}$ expectation, we see
 	 \begin{align*}
@@ -219,14 +222,15 @@ Let us say a statistical model $\{f(\cdot , \theta) : \theta \in \Theta\} $ is r
 		&= -\E_{\theta \left[ \frac{d^2}{d \theta^2} \log f(X, \theta) \right] }
 	\end{align*}
 
-\item[2)] If $X = (X_1, \ldots, X_n)$ consists of iid copies of $X$ so that its pdf/pmf equals $f(x_1, \ldots, x_n, \theta) = \prod_{i=1}^{n} f(x_i, \theta)$, then the Fisher information \textit{tensorises}, that is 
+\item[2)] If $X = (X_1, \ldots, X_n)$ consists of iid copies of $X$ so that its pdf/pmf is given by  \[f(x_1, \ldots, x_n, \theta) = \prod_{i=1}^{n} f(x_i, \theta),\]
+	then the Fisher information \textit{tensorises}, that is 
 	\begin{align*}
 		I_n(\theta) &= \E_{\theta}\left[ \frac{d}{d \theta} \log f(X_1, \ldots, x_n, \theta) \frac{d}{d\theta} \log f(X_1, \ldots, X_n, \theta)^{T} \right] \\
 		&= \sum_{i,j = 1}^{ n} \E_{\theta} \left[ \frac{d}{d \theta} f(X_{i}, \theta) \frac{d}{d \theta} \log f(X_j, \theta)^{T} \right]  \\
 		&= \sum_{i=1}^{n} \E_{\theta} \left[ \frac{d}{d \theta} \log f(X_i, \theta) \frac{d}{d\theta} f(X_i, \theta)^{T} \right] + \sum_{i\neq j} \E_{\theta} \left[ \frac{d}{d\theta} \log f(X_i, \theta) \right] \E_{\theta}\left[ \frac{d}{d\theta} \log f(X_j, \theta) \right]  \\
 		&= nI(\theta) + 0
 	\end{align*}
-	Where $I(\theta)$ is the Fisher information 'per observation', i.e the Fisher info for $\{f(x, \theta) : \theta \in \Theta, x \in \R\} $.
+	Where $I(\theta)$ is the Fisher information 'per observation', i.e for $\{f(x, \theta) : \theta \in \Theta, x \in \R\} $.
 \end{remark}
 
 \newpage
@@ -234,17 +238,17 @@ Let us say a statistical model $\{f(\cdot , \theta) : \theta \in \Theta\} $ is r
 \begin{prop}
 	(Cramer-Rao lower bound/inequality)
 
-	Let $X_1, \ldots, X_n \stackrel{iid}{\sim}$ from a regular statistical model $\{f(\cdot , \theta) : \theta \in \Theta, \Theta \subseteq \R\}$ and suppose $\tilde{\theta} = \tilde{\theta}(X_1, \ldots, X_n)$ is any unbiased estimator of $\theta$ (i.e $\E_{\theta} \tilde{\theta} = \theta \text{ } \forall \theta \in \Theta$. Then $\forall \theta \in \intr(\Theta)$,
+	Let $X_1, \ldots, X_n \stackrel{iid}{\sim}$ from a regular statistical model $\{f(\cdot , \theta) : \theta \in \Theta, \Theta \subseteq \R\}$ and suppose $\tilde{\theta} = \tilde{\theta}(X_1, \ldots, X_n)$ is any unbiased estimator of $\theta$ (i.e $\E_{\theta} \tilde{\theta} = \theta \; \forall \theta \in \Theta)$. Then $\forall \theta \in \intr(\Theta)$,
 	\[
-		Var_{\theta} \tilde{\theta} \ge \frac{1}{nI(\theta)} \text{ } \forall n \in  \N
+		Var_{\theta} \tilde{\theta} \ge \frac{1}{nI(\theta)} \;  \forall n \in  \N
 	\] 
 \end{prop}
 
 \begin{proof}
-	Assume wlog  that $Var_{\theta} \tilde{\theta} < \infty$, and consider first $n=1$. recall the Cauchy-Schwarz inequality to the affect that $Cov^2(Y, Z) \le Var Y\text{ } Var Z$. For $Y= \tilde{\theta}$ and for $Z = \frac{d}{d\theta} \log f(X, \theta)$. Then $\E_{\theta} Z = 0$ by observation 2, and by the preceding remark, $\E_{theta} Z = Var_{\theta} Z = I(\theta)$. Thus by Cauchy-Schwarz inequality,
+	Assume wlog  that $Var_{\theta} \tilde{\theta} < \infty$, and consider first $n=1$. recall the Cauchy-Schwarz inequality to the affect that $\cov^2(Y, Z) \le \var Y\text{ } \var Z$. For $Y= \tilde{\theta}$ and for $Z = \frac{d}{d\theta} \log f(X, \theta)$. Then $\E_{\theta} Z = 0$ by observation 2, and by the preceding remark, $\E_{theta} Z = Var_{\theta} Z = I(\theta)$. Thus by Cauchy-Schwarz inequality,
 	\begin{align*}
-		Var(\tilde{\theta}) &\ge \frac{Cov^2(Y, Z)}{I(\theta)} \text{, since} \\
-		Cov(Y,Z) &= \E_{\theta}(YZ) \text{, as } E_{\theta} Z = 0 \\
+		\var(\tilde{\theta}) &\ge \frac{\cov^2(Y, Z)}{I(\theta)} \text{, since} \\
+		\cov(Y,Z) &= \E_{\theta}(YZ) \text{, as } E_{\theta} Z = 0 \\
 		&= \int_{\chi} \tilde{\theta} (x) \left( \frac{d}{d\theta} \log f(x,\theta) \right) f(X, \theta) dx \\
 		&= \int_{\chi} \tilde{\theta}(x) \frac{d}{d\theta} f(x,\theta) dx \\
 		&= \frac{d}{d\theta} \int_{\chi} \tilde{\theta}(x) f(x, \theta) dx \\
@@ -266,7 +270,7 @@ Let us recall also
 	If $\tilde{\theta}$ is not necessarily unbiased, the proof still gives
 	\[
 		Var_{\theta} (\tilde{\theta}) \ge \frac{(\frac{d}{d\theta} \E_{\theta} \tilde{\theta} )^2} {nI(\theta)} \text{ } \forall \theta \in \Theta, \Theta \subseteq \R
-	\] - to be called: CR-inequality for biased estimators. 
+	\] This is the CR-inequality for biased estimators. 
 \end{corol}
 
 A multi-dimensional version of the CRLB can be obtained from considering estimation of general differentiable functions $\Phi : \Theta \to \R, \Theta \in \R^{p}$. Then one shows that for any unbiased estimator $\tilde{\Phi} = \tilde{\Phi}(X_1, \ldots, X_n)$, where $X_i \stackrel{iid}{\sim} \{f(\cdot , \theta) : \theta \in \Theta\} $, we have
@@ -280,9 +284,9 @@ In particular, setting $\Phi(\theta) = \alpha ^{T} \theta$ for any $\alpha \in  
 	Var_{\theta} (\alpha ^{T}\tilde{\theta}) \ge \frac{1}{n} \alpha ^{T}I(\theta)^{-1}\alpha \text{     } \forall \alpha \in \R^{p},
 \] 
 
-so that $Cov_{\theta} \tilde{\theta} - \frac{1}{n} I(\theta)^{-1}$ is positive semi-definite, hence using the order structure on symmetric $p\times p$ matrices,
+so that $\cov_{\theta} \tilde{\theta} - \frac{1}{n} I(\theta)^{-1}$ is positive semi-definite, hence using the order structure on symmetric $p\times p$ matrices,
 \[
-	Cov_{\theta} \tilde{\theta} > \frac{1}{n} I(\theta)^{-1}, \forall \theta \in\intr(\Theta)
+	\cov_{\theta} \tilde{\theta} > \frac{1}{n} I(\theta)^{-1}, \forall \theta \in\intr(\Theta)
 \] 
 
 \begin{note}
@@ -309,37 +313,39 @@ We will investigate the large sample performance of estimators $\tilde{\theta}(X
 ,\end{align*} 
  in a sense to be made precise later.
 
+\newpage
+
 \subsection*{Stochastic Convergence: Concepts and Facts}
 
 \begin{defn}
-	Let $(X_n: n \in \N), X$ be random vectors in $\R^{k}$, defined on some probability space $(\Omega, \mathcal{A}, \mathbb{P} )$
+	Let $(X_n: n \in \N), X$ be random vectors in $\R^{k}$, defined on some probability space $(\Omega, \mathcal{A}, \P )$
 
 		1) We say $X_n\to X$ almost surely, $X_n \stackrel{a.s}{\to} X \text{ as } n\to \infty$, if
 		\begin{align*}
-			\mathbb{P}\left(\omega \in \Omega : \|X_n (\omega) - X(\omega)\| \to 0 \text{ as } n\to \infty \right) &= 1 \\
-			\text{ i.e }\mathbb{P}\left(\|X_n - X\| \to  0 \text{ as } n\to \infty\right) &=1
+			\P\left(\omega \in \Omega : \|X_n (\omega) - X(\omega)\| \to 0 \text{ as } n\to \infty \right) &= 1 \\
+			\text{ i.e. }P\left(\|X_n - X\| \to  0 \text{ as } n\to \infty\right) &=1
 		\end{align*}
 
 		2) We say $X_n \to  X$ in probability, $X_n \to ^{P} X$ as $n\to \infty$, if $\forall \epsilon > 0$,
 		\begin{align*}
-			\mathbb{P}\left( \|X_n - X\| > \epsilon\right) \to 0 \text{ as } n \to \infty
+			P\left( \|X_n - X\| > \epsilon\right) \to 0 \text{ as } n \to \infty
 		\end{align*}
 		
 \end{defn}
 
 \begin{remark}
-	The choice of norm on $\R^{k}$ is irrelevant. Also, one shows (see example sheet) that $X_n \stackrel{a.s}{\to}^{P} X$ as $n\to \infty$ is equivalent to $X_{n_{j}} \stackrel{a.s}{\to } ^{P} X_j $ as $n\to \infty \forall j = 1, \ldots, k$.
+	The choice of norm on $\R^{k}$ is irrelevant. Also, one shows (see example sheet) that $X_n \stackrel{a.s}{\to}^{P} X$ as $n\to \infty$ is equivalent to $X_{n_{j}} \stackrel{a.s}{\to } ^{P} X_j $ as $n\to \infty \; \forall j = 1, \ldots, k$.
 \end{remark}
 
 \begin{defn}
 	We say $X_n \to X$ in distribution (or in law), writing $X_n \to ^{d} X$ as $n \to \infty$, if
 	\begin{align*}
-		\mathbb{P}\left(X_n \le t\right) \to \mathbb{P}\left( X \le t \right) \forall t \in \R^{k}
+		P\left(X_n \le t\right) \to P\left( X \le t \right) \forall t \in \R^{k}
 	,\end{align*}
-	for which $t \mapsto \mathbb{P}\left( X \le t \right) $ is continuous.
+	for which $t \mapsto P\left( X \le t \right) $ is continuous.
 \end{defn}
 
-Recall, $\mathbb{P}( Z\le t) := \mathbb{P}\left( Z_1 \le t_1, \ldots, Z_k \le t_k \right).$
+Recall, $P( Z\le t) := P\left( Z_1 \le t_1, \ldots, Z_k \le t_k \right).$
 
 The following facts on stochastic convergence will be frequently used, and can be proved with measure theory.
 
@@ -357,11 +363,11 @@ The following facts on stochastic convergence will be frequently used, and can b
 		 \text{If $(A_n)_{ij}$ are random matrices s.t. $(A_n)_{ij} \to^{P} A_{ij}$, then} \\
 		 A_n X_n &\to^{d} AX \text{ as } n\to \infty
 	 \end{align*}
-	 4) If $X_n \to^{d} X \text{ as } n \to \infty$, then $X_n$ is stochastically bounded $\left[ = O_P(1) \right]$, that is $\forall \epsilon > 0, \exists M_{\epsilon}$ s.t. for all sufficiently large  $n, \mathbb{P}\left( \|X_n\| > M_{\epsilon} \right) < \epsilon$ 
+	 4) If $X_n \to^{d} X \text{ as } n \to \infty$, then $X_n$ is stochastically bounded $\left[ = O_P(1) \right]$, that is $\forall \epsilon > 0, \exists M_{\epsilon}$ s.t. for all sufficiently large  $n, P\left( \|X_n\| > M_{\epsilon} \right) < \epsilon$ 
 
 \end{prop}
 
-\section{Law of Large Numbers (LLN) and Central Limit Theorem (CLT)}
+\subsection{Law of Large Numbers (LLN) and Central Limit Theorem (CLT)}
 
 Consider $X_1,\ldots,X_n \stackrel{iid}{\sim} X \sim P$ on $\R^{k}$. This sequence can be realised as the coordinate projections of the infinite product probability space $\left( \Omega, \mathcal{A}, \P \right) = \left( \R^{\N}, \mathcal{B}^{\N}, P^{\N} \right)$, where $P^{\N} = \otimes_{i=1}^{\infty} \P$.
 
@@ -370,10 +376,10 @@ Under this product space, we can make some simultaneous statements about the sto
 \begin{thm}
 	(Weak Law of Large Numbers)
 
-	If $var(X) < \infty$, we have that 
+	If $\var(X) < \infty$, we have that 
 	\begin{align*}
-		\mathbb{P}\left( \left| \frac{1}{n}\sum_{i=1}^{n} (X_{i} - \E(X)) \right| > \epsilon \right) &\le \frac{var\left( \overline{X} - \E(X) \right)}{n\epsilon^2} \text{ by Chebyshev} \\ 
-		&= \frac{var(X)}{n\epsilon^2} \text{ as $X_i$ iid}\\
+		P\left( \left| \frac{1}{n}\sum_{i=1}^{n} (X_{i} - \E(X)) \right| > \epsilon \right) &\le \frac{\var\left( \overline{X} - \E(X) \right)}{n\epsilon^2} \text{ by Chebyshev} \\ 
+		&= \frac{\var(X)}{n\epsilon^2} \text{ as $X_i$ iid}\\
 		&\to 0 \text{ as  } n \to \infty
 	\end{align*}
 \end{thm}	
@@ -386,19 +392,19 @@ Under this product space, we can make some simultaneous statements about the sto
 
 This is harder to prove than the Weak version, so we don't.
 
-The stochastic fluctuations of $\overline{X}$ about $\E(X)$ are of order $\frac{1}{\sqrt{n} }$ and as long as $var(X) < \infty$, \textit{always} look normally distributed.
+The stochastic fluctuations of $\overline{X}$ about $\E(X)$ are of order $\frac{1}{\sqrt{n} }$ and as long as $\var(X) < \infty$, \textit{always} look normally distributed.
 
 \begin{thm}
 	(Univariate Central Limit Theorem)
 
-	Let $X_1, \ldots, X_n \stackrel{iid}{\sim} X \sim P$ on $\R$, with $var(X) = \sigma^2 < \infty$. Then
+	Let $X_1, \ldots, X_n \stackrel{iid}{\sim} X \sim P$ on $\R$, with $\var(X) = \sigma^2 < \infty$. Then
 
 	\[
 		\sqrt{n} (\overline{X} - \E(X)) \underset{n \to  \infty}{\to^{d}} N(0, \sigma^2)
 	\] 
 \end{thm}
 
-To give a multivariate version, we recall that $X \in \R^{k}$ is multivariate normal if $\forall t \in \R^{k}$, $t^{T}X$ is univariate normal, and write $X\sim N_{\mu}(\mu, \Sigma)$, where $\mu$ is our mean  $\E(X)$, and  $\Sigma $ is our covariance matrix $var(X)$.
+To give a multivariate version, we recall that $X \in \R^{k}$ is multivariate normal if $\forall t \in \R^{k}$, $t^{T}X$ is univariate normal, and write $X\sim N_{\mu}(\mu, \Sigma)$, where $\mu$ is our mean  $\E(X)$, and  $\Sigma $ is our covariance matrix $\var(X)$.
 
 In fact, X is uniquely characterised as the random variable on  $\R^{k}$ such that $t ^{T}X \sim N(t ^{T}\mu, t ^{T}\Sigma t)$ for all $t \in \R^{k}$.
 
@@ -417,7 +423,7 @@ Furthermore, if $A_{n} \to^{P} A$ are random matrices, and $X_n \to ^{d} N_{k}\l
 \begin{thm}
 	(Multivariate Central Limit Theorem)
 
-	Let $X_1, \ldots, X_n \stackrel{iid}{\sim} X \sim P$ on $\R^{k}$ with $var(X) = \Sigma$ positive definite. Then
+	Let $X_1, \ldots, X_n \stackrel{iid}{\sim} X \sim P$ on $\R^{k}$ with $\var(X) = \Sigma$ positive definite. Then
 
 	 \[
 		 \sqrt{n} \left( \overline{X} - \E(X) \right) \underset{n \to \infty}{\to ^{d}} N_{k}(0, \Sigma)
@@ -433,7 +439,7 @@ From this, and the SLLN, we can bound in probability the deviations.
 	\]
 	if
 	\[
-		\forall \epsilon > 0, \exists M,N > 0 \text{ s.t } \mathbb{P}\left( \left| \frac{Y_n}{c_n} \right| > M \right) < \epsilon \text{  } \forall n > N
+		\forall \epsilon > 0, \exists M,N > 0 \text{ s.t } P\left( \left| \frac{Y_n}{c_n} \right| > M \right) < \epsilon \text{  } \forall n > N
 	\] (By Prokhorov's Theorem) 
 \end{defn}
 
@@ -447,13 +453,13 @@ From this, and the SLLN, we can bound in probability the deviations.
 
 	Let $X_1, \ldots, X_n \stackrel{iid}{\sim} X \sim P$ on $\R$ with mean  $\mu_{0}$ and variance $\sigma^2$.
 
-	Define  $\mathcal{C}_n = \{\mu \in \R : |\overline{X} - \mu| \le \frac{\sigma z_{\alpha}}{\sqrt{n} }\} $, where $\mathbb{P}\left( |Z| \le z_{\alpha} \right) = 1 - \alpha $ for $Z\sim N(0,1)$ as our 'confidence region'
+	Define  $\mathcal{C}_n = \{\mu \in \R : |\overline{X} - \mu| \le \frac{\sigma z_{\alpha}}{\sqrt{n} }\} $, where $P\left( |Z| \le z_{\alpha} \right) = 1 - \alpha $ for $Z\sim N(0,1)$ as our 'confidence region'
 
 	\begin{align*}
-		\mathbb{P}\left( \mu \in \mathcal{C}_n \right) &= \mathbb{P}\left( |\overline{X} - \mu_0| \le \frac{\sigma z_{\alpha}}{\sqrt{n} }  \right) \\
-		&= \mathbb{P}\left( |\overline{X} - \E(X)| < \frac{\sigma z_{\alpha}}{\sqrt{n} } \right) \\
-		&= \mathbb{P}\left( \sqrt{n} \left| \frac{1}{n} \sum_{i=1}^{n} \frac{X_i - \E(X_i)}{\sigma} \right| \le z_{\alpha} \right) \\
-		&\underset{n \to \infty}{\to } \mathbb{P}\left( |Z| \le z_{\alpha} \right) \text{ by CLT} \\
+		P\left( \mu \in \mathcal{C}_n \right) &= P\left( |\overline{X} - \mu_0| \le \frac{\sigma z_{\alpha}}{\sqrt{n} }  \right) \\
+		&= P\left( |\overline{X} - \E(X)| < \frac{\sigma z_{\alpha}}{\sqrt{n} } \right) \\
+		&= P\left( \sqrt{n} \left| \frac{1}{n} \sum_{i=1}^{n} \frac{X_i - \E(X_i)}{\sigma} \right| \le z_{\alpha} \right) \\
+		&\underset{n \to \infty}{\to } P\left( |Z| \le z_{\alpha} \right) \text{ by CLT} \\
 		&= 1- \alpha
 	\end{align*}
 
@@ -461,36 +467,37 @@ From this, and the SLLN, we can bound in probability the deviations.
 
 	When  $\sigma$ is unknown, we can replace it in $\mathcal{C}_n$ by $S_n$, where  $S_{n}^2 = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \overline{X})^2$, and the same conclusion follows, using the asymptotic distribution of the t-distribution,
 	\[
-		t_n := \frac{\sqrt{n} (\overline{X} - \E(X)}{S_n} \underset{n \to \infty}{\to ^{d}} N(0,1)
+		t_n := \frac{\sqrt{n}\left (\overline{X} - \E(X)\right)}{S_n} \underset{n \to \infty}{\to ^{d}} N(0,1)
 	\] 
 \end{eg}
 
-\section{Consistency of MLEs}
+\subsection{Consistency of MLEs}
 
 \begin{defn}
 	Let $X_1, \ldots, X_n \stackrel{iid}{\sim} X$ form a statistical model $\{P_{\theta} : \theta \in \Theta\, \Theta \subseteq \R^{p}\}$. Then we say that an estimator $\tilde{\theta}_{n} = \tilde{\theta}(x_1, \ldots, x_n)$ is consistent (for that model) if $\tilde{\theta}_n \underset{n\to \infty}{\to} \theta$ in $(P_\theta^{\N})$-probability, $\forall \theta \in \theta$.
 \end{defn}
 
 \begin{assumption}
-	Suppose a statistical model $\{f\left( \cdot , \theta : \theta \in \Theta \right) \}, \Theta \in \R^{p}$ of pdf/pmf on $\chi \subseteq \R^{d}$ satisfies the following conditions:
+	Suppose a statistical model $\{f (\cdot , \theta) : \theta \in \Theta \}, \Theta \in \R^{p}$ of pdf/pmf on $\chi \subseteq \R^{d}$ satisfies the following conditions:
 
 \begin{enumerate}
-	\item $f(x,0) > 0 \forall (x, \theta) \in  (\chi, \Theta)$
-	\item $\int_{\chi} f(x,\theta) dx = 1 \forall \theta \in \Theta$
+	\item $f(x,0) > 0 \; \forall (x, \theta) \in  (\chi, \Theta)$
+	\item $\int_{\chi} f(x,\theta) dx = 1 \; \forall \theta \in \Theta$
 	\item The map $\theta \mapsto f(x, \theta)$ is continuous $\forall x \in  \chi$
 	\item  $\Theta \in \R^{p}$ is compact
-	\item $\theta = \theta' \iff f(\cdot , \theta) = f(\cdot , \theta'), \forall \theta, \theta' \in \theta $
-	\item $\E_{\theta} sup_{\theta \in \Theta} |\log f(x, \theta)| < \infty$
+	\item $\theta = \theta' \iff f(\cdot , \theta) = f(\cdot , \theta') \; \forall \theta, \theta' \in \Theta $
+	\item $\E_{\theta} \sup_{\theta \in \Theta} |\log f(x, \theta)| < \infty$
 \end{enumerate}
 
 \end{assumption}
 
 \begin{remark}
 	\begin{enumerate}
-		\item The above conditions justify the application of Jensen's inequality in Observation (1) of section 3 (Information Geometry) - in particular the map $ \theta \mapsto l(\theta) = \E_{\theta_0} \log f(X, \theta)$ is maximised uniquely at $\theta_0 \in \Theta$.
+		\item The above conditions justify the application of Jensen's inequality in Observation (1) of section 3 (Information Geometry) - in particular the map 
+			\[\theta \mapsto l(\theta) = \E_{\theta_0} \log f(X, \theta)\] is maximised uniquely at $\theta_0 \in \Theta$.
 		\item Using the dominated convergence theorem, one can integrate the limit
 			\[
-				lim_{\eta \to  0} |\log f(X, \theta + \eta) - \log f(X, \theta)| = 0
+				\lim_{\eta \to  0} |\log f(X, \theta + \eta) - \log f(X, \theta)| = 0
 			\] wrt $P_\theta$, and conclude that also the map $\theta \mapsto f(\theta)$ is continuous under assumption A.
 	\end{enumerate}
 \end{remark}
@@ -500,13 +507,13 @@ From this, and the SLLN, we can bound in probability the deviations.
 \end{thm}
 
 \begin{proof}
-	The map $\overline{l_{n}}(\theta) = \frac{1}{n} \sum_{i=1}^{n} \log f(X_i, \theta)$ is continuous on the compact set $\Theta \in \R^{p}$, so by the Heine-Borel theorem, $\overline{l_n}$ obtains a maximum on $\Theta$, hence a MLE  $\hat{\theta}_n $ exists.
+	The map $\overline{l}_n(\theta) = \frac{1}{n} \sum_{i=1}^{n} \log f(X_i, \theta)$ is continuous on the compact set $\Theta \in \R^{p}$, so by the Heine-Borel theorem, $\overline{l}_n$ obtains a maximum on $\Theta$, hence a MLE  $\hat{\theta}_n $ exists.
 
-	Now, let  $\hat{\theta}_n$ be any MLE, and for a true (arbitrary) value $\theta_0 \in \Theta$ we now prove that $\hat{\theta}_n \underset{n\to \infty}{\to ^{P}} \theta_0$ (in $P_{\theta_0}^{\N}$ probability). The idea is that maximisers $\hat{\theta}_n$ of $\overline{l_n}$ over $\Theta$ should converge to the unique maximiser  $\theta_0$ of $l$ over $\Theta$, since  $\overline{l_n}(\theta) \underset{n\to \infty}{\to ^{p}} l(\theta)$ by the LLN, for all $\theta \in  \Theta$ pointwise.
+	Now, let  $\hat{\theta}_n$ be any MLE, and for a true (arbitrary) value $\theta_0 \in \Theta$ we now prove that $\hat{\theta}_n \underset{n\to \infty}{\to ^{P}} \theta_0$ (in $P_{\theta_0}^{\N}$ probability). The idea is that maximisers $\hat{\theta}_n$ of $\overline{l}_n$ over $\Theta$ should converge to the unique maximiser  $\theta_0$ of $l$ over $\Theta$, since  $\overline{l}_n(\theta) \underset{n\to \infty}{\to ^{p}} l(\theta)$ by the LLN, for all $\theta \in  \Theta$ pointwise.
 
 	This is generally false unless one has uniform convergence.
 	\[
-		(\ast) sup_{\theta \in \Theta} |\overline{l_n}(\theta) - l(\theta)| \underset{n\to \infty}{\to ^{P}} 0 \text{ [see Ex sheet for counterexample] }
+		(\ast) \sup_{\theta \in \Theta} |\overline{l}_n(\theta) - l(\theta)| \underset{n\to \infty}{\to ^{P}} 0 \text{ (see Ex sheet for counterexample) }
 	\] 
 
 	We show later that $(\ast)$ indeed holds under the maintained hypothesis.
@@ -517,30 +524,33 @@ From this, and the SLLN, we can bound in probability the deviations.
 	\] 
 	which is again a compact subset of $\R^{p}$ intersection of closed and compact). Thus the function $l(\theta)$ attains its bounds on  $\Theta_{\epsilon}$, so
 	\[
-		c(\epsilon) = sup_{\theta \in \Theta_{\epsilon}} l(\theta) = l(\overline{\theta}_{\epsilon} \in \Theta_{\epsilon}) < l(\theta_0) \text{ since l is maximised uniquely at } \theta_0
+		c(\epsilon) = \sup_{\theta \in \Theta_{\epsilon}} l(\theta) = l(\overline{\theta}_{\epsilon} \in \Theta_{\epsilon}) < l(\theta_0) \text{ since l is maximised uniquely at } \theta_0
 	\] 
 	Thus we can choose $\delta(\epsilon)$ small enough such that 
 	 \[
 	 c(\epsilon) + \delta(\epsilon) < l(\theta_0) - \delta(\epsilon) \tag{\dag}
 	\]
 
-	Now, $sup_{\theta \in  \Theta_{\epsilon}} \overline{l_n} = sup_{\theta \in \Theta_{\epsilon}} l(\theta) + (\overline{l_n}(\theta) - l(\theta) \le sup_{\theta \in \Theta_{\epsilon}} l(\theta) + sup_{\theta \in \Theta_{\epsilon}} |\overline{l_n} (\theta) - l(\theta)|$
+	Now, note that  
+	\[
+		\sup_{\theta \in  \Theta_{\epsilon}} \overline{l}_n = \sup_{\theta \in \Theta_{\epsilon}} l(\theta) + (\overline{l}_n(\theta) - l(\theta) \le \sup_{\theta \in \Theta_{\epsilon}} l(\theta) + \sup_{\theta \in \Theta_{\epsilon}} |\overline{l}_n (\theta) - l(\theta)|
+\]
 
 	Next, define events (subsets of $\R^{\N}$ supporting $(X_1, X_2,\ldots)$) 
 	\[
-		A_n(\epsilon) = \{sup_{\theta \in \Theta_{\epsilon}} |\overline{l_n}(\theta) - l(\theta) | \le  \delta(\epsilon)\} 
+		A_n(\epsilon) = \left\{\sup_{\theta \in \Theta_{\epsilon}} |\overline{l}_n(\theta) - l(\theta) | \le  \delta(\epsilon)\right\} 
 	\] 
 
 	On these events, we have 
 
 	\[
-		sup_{\theta \in \Theta_{\epsilon}} \overline{l_n} (\theta) \le  c(\epsilon) + \delta(\epsilon) < l(\theta_0) - \delta(\epsilon) \le \overline{l_n}(\theta_{0}) \text{, since on $A_n(\epsilon)$ we also have } |l(\theta_0) - \overline{l_n}(\theta)| < \delta(\epsilon)
+		\sup_{\theta \in \Theta_{\epsilon}} \overline{l}_n (\theta) \le  c(\epsilon) + \delta(\epsilon) < l(\theta_0) - \delta(\epsilon) \le \overline{l}_n(\theta_{0}) \text{, since on $A_n(\epsilon)$ we also have } |l(\theta_0) - \overline{l}_n(\theta)| < \delta(\epsilon)
 	\] 
 
 	Thus if we assume $\hat{\theta}_n \in \Theta_{\epsilon}$, then by what precedes
 
 	\[
-		\overline{l_n}(\hat{\theta_n} \le  sup_{\theta \in \Theta_{\epsilon}} \overline{l_n}(\theta) < l(\theta_0) \text{ on } A_n(\epsilon)
+		\overline{l}_n(\hat{\theta}_n) \le  \sup_{\theta \in \Theta_{\epsilon}} \overline{l}_n(\theta) < l(\theta_0) \text{ on } A_n(\epsilon)
 	\]
 
 	This is a contradiction to $\hat{\theta}_n$ being a maximiser. Therefore on $A_n(\epsilon)$ we must have  $\hat{\theta}_n \in  \Theta_{\epsilon}^{c}$, or in other words
@@ -548,10 +558,10 @@ From this, and the SLLN, we can bound in probability the deviations.
 	\[
 		A_n(\epsilon) \subseteq \{\| \hat{\theta}_n - \theta_0\| < \epsilon\} 
 	.\] 
-	Now, by $(\ast)$,  $\mathbb{P}\left( A_n(\epsilon) \right) \to 1$. We conclude that
+	Now, by $(\ast)$,  $P\left( A_n(\epsilon) \right) \to 1$. We conclude that
 	 \begin{align*}
-		&\mathbb{P}\left( \| \hat{\theta}_n - \theta_0 \| < \epsilon  \right) \underset{n\to \infty}{\to } 1 \text{ or } \\
-		&\mathbb{P}\left( \| \hat{\theta}_n - \theta_0\| < \epsilon \right) \underset{n\to \infty}{\to } 0
+		&P\left( \| \hat{\theta}_n - \theta_0 \| < \epsilon  \right) \underset{n\to \infty}{\to } 1 \text{ or } \\
+		&P\left( \| \hat{\theta}_n - \theta_0\| < \epsilon \right) \underset{n\to \infty}{\to } 0
 	\end{align*}
 
 	Since $\epsilon$ is non arbitrary,  $\hat{\theta}_n \underset{n\to \infty}{\to^{P} } \theta_0$, and the proof is complete modulo the verification of $(\ast)$.
@@ -570,45 +580,45 @@ For a (meas.) $\chi \in \R^{d}$ and (meas.) $h: \chi \to \R$, and let $X_1, \ldo
 
 Next, let $h_1, \ldots, h_N$ be a finite collection of such functions. Then
 \[
-	\mathbb{P}\left( |\frac{1}{n} \sum_{i=1}^{n} h_j (X_i) - \E h_j (X)  | \underset{n \to \infty}{\to} 0 \right) \equiv \mathbb{P}\left( A_j \right) = 1.
+	P\left( \left|\frac{1}{n} \sum_{i=1}^{n} h_j (X_i) - \E h_j (X)  \right| \underset{n \to \infty}{\to} 0 \right) \equiv P\left( A_j \right) = 1.
 \] 
 Moreover,
 \[
-	\mathbb{P}\left( max_{j=1,\ldots,N} |\frac{1}{n} \sum_{i=1}^{n} h_j (X_i) - \E h_j (X)  | \underset{n \to \infty}{\to} 0 \right) = \mathbb{P}\left( \bigcap_{j=1}^{N} A_j  \right) = 1,
+	P\left( \max_{j=1,\ldots,N} |\frac{1}{n} \sum_{i=1}^{n} h_j (X_i) - \E h_j (X)  | \underset{n \to \infty}{\to} 0 \right) = P\left( \bigcap_{j=1}^{N} A_j  \right) = 1,
 \] since
 \[
-	\mathbb{P}\left( (\bigcap_{j=1}^{N}A_j)^{c}  \right) = \mathbb{P}\left( \bigcup_{j=1}^{N} A_j^{c}  \right) \le \sum_{j=1}^{N}\mathbb{P}\left( A_j^{c} \right) = 0.
+	P\left( \left(\bigcap_{j=1}^{N}A_j\right)^{c}  \right) = P\left( \bigcup_{j=1}^{N} A_j^{c}  \right) \le \sum_{j=1}^{N}P\left( A_j^{c} \right) = 0.
 \] 
 
-To transfer to an infinite collection of h's, let us say that a family of brackets $[\underline{h_j}, \overline{h_j}], \underline{h_j}, \overline{h_j} : \chi \to \R, j=1,\ldots,N$, covers a class $\mathcal{H}$ of maps on $\chi$ if  $\forall h \in  \mathcal{H}, \exists j$ s.t $\underline{h_j} \le h(x) \le \overline{h^{j}} \forall x \in \chi$.
+To transfer to an infinite collection of h's, let us say that a family of brackets $[\underline{h}_j, \overline{h}_j], \underline{h}_j, \overline{h}_j : \chi \to \R, j=1,\ldots,N$, covers a class $\mathcal{H}$ of maps on $\chi$ if  $\forall h \in  \mathcal{H}, \exists j$ s.t $\underline{h}_j \le h(x) \le \overline{h}_j \forall x \in \chi$.
 
 \begin{prop}
-	Suppose that $\forall \epsilon > 0$ there exist brackets $[\underline{h_j}, \overline{h_j}], j=1,\ldots,N(\epsilon)$ covering $\mathcal{H}$ and such that
+	Suppose that $\forall \epsilon > 0$ there exist brackets $[\underline{h}_j, \overline{h}_j], j=1,\ldots,N(\epsilon)$ covering $\mathcal{H}$ and such that
 	\begin{enumerate}
-		\item $\E |\underline{h_j}(x) | < \infty, \E|\overline{h_j}(x)| < \infty$
-		\item $\E |\overline{h_j}(x) - \underline{h_j}(x)| < \epsilon$
+		\item $\E |\underline{h}_j(x) | < \infty, \E|\overline{h}_j(x)| < \infty$
+		\item $\E |\overline{h}_j(x) - \underline{h}_j(x)| < \epsilon$
 	\end{enumerate}
 	Then
 	\[
-		sup_{h \in \mathcal{H}} \left| \frac{1}{n} \sum_{i=1}^{n} h(X_i) - \E h(X) \right| \underset{n \to \infty}{\to^{a.s} }
+		\sup_{h \in \mathcal{H}} \left| \frac{1}{n} \sum_{i=1}^{n} h(X_i) - \E h(X) \right| \underset{n \to \infty}{\to^{a.s} } 0
 	\] 
 \end{prop}
 
 \begin{proof}[Non-examinable]
 	Let $\epsilon = \frac{1}{m}$, where $m \in \N$ is arbitrary. Then take $N(\frac{\epsilon}{3})$-many brackets covering $\mathcal{H}$, and note that by the preceding argument, we have
 	\[
-		\mathbb{P}\left( max_{j=1,\ldots,N(\frac{\epsilon}{3})} \left| \frac{1}{n}\sum_{i=1}^{n} \underline{h_j} (X_i) - \E \underline{h_j} (X) \right| \le  \frac{\epsilon}{3}, \forall n \ge n_o (\epsilon) \right) = \mathbb{P}\left( A_{\epsilon} \right) = 1
-	,\] and equivalently for $\overline{h_j}$
+		P\left( \max_{j=1,\ldots,N(\frac{\epsilon}{3})} \left| \frac{1}{n}\sum_{i=1}^{n} \underline{h}_j (X_i) - \E \underline{h}_j (X) \right| \le  \frac{\epsilon}{3}, \forall n \ge n_o (\epsilon) \right) = P\left( A_{\epsilon} \right) = 1
+	,\] and equivalently for $\overline{h}_j$
 
-	Now, pick $h \in  \mathcal{H}$ arbitrary, and write for the respective bracket $\underline{h_j}, \overline{h_j} \ni h$ 
+	Now, pick $h \in  \mathcal{H}$ arbitrary, and write for the respective bracket $[\underline{h}_j, \overline{h}_j] \ni h$ 
 	\begin{align*}
-		\frac{1}{n} \sum_{i=1}^{n}h(X_i) - \E h(X) &\le \frac{1}{n}\sum_{i=1}^{n} \overline{h_j}(X_i) - \E \overline{h_j}(X) + \E \overline{h_j} (X) - \E h(X) \\
-		&\le \frac{\epsilon}{3} + \E |\overline{h_j}(X) - \underline{h_j} (X) |  \\
+		\frac{1}{n} \sum_{i=1}^{n}h(X_i) - \E h(X) &\le \frac{1}{n}\sum_{i=1}^{n} \overline{h}_j(X_i) - \E \overline{h}_j(X) + \E \overline{h}_j (X) - \E h(X) \\
+		&\le \frac{\epsilon}{3} + \E |\overline{h}_j(X) - \underline{h}_j (X) |  \\
 		&\le \frac{2\epsilon}{3}
 	\end{align*}
 	Likewise, we get
 	\begin{align*}
-		\frac{1}{n} \sum_{i=1}^{n}h(X_i) - \E h(X) &\ge \frac{1}{n}\sum_{i=1}^{n} \underline{h_j}(X_i) - \E \underline{h_j}(X) + \E \underline{h_j} (X) - \E h(X) \\
+		\frac{1}{n} \sum_{i=1}^{n}h(X_i) - \E h(X) &\ge \frac{1}{n}\sum_{i=1}^{n} \underline{h}_j(X_i) - \E \underline{h}_j(X) + \E \underline{h}_j (X) - \E h(X) \\
 		&\ge - \frac{2\epsilon}{3}
 	\end{align*}
 
@@ -617,16 +627,16 @@ To transfer to an infinite collection of h's, let us say that a family of bracke
 		\left| \frac{1}{n} \sum_{i=1}^{n} h(X_i) - \E h(X) \right| < \frac{2\epsilon}{3} < \epsilon
 	,\] and since
 	\[
-	\mathbb{P}\left( A^{c} \right) \le \sum_{m=1}^{\infty} \mathbb{P}\left( A_m^{c} \right) = 0
+	P\left( A^{c} \right) \le \sum_{m=1}^{\infty} P\left( A_m^{c} \right) = 0
 	,\] the proof is complete.
 \end{proof}
 
 From this proposition, we deduce
 
 \begin{prop}
-	Let $\chi \subseteq \R^{d}, \Theta \in \R^{p}$ compact, and suppose $\theta \mapsto q(x, \theta)$ is continuous  $\forall x$ (and x measurable $\forall \theta$), and that  $\E sup_{\theta \in \Theta} |q(X, \theta)| < \infty$. If $X_1, \ldots, X_n \stackrel{iid}{\sim} X$, then
+	Let $\chi \subseteq \R^{d}, \Theta \in \R^{p}$ compact, and suppose $\theta \mapsto q(x, \theta)$ is continuous  $\forall x$ (and x measurable $\forall \theta$), and that  $\E \sup_{\theta \in \Theta} |q(X, \theta)| < \infty$. If $X_1, \ldots, X_n \stackrel{iid}{\sim} X$, then
 	\[
-		sup_{\theta \in \Theta} \left| \frac{1}{n} \sum_{i=1}^{n} q(X_i, \theta) - \E q(X, \theta) \right| \underset{n \to  \infty}{\to ^{a.s}}
+		\sup_{\theta \in \Theta} \left| \frac{1}{n} \sum_{i=1}^{n} q(X_i, \theta) - \E q(X, \theta) \right| \underset{n \to  \infty}{\to ^{a.s}} 0
 	\]
 \end{prop}
 
@@ -639,10 +649,10 @@ From this proposition, we deduce
 	The condition that the expectation of the supremum of $q$ over $\theta$ is finite can be seen to be necessary as $\E \|Z\|< \infty$ in the LLN for $Z_1, \ldots, Z_n$ iid in the space $\mathcal{C}(\Theta)$ of continuous functions on the compact space $\Theta$.
 \end{remark}
 
-\section{Asymptotic Distribution of MLEs}
+\subsection{Asymptotic Distribution of MLEs}
 
 \begin{defn}
-	We say that an estimator $\tilde{\theta}_n$ is asymptotically efficient in a regular statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$ if $lim_{n\to \infty} n Var_{\theta} (\tilde{\theta)} = I(\theta)^{-1}, \forall \theta \in\intr\Theta$.
+	We say that an estimator $\tilde{\theta}_n$ is asymptotically efficient in a regular statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$ if $\lim_{n\to \infty} n Var_{\theta} (\tilde{\theta)} = I(\theta)^{-1}, \forall \theta \in\intr\Theta$.
 \end{defn}
 
 \newpage
@@ -655,7 +665,7 @@ From this proposition, we deduce
 	\begin{enumerate}
 		\item $\theta_0 \in\intr\Theta$
 		\item There exists an open set $U$ satisfying $\theta_0 \in U \subseteq \Theta$ such that $f(x, \theta)$ is, for every $x\in \chi$, twice continuously differentiable wrt $\theta$ in $U$
-		\item the  $p\times p$ matrix $\E_{\theta_0} \frac{\partial^2 \log f(X, \theta_0)}{\partial \theta \partial \theta^{T}}  $ is non singular, and 
+		\item The  $p\times p$ matrix $\E_{\theta_0} \frac{\partial^2 \log f(X, \theta_0)}{\partial \theta \partial \theta^{T}}  $ is non singular, and 
 			\[
 				\E_{\theta_0} \left\|\frac{\partial \log f(X, \theta_0)}{\partial\theta} \right\|^2 < \infty
 			\]
@@ -664,7 +674,7 @@ From this proposition, we deduce
 			\E_{\theta_0} \left\| \frac{\partial^2 \log f(X, \theta_0)}{\partial \theta \partial \theta^{T}} \right\| < \infty
 			,\]
 			\[
-				\int_{\chi} sup_{\theta \in K} \left\| \frac{\partial f(x, \theta)}{\partial\theta}\right\| dx < \infty \text{ and } \int_{\chi} sup_{\theta \in  K} \left\| \frac{\partial^2 \log f(X, \theta_0)}{\partial \theta \partial \theta^{T}} \right\| dx < \infty
+				\int_{\chi} \sup_{\theta \in K} \left\| \frac{\partial f(x, \theta)}{\partial\theta}\right\| dx < \infty \text{ and } \int_{\chi} \sup_{\theta \in  K} \left\| \frac{\partial^2 \log f(X, \theta_0)}{\partial \theta \partial \theta^{T}} \right\| dx < \infty
 			\]
 			\item Suppose the MLE $\hat{\theta}_n$ in the model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$ based on the sample $X_1, \ldots, X_n$ exists and is consistent, i.e. $\hat{\theta}_n \underset{n\to \infty}{\to ^{P_{\theta_{0}}}} \theta_0$.
 	\end{enumerate}
@@ -697,9 +707,9 @@ From this proposition, we deduce
 \begin{proof}(8.2)
         Here, $\P \equiv P_{\theta_0}^{\N}, \E \equiv \E_{\theta_0}$.
 
-	In proving convergence in distribution (say $Z_n \to ^{d} Z$), it suffices to restrict to any sequence $(E_n)$ of events (in $\R^{N}$ ) s.t. $\mathbb{P}\left( E_N \right) \to  1$. Indeed,
+	In proving convergence in distribution (say $Z_n \to ^{d} Z$), it suffices to restrict to any sequence $(E_n)$ of events (in $\R^{N}$ ) s.t. $P\left( E_N \right) \to  1$. Indeed,
 	\[
-		|\mathbb{P}\left( Z_n \le  t \right) - \mathbb{P}\left( Z_n \le t  \mid  E_n \right) | \le \mathbb{P}\left( (E_n^{c} \right) \to 0
+		|P\left( Z_n \le  t \right) - P\left( Z_n \le t  \mid  E_n \right) | \le P\left( E_n^{c} \right) \to 0
 	.\]
 
 	By consistency, $\hat{\theta}_n \to ^{P} \theta_0$, hence the events $E_n = \{\hat{\theta}_n \in K\} $ have probability tending to 1, and we restrict to this event in what follows. Therefore we must have
@@ -708,9 +718,9 @@ From this proposition, we deduce
 	\end{align*} 
 	Where we recall $\overline{l}_n(\theta) = \frac{1}{n} \sum_{i=1}^{n} \log f(X_i, \theta)$.
 
-	For any map $h: U \to \R$, we can apply the mean value theorem along the line segment $\{t \hat{\theta}_n + (1-t) \hat{\theta}_0 : 0 < t < 1\} $ connecting $\hat{\theta}_n $ and $\theta_0$, and write
+	For any map $h: U \to \R$, we can apply the mean value theorem along the line segment \[\{t \hat{\theta}_n + (1-t) \hat{\theta}_0 : 0 < t < 1\} \] connecting $\hat{\theta}_n $ and $\theta_0$, and write
 	\[
-		h(\hat{\theta}_n) = h(\theta_0) + \frac{\partial h}{\partial \theta}^{T} \mid_{\theta = \overline{\theta}} (\hat{\theta}_n - \theta_0) 
+		h(\hat{\theta}_n) = h(\theta_0) + \frac{\partial h}{\partial \theta}^{T} \bigg\rvert_{\theta = \overline{\theta}} (\hat{\theta}_n - \theta_0) 
 	\]
 	here $\overline{\theta} = \overline{\theta}(h)$ is some mean value on that line segment.
 
@@ -725,7 +735,7 @@ From this proposition, we deduce
 
 	We will show
 	\[
-		\overline{A}_n \underset{n\to \infty}{\to ^{P}} -I(\theta_0) \tag{\dagger}
+		\overline{A}_n \underset{n\to \infty}{\to ^{P}} -I(\theta_0) \tag{$\dagger$} 
 	\]
 	and in particular this implies convergence of $\|\overline{A}_n + I(\theta_0)\| \to ^{P} 0$ under the operator norm.
 
@@ -737,7 +747,7 @@ From this proposition, we deduce
 
 	  \begin{align*}
 		  \sqrt{n}\frac{\partial}{\partial\theta}\overline{l}_n(\theta) &= \frac{1}{\sqrt{n}} \sum_{i=1}^{n} \left( \frac{\partial}{\partial\theta} \log f(X_i, \theta_0) - \E \frac{\partial}{\partial\theta} \log f(X_i,\theta_0) \right) \\
-		  & \underset{CLT}{\to ^{d}} N(0, I_{\theta_0})) \text{ as $n\to \infty$, applying Observation 2 to the second term above. } 
+		  & \underset{CLT}{\to ^{d}} N(0, I_{\theta_0}) \text{ as $n\to \infty$, applying Observation 2 to the second term above. } 
 	 \end{align*}
 
 	 To verify $(\dagger)$, it suffices (see Ex. sheet) to check convergence in probability of $\overline{A}_{n_{jk}}\to (-I_(\theta_0))_{jk}$.
@@ -745,16 +755,17 @@ From this proposition, we deduce
 	 Now, we write
 	 \begin{align*}
 		 \overline{A}_{n_{jk}} = &\frac{1}{n} \sum_{i=1}^{n}\frac{\partial^2}{\partial\theta_j \partial\theta_k} \log f(X_i, \overline{\theta}_{(j)}) - \E \frac{\partial^2}{\partial\theta_j \partial\theta_k} \log f(X_i, \overline{\theta}_{(j)}) \\
-		 &+ \E \frac{\partial^2}{\partial\theta_j \partial\theta_k} \log f(X_i, \overline{\theta}_{(j)}) - \E \frac{\partial^2}{\partial\theta_j \partial\theta_k} \log f(X_i, \theta_0) + (-I(\theta_0)_{jk}) \text{ ( by Obs. 3) } 
+		 &+ \E \frac{\partial^2}{\partial\theta_j \partial\theta_k} \log f(X_i, \overline{\theta}_{(j)}) - \E \frac{\partial^2}{\partial\theta_j \partial\theta_k} \log f(X_i, \theta_0) + (-I(\theta_0)_{jk}) \text{ (by Obs. 3) } 
 	 \end{align*}
-	 We denote this by $(1) + (2) - I(\theta_0)_{jk}$
+	 We denote this by $(1) + (2) - I(\theta_0)_{jk}$.
+
 	 For $(1)$, notice that $\overline{\theta}_{(j)} \in K$, and hence with $q(x,\theta) = \frac{\partial^2}{\partial\theta_j \partial\theta_k} \log f(x, \theta)$,
 
 	 \[
-		 |(1)| = |\frac{1}{n} \sum q(X_i, \overline{\theta}_j) - \E q(X, \overline{\theta}_{(j)})| \le sup_{\theta \in K} |\frac{1}{n} \sum q(X_i, \overline{\theta}_j) - \E q(X, \overline{\theta}_{(j)})| \underset{n\to \infty}{\to ^{P}} 0 \text{ by the uniform LLN }
+		 |(1)| = |\frac{1}{n} \sum q(X_i, \overline{\theta}_j) - \E q(X, \overline{\theta}_{(j)})| \le \sup_{\theta \in K} |\frac{1}{n} \sum q(X_i, \overline{\theta}_j) - \E q(X, \overline{\theta}_{(j)})| \underset{n\to \infty}{\to ^{P}} 0 \text{ by the uniform LLN }
 	 \] 
 
-	 For $(2)$, we notice that  $\hat{\theta}_n \to ^{P} \theta_0 \implies \overline{\theta}_{(j)} \to ^{P} \theta_0 \text{ as } n\to \infty \forall j$, and since $\theta \mapsto \E q(X,\theta)$ is continuous, the continuous mapping theorem implies that 
+	 For $(2)$, we notice that  $\hat{\theta}_n \to ^{P} \theta_0 \implies \overline{\theta}_{(j)} \to ^{P} \theta_0 \text{ as } n\to \infty \;\forall j$, and since $\theta \mapsto \E q(X,\theta)$ is continuous, the continuous mapping theorem implies that 
 	 \[
 		 (2) = \E q(X, \overline{\theta}_j) - \E q(X, \theta_0) \underset{n\to \infty}{\to ^{P}} 0
 	 ,\]
@@ -769,20 +780,23 @@ From this proposition, we deduce
 		\item If the 'true' value $\theta_0$ lies at the boundary of $\Theta$, then the MLE is also not asymptotically normal (Ex. sheet $N(\theta, 1), \theta \in \Theta = [0, \infty) $)
 
 		\item An asymptotic version of the Cramer-Rao lower bound can also be proved (see Le Cam theory), but it requires a restriction to 'regular' or 'uniformly consistent' (instead of unbiased) estimators to claim asymptotic efficiency. Some restriction on the class of estimators is indeed necessary, as the following example (due to Hodges) shows:
-			Consider a statistical model $\{P_{\theta} : \theta \in \Theta \}, \Theta \subseteq \R, 0 \in  \Theta$, s.t $\sqrt{n}(\hat{\theta}_{MLE} - \theta) \underset{n \to \infty}{\to ^{d}} N(0, I(\theta)^{-1})$ $ \forall \theta \in\intr\Theta$. [Recall that this implies that $\sqrt{n}(\hat{\theta} - \theta) $ is stochastically bounded, i.e, $\forall \epsilon > 0 \exists M_{\epsilon}$ st $\mathbb{P}\left( |\hat{\theta} - \theta| > \frac{M_{\epsilon}}{\sqrt{n} } \right) < \epsilon$, in particular $\hat{\theta} \underset{n\to \infty}{\to ^{P}} \theta$ ]
+			Consider a statistical model $\{P_{\theta} : \theta \in \Theta \}, \Theta \subseteq \R, 0 \in  \Theta$, s.t $\sqrt{n}(\hat{\theta}_{MLE} - \theta) \underset{n \to \infty}{\to ^{d}} N(0, I(\theta)^{-1})$ $ \forall \theta \in\intr\Theta$. (Recall that this implies that $\sqrt{n}(\hat{\theta} - \theta) $ is stochastically bounded, i.e, $\forall \epsilon > 0 \; \exists M_{\epsilon}$ s.t. $P\left( |\hat{\theta} - \theta| > \frac{M_{\epsilon}}{\sqrt{n} } \right) < \epsilon$, and in particular $\hat{\theta} \underset{n\to \infty}{\to ^{P}} \theta$)
 
-			Define  \begin{align*}
-				\tilde{\theta}=\tilde{\theta_{Hodges}} =  \mid &\hat{\theta} \text{ if } |\hat{\theta}| > n^{- \frac{1}{4}} \G\
-				&0 \text{ if } |\hat{\theta}| < n^{- \frac{1}{4}}
-		\end{align*} 
+			Define \[
+				\tilde{\theta} = \tilde{\theta}_{Hodges} = \begin{cases}
+					\hat{\theta} \text{ if } |\hat{\theta}| > n^{- \frac{1}{4}}
+					\\
+				0 \text{ if } |\hat{\theta}| < n^{- \frac{1}{4}}
+			\end{cases}
+		\] 
 
 		Now for $\theta \neq 0$ and under $P_\theta$,
 
 		 \begin{align*}
-			 \mathbb{P}\left( \tilde{\theta} \neq \hat{\theta} \right) &= \mathbb{P}\left( |\hat{\theta}| \le n^{- \frac{1}{4}} \right) \\
-			 &= \mathbb{P}\left( \left( |\hat{\theta} - \theta + \theta| \le n^{- \frac{1}{4}} \right)  \right) \\
-			 &\le \mathbb{P}\left( |\hat{\theta} - \theta| \ge \theta - n^{- \frac{1}{4}} \right) \\
-			 &\le \mathbb{P}\left( |\hat{\theta} - \theta| > \frac{1}{2}|\theta| \right) \text{ for large enough n } \\
+			 P\left( \tilde{\theta} \neq \hat{\theta} \right) &= P\left( |\hat{\theta}| \le n^{- \frac{1}{4}} \right) \\
+			 &= P\left( |\hat{\theta} - \theta + \theta| \le n^{- \frac{1}{4}} \right) \\
+			 &\le P\left( |\hat{\theta} - \theta| \ge \theta - n^{- \frac{1}{4}} \right) \\
+			 &\le P\left( |\hat{\theta} - \theta| > \frac{1}{2}|\theta| \right) \text{ for large enough n } \\
 			 &\underset{n\to \infty}{\to } 0 \text{ since  } \hat{\theta} \to ^{P} \theta, |\theta|\neq 0
 		 \end{align*}
 
@@ -791,18 +805,18 @@ From this proposition, we deduce
 		 Next, if $\theta = 0$, we have under  $P_0$
 
 		 \begin{align*}
-		 	\mathbb{P}\left( \tilde{\theta} \neq 0 \right) &= \mathbb{P}\left( |\hat{\theta}| \ge n^{- \frac{1}{4}} \right) \\
-			&= \mathbb{P}\left( |\hat{\theta} - \theta| > n^{- \frac{1}{4}} \right) \\
-			&= \mathbb{P}\left( \sqrt{n}|\hat{\theta} - \theta| > n^{\frac{1}{4}}  \right)
+		 	P\left( \tilde{\theta} \neq 0 \right) &= P\left( |\hat{\theta}| \ge n^{- \frac{1}{4}} \right) \\
+			&= P\left( |\hat{\theta} - \theta| > n^{- \frac{1}{4}} \right) \\
+			&= P\left( \sqrt{n}|\hat{\theta} - \theta| > n^{\frac{1}{4}}  \right)
 		 \end{align*}
 
 		 So for any $\epsilon$ > 0 and n s.t. $n^{\frac{1}{4}} > M_{\epsilon}$, we have by stochastic boundedness of $\sqrt{n}(\hat{\theta} - \theta) $ that the last probability is less that $\epsilon$. Hence we conclude that under  $P_0$, $\sqrt{n}(\tilde{\theta} - \theta) \underset{n\to \infty}{\to ^{d}} N(0,0)$, and so $\tilde{\theta}$ 'beats' the asymptotic efficiency bound $I(\theta)^{-1}$ at $\theta = 0$.
 	\end{enumerate}
 \end{remark}
 
-\section{Plug-in MLEs and the Delta method}
+\subsection{Plug-in MLEs and the Delta method}
 
-Consider estimating a functional $\Phi : \Theta \to \R^{k}$, $\Theta \subseteq \R^{p}$ based on $X_i \stackrel{iid}{\sim} {f\left( \cdot , \theta \right) : \theta \in \Theta }$, where $\hat{\theta}$ is the MLE for $\theta$. One can show that \textit{a} MLE in the model  $\{f\left( \cdot , \phi \right) : \phi = \Phi(\theta) \text{ for some } \theta \in \Theta \}$
+Consider estimating a functional $\Phi : \Theta \to \R^{k}$, $\Theta \subseteq \R^{p}$ based on $X_i \stackrel{iid}{\sim} \{f\left( \cdot , \theta \right) : \theta \in \Theta \}$, where $\hat{\theta}$ is the MLE for $\theta$. One can show that \textit{a} MLE in the model  $\{f\left( \cdot , \phi \right) : \phi = \Phi(\theta) \text{ for some } \theta \in \Theta \}$
 
 The asymptotic normality and efficiency of  $\hat{\theta}$ then implies the same for $\Phi(\hat{\theta})$ as long as $\Phi$ is differentiable.
 
@@ -826,21 +840,20 @@ The asymptotic normality and efficiency of  $\hat{\theta}$ then implies the same
 	
 \end{remark}
 
-\section{Asymptotic inference with the MLE}
+\subsection{Asymptotic inference with the MLE}
 
 Suppose we want to make inference on $\theta_i$, the $i^{th}$ component of $\theta \in \R^{p}$, from a regular statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$. Then $\theta_i = e_i ^{T} \theta$, and by the last theorem,
-
 \begin{align*}
-	\sqrt{n} (\hat{\theta}_i - \theta_i) = \sqrt{n} e_i ^{T} (\hat{\theta} - \theta) \underset{n\to \infty}{\to ^{d}} N(0, e_i ^{T} I_(\theta)^{-1} e_i) = N(0, I(\theta)^{-1}_{ii}  
+	\sqrt{n} (\hat{\theta}_i - \theta_i) = \sqrt{n} e_i ^{T} (\hat{\theta} - \theta) \underset{n\to \infty}{\to ^{d}} N(0, e_i ^{T} I(\theta)^{-1} e_i) = N(0, I(\theta)^{-1}_{ii})  
 \end{align*}
 
-This suggests an asymptotic confidence interval (CI) $C_n = \{v \in \R : |\hat{\theta}_i - v| \le  \frac{(I(\theta)^{-1}_{ii})^{\frac{1}{2}}}{\sqrt{n} } z_{\alpha}\} $
+This suggests an asymptotic confidence interval (CI) $C_n = \left\{v \in \R : |\hat{\theta}_i - v| \le  \frac{(I(\theta)^{-1}_{ii})^{\frac{1}{2}}}{\sqrt{n} } z_{\alpha}\right\} $
 
 Indeed by the continuous mapping theorem,
 
 \begin{align*}
-	\mathbb{P}\left( \theta_j \in C_n \right) &= \mathbb{P}\left( \sqrt{n} (I(\theta)^{-1})^{- \frac{1}{2}}_{jj}  |\hat{\theta}_{n,j} - \theta_j| \le  z_{\alpha}\right) \\
-	&\underset{n\to \infty}{\to } \mathbb{P}\left( |Z| \le z_{\alpha} \right) \\
+	P\left( \theta_j \in C_n \right) &= P\left( \sqrt{n} (I(\theta)^{-1})^{- \frac{1}{2}}_{jj}  |\hat{\theta}_{n,j} - \theta_j| \le  z_{\alpha}\right) \\
+	&\underset{n\to \infty}{\to } P\left( |Z| \le z_{\alpha} \right) \\
 	&= 1- \alpha
 \end{align*}
 
@@ -854,7 +867,7 @@ In practice,  $I(\theta)$ may still depend on  $\theta$ and hence needs to be re
 		i_n(\theta) = \frac{1}{n}\sum_{i=1}^{n} \frac{\partial }{\partial \theta} \log f(X_i, \theta) \frac{\partial }{\partial \theta} \log f(X_i, \theta)^{T} 
 	\] 
 	is called the observed Fisher information (at $\theta$).
-	We then defined  $\hat{i}_n = i_n(\hat{\theta}_{MLE}$, an estimator of $I(\theta_0)$.
+	We then define $\hat{i}_n = i_n(\hat{\theta}_{MLE})$, an estimator of $I(\theta_0)$.
 \end{defn}
 
 \begin{prop}
@@ -869,7 +882,7 @@ In practice,  $I(\theta)$ may still depend on  $\theta$ and hence needs to be re
 	The continuous mapping theorem and invertability of $I(\theta_0)$ then also imply that $\hat{i}_n^{-1} \underset{n\to \infty}{\to ^{P}} I(\theta_0)^{-1}$, since $A \mapsto A^{-1} $ is continuous on $\{A : det A \neq 0\} $.  
 \end{remark}
 
-Alternatively, one uses $j_n(\theta) = - \frac{1}{n} \sum_{i=1}^{n} \frac{\partial ^2}{\partial \theta\partial\theta^{T}} \log f(X_i, \theta) $, and estimates $I_n(\theta_0)$ by $\hat{j}_n = j_n(\hat{\theta}_{MLE}$, which as before (and by Observation 3 from information geometry) satisfies again $\hat{j}_n \underset{n\to \infty}{\to ^{P}} I(\theta_0)$).
+Alternatively, one uses $j_n(\theta) = - \frac{1}{n} \sum_{i=1}^{n} \frac{\partial ^2}{\partial \theta\partial\theta^{T}} \log f(X_i, \theta) $, and estimates $I_n(\theta_0)$ by \[\hat{j}_n = j_n(\hat{\theta}_{MLE}),\] which as before (and by Observation 3 from information geometry) satisfies again $\hat{j}_n \underset{n\to \infty}{\to ^{P}} I(\theta_0)$.
 
 To make inference on the entire parameter $\theta \in  \Theta \subseteq \R^{p}$, one can use the Wald-Statistic
 \begin{align*}
@@ -927,10 +940,9 @@ A general purpose test can be constructed from the Likelihood ratio test statist
 		\Lambda_n(\Theta,\Theta_0) &= 2l_n(\hat{\theta}_n) - 2\log(\theta_0) \\
 		&= (-2l_n(\theta_0)) -(-2l_n(\hat{\theta}_n)) \\
 		&= -2 \frac{\partial }{\partial \theta} l_n(\hat{\theta}_n) - \frac{2}{2} (\theta_0 - \hat{\theta}_n)^{T} \frac{\partial ^2}{\partial \theta\partial\theta} l_n(\overline{\theta}_n)(\theta_0 - \hat{\theta}_n) \text{ (Taylor expansion)} \\ 
-		&= 0 - (\theta_0 - \hat{\theta}_n)^{T} \frac{\partial ^2}{\partial \theta\partial\theta} l_n(\overline{\theta}_n)(\theta_0 - \hat{\theta}_n) \text{ as $\hat{\theta}_n \in\intr \Theta$, as the gradient at maximiser must vanish }
+		&= 0 - (\theta_0 - \hat{\theta}_n)^{T} \frac{\partial ^2}{\partial \theta\partial\theta} l_n(\overline{\theta}_n)(\theta_0 - \hat{\theta}_n) \text{ as $\hat{\theta}_n \in\intr \Theta$, as the gradient at maximiser must vanish}
 	,\end{align*}
-	where $\overline{\theta}_n$ are mean values lying on the line segment connecting $\hat{\theta}_n, \theta_0$. The second order term can be written
-
+	where $\overline{\theta}_n$ are mean values lying on the line segment connecting $\hat{\theta}_n, \theta_0$. The second order term can be written as
 \[
 	\sqrt{n}(\hat{\theta}_n - \theta_0)(j_n(\theta) - I(\theta_0))\sqrt{n}(\hat{\theta}_n - \theta_0) + \sqrt{n}(\hat{\theta}_n - \theta_0)(I(\theta_0))\sqrt{n}(\hat{\theta}_n - \theta_0) \underset{n\to \infty}{\to ^{d}} Z^{T}I(\theta_0)Z
 		\]
@@ -950,16 +962,16 @@ For a given statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Th
 \begin{eg}
 	Consider a countable set of (scientific) hypotheses $H_i, i \in \Theta$, about the state of nature, each of prior probability $\pi_i, \sum_{i \in \Theta} \pi = 1$, and such that
 	\[
-		\mathbb{P}\left( X=x \mid H_i \right) = f_i(x)
+		P\left( X=x \mid H_i \right) = f_i(x)
 	,\]
 	where $x$ is a random outcome that can be measured. Then by the Bayes rule for conditional probabilities,
 	\[
-		\mathbb{P}\left( H_i  \mid  X = x \right) = \frac{f_i(x) \pi_i}{\sum_{j\in \Theta} f_j(x) \pi_j}
+		P\left( H_i  \mid  X = x \right) = \frac{f_i(x) \pi_i}{\sum_{j\in \Theta} f_j(x) \pi_j}
 	\]
 
 	To check whether $H_i$ is more likely than $H_j$ given  $X=x$, we compare
 	 \[
-		 \frac{\mathbb{P}\left( H_i  \mid X=x \right)}{\mathbb{P}\left( H_j  \mid X=x \right)} = \frac{f_i(x)\pi_i}{f_j(x)\pi_j}
+		 \frac{P\left( H_i  \mid X=x \right)}{P\left( H_j  \mid X=x \right)} = \frac{f_i(x)\pi_i}{f_j(x)\pi_j}
 	\]
 
 	If all $\pi_i$ agree ($\Theta$ is finite), then this just reduces to the likelihood ratio test. In a general setting, $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$, we wish to model the observation $X \mid \theta \sim f(\cdot , \theta)$ and $\theta \sim \pi$ on $\Theta$, where $\pi$ is the prior distribution. The \textit{posterior distribution} is then the conditional distribution of $\theta  \mid X$. To make this rigorous, consider a sample space $\chi \subseteq \R^{d}$ supporting $\{f\left( \cdot , \theta \right) : \theta \in \Theta \subseteq \R^{p}\}$, and on the product space $\chi \times \Theta \left( \subseteq \R^{d} \times \R^{p} \right) $ consider a probability distribution $Q$ with pmf $f$
@@ -1020,14 +1032,14 @@ The posterior distribution $\pi(\cdot, X_1, \ldots, X_n)$ is a (random) probabil
 	\item Uncertainty quantification - Any subset $C_n \subseteq \Theta$ for which $\pi(C_n|X_1, \ldots, X_n) = 1-\alpha$ is a level $1-\alpha$ \textit{credible} set (but it has, a fortiori, no interpretation in terms of coverage probabilities $P_{\theta} (\theta  \in C_n))$ 
 	\item Hypothesis testing - Given $\Theta_0, \Theta_1 \subseteq \Theta$, we can compute Bayes-factors
 		\[
-			\frac{\pi(\Theta | X_1, \ldots, X_n)}{\pi(\Theta_1|X_1, \ldots, X_n)} = \frac{\int_{\Theta_0} \prod_{i=1}^{n} f(X_i, \theta)\pi(\theta)d\theta}{\int_{\Theta_1} \prod_{i=1}^{n}f(X_i, \theta) \pi(\theta) d\theta} = \frac{\mathbb{P}\left( X_1, \ldots, X_n | \Theta_0) \right)}{\mathbb{P}\left( X_1, \ldots, X_n| \Theta_1) \right)}
+			\frac{\pi(\Theta | X_1, \ldots, X_n)}{\pi(\Theta_1|X_1, \ldots, X_n)} = \frac{\int_{\Theta_0} \prod_{i=1}^{n} f(X_i, \theta)\pi(\theta)d\theta}{\int_{\Theta_1} \prod_{i=1}^{n}f(X_i, \theta) \pi(\theta) d\theta} = \frac{P\left( X_1, \ldots, X_n | \Theta_0 \right)}{P\left( X_1, \ldots, X_n| \Theta_1 \right)}
 		\]
-		So we may 'test' for (choose to prefer) $H_0$ if $\phi_n 1_{\{\text{Bayes factor} <1\}}$
+		So we may 'test' for (choose to prefer) $H_0$ based on $\phi_n = 1_{\{\text{Bayes factor} <1\}}$
 \end{enumerate}
 
 \subsection{Frequentist Analysis of Bayes Methods}
 
-Bayesian inference procedures $\overline{\theta}(X_1, \ldots, X_n), C(X_1, \ldots, X_n), \Psi(X_1, \ldots, X_n)$ can be analysed as statistical algorithms in their own right under the \textit{frequentist} sampling assumption that $X_i \stackrel{iid}{\sim} f(\cdot, \theta_0), \theta_0 \in \Theta$.
+Bayesian inference procedures $\overline{\theta}(X_1, \ldots, X_n), C(X_1, \ldots, X_n), \Psi(X_1, \ldots, X_n)$ can be analysed as statistical algorithms in their own right under the \textit{frequentist} sampling assumption that $X_i \stackrel{iid}{\sim} \{f(\cdot, \theta_0), \theta_0 \in \Theta\}$.
 
 \begin{eg}
 	$X_1, \ldots, X_n \stackrel{iid}{\sim}$ copies of $X|\theta \sim N(\theta, 1)$ with $\theta \sim N(0, 1)$ prior. Then the posterior is
@@ -1036,13 +1048,13 @@ Bayesian inference procedures $\overline{\theta}(X_1, \ldots, X_n), C(X_1, \ldot
 	\]
 \end{eg}
 
-One shows easily that $\overline{\theta}_n = \frac{1}{n+1} \sum_{i=1}^{n} X_i \to^{a.s} \theta_0 $ under $P_{\theta_0}^{\N}$, and also that $\sqrt{n}(\overline{\theta}_n - \theta \to ^{d} N(0, I(\theta_0)^{-1})$ under $P_{\theta_0}^{\N}$. To corroborate Bayesian credible sets, however, more is required, as these are based not on the 'limit distribution' $N(0, I(\theta_0)^{-1})$, but on $\pi(\cdot , X_1, \ldots, X_n)$.
+One shows easily that $\overline{\theta}_n = \frac{1}{n+1} \sum_{i=1}^{n} X_i \to^{a.s} \theta_0 $ under $P_{\theta_0}^{\N}$, and also that $\sqrt{n}(\overline{\theta}_n - \theta) \to ^{d} N(0, I(\theta_0)^{-1})$ under $P_{\theta_0}^{\N}$. To corroborate Bayesian credible sets, however, more is required, as these are based not on the 'limit distribution' $N(0, I(\theta_0)^{-1})$, but on $\pi(\cdot , X_1, \ldots, X_n)$.
 
 \begin{thm}(Bernstein-von Misses)
 	
 	Suppose a statistical model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$ satisfies assumption B, and let the prior have a continuous and positive density $\pi$ near $\theta_0$. Denote by $\pi_n = \pi(\cdot , X_1, \ldots, X_n)$, and let $\hat{\phi}_n$ be the pdf of a $N(\hat{\theta}_{MLE}, \frac{1}{n}I(\theta_0)^{-1})$. Then
 	\[
-		\|\pi_n - \hat{\phi}_n\|_{L^{1}} = \int_{\R} |\pi_n - \hat{\phi}_n(\theta)d\theta \underset{n\to \infty}{\to ^{a.s}} 0
+		\|\pi_n - \hat{\phi}_n\|_{L^{1}} = \int_{\R} \left|\pi_n - \hat{\phi}_n(\theta)\right|d\theta \underset{n\to \infty}{\to ^{a.s}} 0
 	\] 
 \end{thm}
 
@@ -1058,12 +1070,15 @@ One shows easily that $\overline{\theta}_n = \frac{1}{n+1} \sum_{i=1}^{n} X_i \t
 		&= 2\int_{\R} \left( 1 - \frac{\sqrt{\frac{n+1}{2\pi}} \exp\left(-\frac{n+1}{2}(\theta - \hat{\theta} + \hat{\theta} - \hat{\theta})^2\right) }{\sqrt{\frac{n}{2\pi}} \exp(-\frac{n}{2}(\theta - \overline{\theta})^2) } \right)^{+} \sqrt{\frac{n}{2\pi}} \exp\left( -\frac{n}{2}(\theta - \hat{\theta})^2 \right) d\theta  \\
 		&= 2\int_{\R} \left( 1 - \sqrt{\frac{n+1}{n}} \frac{\exp\left( - \frac{n+1}{2n} (v + \sqrt{n} (\hat{\theta} - \theta))^2) \right) }{\exp(-\frac{1}{2}v^2) } \right)^{+} \frac{1}{\sqrt{2\pi} } e^{-\frac{v^2}{2}} dv
 	\end{align*}
-	Where we substituted $v = \sqrt{n} (\theta - \hat{\theta})$. Fixing  $\omega \in \Omega_0 \subseteq \Omega$ such that $\mathbb{P}\left( \Omega_0 \right) = 1$, so $\sqrt{n} (\hat{\theta}(\omega) - \overline{\theta}(\omega) \underset{n\to \infty}{\to } 0 $ (as scalars), note that for $Z\ge 0$, $(1-Z)^{+} \in [0,1]$, so that by integrability of $e^{-\frac{v^2}{2}}$ on $\R$, an application of the dominated convergence theorem implies that the whole last integral tends to $0$ $\forall \omega \in \Omega_0$. Since $\mathbb{P}\left( \Omega_0 \right) = 1$, the limit holds almost surely.
+	Where we substituted $v = \sqrt{n} (\theta - \hat{\theta})$. Fixing  $\omega \in \Omega_0 \subseteq \Omega$ such that $P\left( \Omega_0 \right) = 1$, so $\sqrt{n} (\hat{\theta}(\omega) - \overline{\theta}(\omega) \underset{n\to \infty}{\to } 0 $ (as scalars), note that for $Z\ge 0$, $(1-Z)^{+} \in [0,1]$, so that by integrability of $e^{-\frac{v^2}{2}}$ on $\R$, an application of the dominated convergence theorem implies that the whole last integral tends to $0$ $\forall \omega \in \Omega_0$. Since $P\left( \Omega_0 \right) = 1$, the limit holds almost surely.
 \end{proof}
 
-The last theorem remains true when $\hat{\theta}_{MLE}$ is replaced by any estimator $\overline{\theta}_n$ s,t $\sqrt{n} (\hat{\theta}_{MLE} - \overline{\theta}_n) \underset{n\to \infty}{\to } 0 P_{\theta_0}^{\N}$-a.s, typically permitting the alternative centring at $\overline{\theta} = \E^{\pi} \theta(X_1, \ldots, X_n)$. One important consequence of the BvM-theorem is that certain posterior \textit{credible sets} are in fact proper (asymptotic) frequentist confidence sets.
+The last theorem remains true when $\hat{\theta}_{MLE}$ is replaced by any estimator $\overline{\theta}_n$ s.t.
+\[
+	\sqrt{n} (\hat{\theta}_{MLE} - \overline{\theta}_n) \underset{n\to \infty}{\to } 0 \;P_{\theta_0}^{\N}\text{-a.s}
+,\] typically permitting the alternative centring at $\overline{\theta} = \E^{\pi} \theta(X_1, \ldots, X_n)$. One important consequence of the BvM-theorem is that certain posterior \textit{credible sets} are in fact proper (asymptotic) frequentist confidence sets.
 
-For instance, consider $C_n = \{\theta : |\theta - \hat{\theta}_{MLE} \le \frac{R_n}{\sqrt{r} }\} $, where $R_n$ are random quantile constants chosen s.t $\prod (C_n | X_1,\ldots,X_n) = 1- \alpha, 0 < \alpha < 1$. Recall $\hat{\phi}_n$ was the pdf of $N(\hat{\theta}_{MLE}, \frac{1}{n}I(\theta_0)^{-1})$distribution, and defined further $\phi_0$ to be the pdf of $Z\sim N(0, I(\theta)^{-1})$. We can define $\Phi(t) = \mathbb{P}\left( |Z| \le t \right) = \int_{-t}^{t} \phi_0 (v) dv$ , which is strictly increasing in t, and also continuously differentiable, hence admits a continuous inverse $\Phi ^{-1} : [0,1] \to \R$.
+For instance, consider $C_n = \{\theta : |\theta - \hat{\theta}_{MLE}| \le \frac{R_n}{\sqrt{n} }\} $, where $R_n$ are random quantile constants chosen s.t $\prod (C_n | X_1,\ldots,X_n) = 1- \alpha, 0 < \alpha < 1$. Recall $\hat{\phi}_n$ was the pdf of $N(\hat{\theta}_{MLE}, \frac{1}{n}I(\theta_0)^{-1})$distribution, and defined further $\phi_0$ to be the pdf of $Z\sim N(0, I(\theta)^{-1})$. We can define $\Phi(t) = P\left( |Z| \le t \right) = \int_{-t}^{t} \phi_0 (v) dv$ , which is strictly increasing in t, and also continuously differentiable, hence admits a continuous inverse $\Phi ^{-1} : [0,1] \to \R$.
 
 Now, we can write $\Phi (R_n) = \int_{-R_n}^{R_n} \phi_0(v)dv$, and substituting $v = \sqrt{n} (\theta - \hat{\theta})$ so that $-R_n \le v \le R_n$ becomes the set $C_n$ and since $v ~ N(0, I(\theta_0)^{-1}) \iff \sqrt{n} (\theta - \hat{\theta}) \sim N(\hat{\theta}, \frac{1}{n}I(\theta_0)^{-1})$, the last integral gives
 
@@ -1071,7 +1086,7 @@ Now, we can write $\Phi (R_n) = \int_{-R_n}^{R_n} \phi_0(v)dv$, and substituting
 	\Phi(R_n) &= \int_{C_n} \hat{\phi}_n (\theta) d\theta \\
 	&= \int_{C_n} (\hat{\phi}_n(\theta) - \pi_n(\theta)) d\theta + \int_{C_n} \pi_n(\theta) \\
 	&= \pi (C_n |X_1, \ldots, X_n) \text{ by BvM theorem} \\
-	= 1 - \alpha \forall n
+	= 1 - \alpha \; \forall n
 \end{align*} 
 
 So by the BvM theorem we know $\Phi(R_n) \underset{n\to \infty}{\to } 1 - \alpha$ a.s under $P_{\theta_0}$, hence applying the continuous mapping theorem to $\Phi ^{-1}$, we deduce
@@ -1082,21 +1097,21 @@ So by the BvM theorem we know $\Phi(R_n) \underset{n\to \infty}{\to } 1 - \alpha
 In particular, by Slutsky's lemma and asymptotic normality of $\hat{\theta}_{MLE}$, we have 
 
 \[
-	\frac{\Phi ^{-1} (1- \alpha}{R_n}\sqrt{n} (\hat{\theta_{MLE}} - \theta_0) \underset{n\to \infty}{\to ^{d}} N(0, I(\theta_0)^{-1}) \text{ under } P_{\theta_0}
+	\frac{\Phi ^{-1} (1- \alpha)}{R_n}\sqrt{n} (\hat{\theta}_{MLE} - \theta_0) \underset{n\to \infty}{\to ^{d}} N(0, I(\theta_0)^{-1}) \text{ under } P_{\theta_0}
 \] 
 
 Now,
 \begin{align*}
 	P_{\theta_0}^{\N} (\theta_0 \in C_n) &= P_{\theta_0}^{\N} \left( |\theta_0 - \hat{\theta}_{MLE} | \le \frac{R_n}{\sqrt{n} }\right) \\
 	&= P_{\theta_0}^{\N} \left( \frac{\Phi ^{-1} (1-\alpha)}{R_n} \sqrt{n} |\hat{\theta}_{MLE} - \theta_0| \le \Phi ^{-1}(1-\alpha)  \right)  \\
-	&\underset{n\to \infty}{\to} \mathbb{P}\left( |Z| \le \Phi ^{-1} (1- \alpha) \right) \text{ by $(\dagger)$ and continuous mapping theorem on $|\cdot |$ }\\
+	&\underset{n\to \infty}{\to} P\left( |Z| \le \Phi ^{-1} (1- \alpha) \right) \text{ by $(\dagger)$ and continuous mapping theorem on $|\cdot |$ }\\
 	&= \Phi (\Phi ^{-1} (1-\alpha)) \\
 	&= 1 - \alpha
 \end{align*}
 
 Replacing $|\cdot |$ by $\|\cdot \|$, the argument extends to parameter spaces $\Theta \subseteq \R^{p}$.
 
-We conclude that credible sets computed for priors $\pi$ with positive continuous density functions on $\Theta$ give rise to asymptotically exact level $1- \alpha$ (frequentist) confidence regions. [A version for discrete priors can be proved as well]
+We conclude that credible sets computed for priors $\pi$ with positive continuous density functions on $\Theta$ give rise to asymptotically exact level $1- \alpha$ (frequentist) confidence regions. (A version for discrete priors can be proved as well)
 
 \section{Decision Theory}
 
@@ -1112,11 +1127,12 @@ Consider a (single) observation $X$ from some statistical model $\{f\left( \cdot
 
 For general decision problems, we consider \textit{loss functions}
 \[
-	L: \mathcal{A} x \Theta \to [0, \infty)
+	L: \mathcal{A} \times  \Theta \to [0, \infty)
 \] 
 measuring the error $L(\delta(X), \theta)$ incurred by  $\delta(X)$ for observation $X$ and parameter value $\theta$.
 
 \begin{eg}
+
 	\begin{enumerate}[label=\roman*)]
 		\item (Testing) $L(a,\theta) = 1_{\{a \neq  a(\theta)\} }$, where $a(\theta)$ is the index in $\mathcal{A}$ corresponding to $\theta$.
 		\item (Estimation) $\Theta \subset \R$, absolute loss $L(a,\theta) = |a-\theta|$, squared loss $L(a,\theta) = (a-\theta)^2$
@@ -1275,10 +1291,10 @@ A prior $\lambda$ on $\Theta$ is called least favourable (for a decision problem
 			\begin{align*}
 				R_{\pi'}(\delta_{\pi'}) &\le R_{\pi'}(\delta_{\pi}) \\
 				&= \int_{\Theta} R(\delta_{\pi}, \theta) \pi'(\theta)d\theta \\
-				&\le sup_{\theta \in \Theta} R(\delta_{\pi},\theta) \\
+				&\le \sup_{\theta \in \Theta} R(\delta_{\pi},\theta) \\
 				&= R_{\pi}(\delta_{\pi}) \text{ by assumption}
 			\end{align*}
-			]Hence $\pi$ maximises the $\pi$-risk of the $\pi$-Bayes rule among all $\pi$ 's, i.e is \textit{least favourable}.
+			Hence $\pi$ maximises the $\pi$-risk of the $\pi$-Bayes rule among all $\pi$ 's, i.e is \textit{least favourable}.
 	\end{enumerate}
 
 	The corollary also follows, since for $\delta_{\pi}$ with risk constant in $\theta$ we must have equality.
@@ -1351,13 +1367,13 @@ However, for $p\ge 3$ we have\ldots
 	\begin{align*}
 		R(\delta,\theta) &= \E_{\theta} [(\delta - \theta)^2] \\
 		&= \E_{\theta} [(\delta - \E_{\theta} \delta)^2] + (\E_{\theta} \delta - \theta)^2 + \underbrace{\E_{\theta}[\delta -\E_{\theta}\delta ]}_{=0} \cdot (\E_{\theta}\delta - \theta)\\
-		&= var_{\theta}(\delta) + B^2(\theta)
+		&= \var_{\theta}(\delta) + B^2(\theta)
 	\end{align*}
 	for $B(\theta) = \E_{\theta}\delta - \theta$
 
 	Recalling the Cramer-Rao inequality for biased estimators, we know that
 	\[
-	var_{\theta}\delta(X) \ge  \frac{(\frac{d}{d\theta} \E_{\theta}\delta)^2}{nI(\theta)} = \frac{(1+B'(\theta))^2}{n}
+	\var_{\theta}\delta(X) \ge  \frac{(\frac{d}{d\theta} \E_{\theta}\delta)^2}{nI(\theta)} = \frac{(1+B'(\theta))^2}{n}
 	,\]
 	by definition of $B$ and $I(\theta)$. Hence, if  $\delta $ dominates $\overline{X}_n$, then necessarily
 	\[
@@ -1408,7 +1424,7 @@ We now show that the risk of $\delta^{JS}$ dominates the quadratic risk
 
 \begin{lemma} (Stein)
 
-	Let $X \sim N(\theta, 1)$ and let $g: \R \to \R$ be differentiable and such that $\E_{\theta} g(X) < inf$. Then $\forall \theta \in \R$,
+	Let $X \sim N(\theta, 1)$ and let $g: \R \to \R$ be differentiable and such that $\E_{\theta} g(X) < \infty$. Then $\forall \theta \in \R$,
 	\[
 		\E_{\theta} [g(X)(X-\theta)] = \E_{\theta} g'(X)
 	\] 
@@ -1420,7 +1436,7 @@ We now show that the risk of $\delta^{JS}$ dominates the quadratic risk
 		\E_{\theta} [g(X)(X-\theta)] &= \frac{1}{\sqrt{2\pi} } \int_{\R} g(x)(x-\theta) e^{-\frac{1}{2} (x-\theta)^2} dx\\
 			&= -\frac{1}{\sqrt{2\pi} } \int_{\R} g(x) \frac{d}{dx} e^{- \frac{1}{2} (x-\theta)^2} dx \\
 			&= \left[ -\frac{1}{\sqrt{2\pi} } g(x) e^{- \frac{1}{2} (x-\theta)^2} \right]_{-\infty}^{\infty} + \frac{1}{\sqrt{2\pi} } \int_{\R} g'(x) e^{- \frac{1}{2} (x-\theta)^2}\\
-			&= \E_{\theta} g'(X) \text{, as $g$ has finite expectation} 
+			&= \E_{\theta} g'(X) \text{, as $g$ has finite expectation and so vanishes at infinity} 
 	\end{align*}
 \end{proof}
 
@@ -1434,9 +1450,9 @@ We now show that the risk of $\delta^{JS}$ dominates the quadratic risk
 
 Now, the last expectation can be written as
 \[
-	\E_{\theta} \sum_{j=1}^{p} \E_{j} \left[ \frac{(X_j - \theta_j}{\|X\|^2} \right] 
+	\E_{\theta} \sum_{j=1}^{p} \E_{j} \left[ \frac{(X_j - \theta_j)}{\|X\|^2} \right] 
 ,\]
-where $\E_j = \E [\cdot | X_{(-j)}]$, with $X_{(-j)} = \{X_i : -i \neq j\} $. The $j ^{th}$ expectation can be written as $\E_j [(X_j - \theta_j) g(X_j)]$, where $g(y) = \frac{y}{y^2+1}$, $a = \sum_{i\neq j} X_i^2$, which (since $\mathbb{P}\left( a=0 \right) =0)$ is a bounded, differentiable function with 
+where $\E_j = \E [\cdot | X_{(-j)}]$, with $X_{(-j)} = \{X_i : -i \neq j\} $. The $j ^{th}$ expectation can be written as $\E_j [(X_j - \theta_j) g(X_j)]$, where $g(y) = \frac{y}{y^2+1}$, $a = \sum_{i\neq j} X_i^2$, which (since $P\left( a=0 \right) =0)$ is a bounded, differentiable function with 
 \[
 	g'(y) = \frac{y^2+a-2y^2}{(y^2+a)^2}
 ,\] which is also bounded on $\R$.
@@ -1481,7 +1497,7 @@ where here $\phi$ is our $N(\theta, I_p )$ pdf.
 \item
 	Other shrinkage factors are also permitted, but among the decision rules
 	\[
-	\delta^{c} := \left(1-c \frac{p-2}{\|X\|^2}\right) X, 0<c
+	\delta^{c} := \left(1-c \frac{p-2}{\|X\|^2}\right) X, \, 0<c<2
 	,\] the choice $c=1$ is optimal.
 
 \item While $\delta^{JS}$ is attractive from a decision-theoretic perspective, its use for inference (confidence regions and tests) is less clear, as its distributional properties are more involved than those of $\delta_{MLE}(X) = X \sim N(\theta, I_p)$.
@@ -1495,7 +1511,7 @@ For two pdf/pmfs $f_1, f_2$ defined on $\chi$, consider observing X drawn from $
 
 A \textit{classification rule} $\delta = \delta_{R}$ is given by a region $R\subseteq \chi (\subseteq \R^{d})$ such that
 	\[
-		\delta_R(X) = \left{ \begin{cases}
+		\delta_R(X) = \begin{cases}
 			1 \text{ if } X\in R \\
 			2 \text{ if } X \in R^{c}
 		\end{cases} 
@@ -1503,15 +1519,15 @@ A \textit{classification rule} $\delta = \delta_{R}$ is given by a region $R\sub
 
 	The classification errors are given by 
 \[
-	\mathbb{P}\left( 2| 1, R) \right) = P_{f_1}(X\in R^{c} = \int_{R^{c}} f_1(x) dx
+	P\left( 2| 1, R) \right) = P_{f_1}(X\in R^{c} = \int_{R^{c}} f_1(x) dx
 ,\] and by
 \[
-	\mathbb{P}\left( 1|2, R \right) = p_{f_2}(x\in R) = \int_{R} f_2(x) dx
+	P\left( 1|2, R \right) = p_{f_2}(x\in R) = \int_{R} f_2(x) dx
 \] 
 
 The $\pi$-Bayes risk now becomes
 \[
-	R_{\pi}(\delta_{R}) = \mathbb{P}\left(1|2, R \right) \pi_2) + \mathbb{P}\left( 2|1,R \right) \pi(1)
+	R_{\pi}(\delta_{R}) = P\left(1|2, R \right) \pi_2) + P\left( 2|1,R \right) \pi(1)
 ,\] where $\pi$ is a fixed 'prior' sampling the probabilities $q_1, q_2$. The Bayes factors are given by
 \[
 	\frac{\pi(1|X=x)}{\pi(2|X=x)} = \frac{f_1(x) q_1}{f_2(x)q_2}
@@ -1535,12 +1551,12 @@ The $\pi$-Bayes risk now becomes
 	\[ 
 		qf_1(x) - (1-q)f_2(x) < 0 \iff \frac{f_1(x)}{f_2(x)} < 1-\frac{q}{q}
 	\]
-(Uniqueness since $\mathbb{P}\left( \frac{f_1(x)}{f_2(x)} = \frac{1-q}{q} \right) = 0$. Thus $S = R$ and the first claim follows. Since unique Bayes rules are admissible, the result is proved. 
+	(Uniqueness since $P\left( \frac{f_1(x)}{f_2(x)} = \frac{1-q}{q} \right) = 0$). Thus $S = R$ and the first claim follows. Since unique Bayes rules are admissible, the result is proved. 
 \end{proof}
 
 Similarly, one can find minimax classifiers $\delta_{R}$ by choosing $R$ s.t. 
 \[
-	q \mathbb{P}\left( 2|1,R \right) + (1-q)\mathbb{P}\left( 1|2,R \right) = \text{ const in } q \in [0,1]
+	q P\left( 2|1,R \right) + (1-q)P\left( 1|2,R \right) = \text{ const in } q \in [0,1]
 \] 
 For the case where $f_i \sim N_p(\mu_i, \Sigma_i)$, those classifiers can be explicitly computed in dependence of the \textit{discriminant function} $D = X^{T} \Sigma (\mu_1 - \mu_2)$ (see ex sheet).
 
@@ -1548,7 +1564,7 @@ For the case where $f_i \sim N_p(\mu_i, \Sigma_i)$, those classifiers can be exp
 
 \subsection{Basic Multivariate Analysis}
 
-Consider random vectors $X, Y$, here assumed to be from $N(\mu_x, \sigma_x), N(\mu_y, \sigma_y)$. [The assumption of normality is not required if we instead assume that we can work to just the order of the first two moments]. Then their correlation is $\rho_{x,y} = \frac{Cov(X,Y)}{\sqrt{VarX}\sqrt{VarY}}$. For $X_1, \ldots, X_n;Y_1,\ldots,Y_n$ jointly iid, this can be estimated by the empirical correlation
+Consider random vectors $X, Y$, here assumed to be from $N(\mu_x, \sigma_x), N(\mu_y, \sigma_y)$. [The assumption of normality is not required if we instead assume that we can work to just the order of the first two moments]. Then their correlation is $\rho_{x,y} = \frac{\cov(X,Y)}{\sqrt{VarX}\sqrt{VarY}}$. For $X_1, \ldots, X_n;Y_1,\ldots,Y_n$ jointly iid, this can be estimated by the empirical correlation
 \[
 	\hat{\rho}_{x,y} = \frac{\frac{1}{n}\sum_{i=1}^{n} (X_i - \overline{X}_n)(Y_i - \overline{Y}_n)}{\sqrt{S_{n,x}} \sqrt{S_{n,y}} }
 ,\] where $S_{n,x} = \frac{1}{n} \sum_{i=1}^{n}(X_i - \overline{X}_n)^2$ etc. 
@@ -1557,7 +1573,7 @@ The finite sample distribution of $\hat{\rho}_{x,y}$ can in principle be compute
 
 Alternatively, we can regard $\rho_{x,y} = \Phi(\theta)$, with samples from $N\left(\begin{pmatrix} \mu_{x} \\ \mu_y \end{pmatrix}, \Sigma\right) $, where $\theta = \left( \begin{pmatrix} \mu_x \\ \mu_y \end{pmatrix}, \Sigma  \right) $. 
 
-One shows that $\hat{\rho} = \Phi(\hat{\theta}_{MLE})$, and by the general theory developed earlier (plus Delta method for $\Phi $), we deduce $\sqrt{n} (\hat{\rho}_{x,y} - \rho) \underset{n\to \infty}{\to ^{d}} N(0, Var(\Phi, \theta))$ for some asymptotic variance $Var(\Phi, \theta)$
+One shows that $\hat{\rho} = \Phi(\hat{\theta}_{MLE})$, and by the general theory developed earlier (plus Delta method for $\Phi $), we deduce $\sqrt{n} (\hat{\rho}_{x,y} - \rho) \underset{n\to \infty}{\to ^{d}} N(0, \var(\Phi, \theta))$ for some asymptotic variance $\var(\Phi, \theta)$
 
 More generally, consider a partitioned random vector $X \in \R^{p}$ 
 \[
@@ -1568,16 +1584,16 @@ One further defines the partial correlations of $X_i, X_j, i\neq j, i,j \le q$, 
 \[
 	\rho_{ij\cdot 2} = \frac{\left(\Sigma_{11\cdot 2}\right)_{ij}}{\sqrt{\left(\Sigma_{11\cdot 2}\right)_{ii} \left( \Sigma_{11\cdot 2} \right)_{jj} } }
 \] 
-Here likewise, the plug-in MLE $\hat{\rho}_{ij\cdot 2}$ equals the 'empirical partial correlation coefficient' $\Phi(\hat{\Sigma}_{MLE})$, where $\left( \hat{\Sigma} \right)_{ij} = \frac{1}{n}\sum_{k=1}^{n} (X_k X_k^{T})_{ij}$, where $\Phi$ is again a smooth map on $\Theta = \{\Sigma \text{ positive definite}\} $
+Here likewise, the plug-in MLE $\hat{\rho}_{ij\cdot 2}$ equals the 'empirical partial correlation coefficient' $\Phi(\hat{\Sigma}_{MLE})$, where $\hat{\Sigma}_{ij} = \frac{1}{n}\sum_{k=1}^{n} (X_k X_k^{T})_{ij}$, where $\Phi$ is again a smooth map on $\Theta = \{\Sigma \text{ positive definite}\} $
 
-The previous theory again implies that $\sqrt{n}(\hat{\rho}_{ij\cdot 2} - \rho_{ij\cdot 2}) \underset{n\to \infty}{\to ^{d}} N(0,?)$
+The previous theory again implies that $\sqrt{n}(\hat{\rho}_{ij\cdot 2} - \rho_{ij\cdot 2}) \underset{n\to \infty}{\to ^{d}} N(0,\cdot )$
 
 Finally, consider $X \sim N(0, \Sigma)$, again with $\Sigma$ a $p\times p$ positive definite symmetric. Then there exists an orthonormal matrix $T$ s.t.
 \[
 	\Sigma = T^{T}\Lambda T \text{, } \Lambda = diag(\lambda_1, \ldots, \lambda_p), \lambda_1 >  \lambda_2 > \ldots > \lambda_p > 0.
 \] 
 
-In this case, we can define $U = TX \sim N(0, T\Sigma T^{T}) = N(0, \Lambda)$, and the entries of the random vector $U\in \R^{p}$ are called the principal components corresponding to the principle subspaces spanned by the column vectors of T (eigenvectors of  $\Sigma)$, arranged in decreasing order of 'explained variance'. Here again, if $\left( \hat{\Sigma} \right)_{ij} = \frac{1}{n} \sum_{k=1}^{n}(X_m, X_m^{T})_{ij} $, then the plug-in MLE will give asymptotically efficient estimators $ \lambda_i, u_i$ provided that $\Sigma$ has no multiplicity in its eigenvalues. 
+In this case, we can define $U = TX \sim N(0, T\Sigma T^{T}) = N(0, \Lambda)$, and the entries of the random vector $U\in \R^{p}$ are called the principal components corresponding to the principle subspaces spanned by the column vectors of T (eigenvectors of  $\Sigma)$, arranged in decreasing order of 'explained variance'. Here again, if $\hat{\Sigma}_{ij} = \frac{1}{n} \sum_{k=1}^{n}(X_m X_m^{T})_{ij} $, then the plug-in MLE will give asymptotically efficient estimators $ \lambda_i, u_i$ provided that $\Sigma$ has no multiplicity in its eigenvalues. 
 
 \subsection{Monte Carlo Methods}
 
@@ -1585,7 +1601,7 @@ We will discuss algorithms to generate random samples from given probability dis
 
 One can generate, with a pseudorandom number generator (see Computer Science), random samples $U_1, \ldots, U_N \stackrel{iid}{\sim} U[0,1], N \in \N$. If $F$ is a cdf of some r.v. $X$, with quantile transform 
 \[
-	F^{-}(u) = inf \{x_i : u \le F(x)\} 
+	F^{-}(u) = \inf \{x_i : u \le F(x)\} 
 ,\]
 then one shows that $X_i^{\ast} = F^{-} (U_i)$ are iid r.v's with distribution $F$
 
@@ -1616,16 +1632,16 @@ by the MC-average
 
 A discrete time Markov chain $(\vartheta_m : m\in \N)$ started at $\vartheta_0$ is a sequence of random variables whose 'transition probabilities' are of the form
 \begin{align*}
-\mathbb{P}\left( \vartheta_m \in \mathcal{B} | \vartheta_{m-1}, \vartheta_{m-2}, \ldots \right) &= \mathbb{P}\left( \vartheta_m \in \mathcal{B} | \vartheta_{m-1} = t \right) \\
-&= \mathbb{P}\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 = t \right) \\
-&= K(t,\mathcal{B}) \\
+P\left( \vartheta_m \in \mathcal{B} | \vartheta_{m-1}, \vartheta_{m-2}, \ldots \right) &= P\left( \vartheta_m \in \mathcal{B} | \vartheta_{m-1} = t \right) \\
+&= P\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 = t \right) \\
+&= K(t,\mathcal{B})
 \end{align*}
 where $\mathcal{B} \subseteq \Theta$ (meas), and where $K$ is a \textit{Markov kernel} s.t. $K(t, \cdot )$ is a pdf on $\Theta$, the state space of $(\vartheta_m)$.
 
 A pdf/pmf  $\mu$ on $\Theta$ is called invariant for $K$ if
 \begin{align*}
-	\int_{\Theta} K(t,B) \mu(t) dt &= \int_{\Theta} \mathbb{P}\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 = t \right) \mu(t) dt \\
-	&= \mu(t) \\
+	\int_{\Theta} K(t,B) \mu(t) dt &= \int_{\Theta} P\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 = t \right) \mu(t) dt \\
+	&= \mu(t)
 \end{align*}
 
 Under additional hypotheses (ergodicity of $(\vartheta_m)$), one shows that the distribution of  $\vartheta_m$ 'mixes towards' (converges to in some sense) its invariant measure $\mu$, and we can then use MC-averages $(\vartheta_m : m=1,\ldots,N)$ to approximate $\E_{\mu} g(X)$ by $\frac{1}{N} \sum_{i=1}^{N}g(\vartheta_m)$
@@ -1640,7 +1656,7 @@ An important MCMC method, known as the \textit{Metropolis-Hastings} algorithm, r
 \end{enumerate}
 where
 \[         
-	\rho(t,s) = min\{ 1,  \frac{\mu(s)}{\mu(t)} \frac{q(t|s)}{q(s|t)} \} 
+	\rho(t,s) = \min\left\{ 1,  \frac{\mu(s)}{\mu(t)} \frac{q(t|s)}{q(s|t)} \right\} 
 ,\]        
 and $\mu$ is a prescribed pdf/pmf (in fact our invariant measure).
 
@@ -1659,16 +1675,16 @@ and $\mu$ is a prescribed pdf/pmf (in fact our invariant measure).
 
 	 We have that
 	 \begin{align*}
-		 \rho(t,s)q(s|t)\mu(t) &= min\left( q(s|t)\mu(t), \frac{\mu(s)}{\mu(t)} \frac{q(t|s)}{q(s|t)} q(s|t)\mu(t) \right)  \\
-		 &= min\left( \mu(t)q(s|t), \mu(s) q(t|s) \right)  \\
-		 &= min\left( \frac{\mu(t)}{\mu(s)} \frac{q(s|t)}{q(t|s)} q(t|s)\mu(s), q(t|s)\mu(s) \right)  \\ 
+		 \rho(t,s)q(s|t)\mu(t) &= \min\left( q(s|t)\mu(t), \frac{\mu(s)}{\mu(t)} \frac{q(t|s)}{q(s|t)} q(s|t)\mu(t) \right)  \\
+		 &= \min\left( \mu(t)q(s|t), \mu(s) q(t|s) \right)  \\
+		 &= \min\left( \frac{\mu(t)}{\mu(s)} \frac{q(s|t)}{q(t|s)} q(t|s)\mu(s), q(t|s)\mu(s) \right)  \\ 
 		 &= \rho(s,t)q(t|s)\mu(s)
 	 \end{align*}
 	So our detailed balance conditions hold.
 
 	Then
 	\begin{align*}
-		\int_{\Theta} \mathbb{P}\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 =t \right) \mu(t) dt &= \int_{\Theta}\int_{\mathcal{B}} \rho(t,s)q(s|t)\mu(t) dsdt + \int_{\Theta}\int_{\mathcal{B}} (1-r(t))d\delta_{t}(s)\mu(t)dt \\
+		\int_{\Theta} P\left( \vartheta_1 \in \mathcal{B} | \vartheta_0 =t \right) \mu(t) dt &= \int_{\Theta}\int_{\mathcal{B}} \rho(t,s)q(s|t)\mu(t) dsdt + \int_{\Theta}\int_{\mathcal{B}} (1-r(t))d\delta_{t}(s)\mu(t)dt \\
 		&= \int_{\mathcal{B}}\int_{\Theta} \rho(s,t)q(t|s)\mu(s) dt ds + \int_{\Theta} 1_{\{t\in \mathcal{B}\} } (1-r(t))\mu(t) dt \\
 		&= \int_{\mathcal{B}} r(s) \mu(s) ds + \int_{\mathcal{B}} (1-r(t)) \mu(t) dt \\
 		&= \int_{\mathcal{B}} \mu(s) ds \\
@@ -1690,12 +1706,12 @@ If in the Metropolis-Hastings algorithm, we choose auxiliary densities $q(\cdot 
 	\item Set $\vartheta_{m+1} = \begin{cases}
 			S_m \text{ with probability } \rho(\vartheta_m, S_m) \\
 			\vartheta_m \text{ with probability } 1 - \rho(\vartheta_m, S_m)
-	\end{cases}$ 
-	where $\rho(\vartheta_m, S_m) = min(1, e^{l(S_m) - l(\vartheta_m)}$
+	\end{cases},$ 
+	where $\rho(\vartheta_m, S_m) = \min\{1, e^{l(S_m) - l(\vartheta_m)}\}$
 \end{enumerate}
-This is sometimes called  pCN (preconditioned Crank-Nicolson) algorithm.
+This is sometimes called a pCN (preconditioned Crank-Nicolson) algorithm.
 
-One shows (ex sheet) that an invariant (it is unique by P&M) measure of $(\vartheta_m: m \in \N)$ is given by $\pi(\cdot |X_1, \ldots, X_n)$ from our target density $\mu$. This is valid for any $\delta > 0$, and we can think of $\vartheta_m$ as a Gaussian random walk, which moves forward calibrated by a sequence of corresponding likelihood ratio tests between $\vartheta_m$ and $S_m$. This way we can use Monte Carlo samples $(\vartheta_m : m=M_0, \ldots, M_0+M)$ where $M_0$ is some turn after initialisation at $\vartheta_0$, to approximate the posterior mean $\E [\theta |X_1,\ldots,X_n]$ by $\frac{1}{M}\sum_{m=M_0+1}^{M_0+M} \vartheta_m$, and likewise the posterior quantiles $R_n$ by empirical quantiles of the chain. In particular, we can approximately compute credible sets 
+One shows (ex sheet) that an invariant (it is unique by P\&M) measure of $(\vartheta_m: m \in \N)$ is given by $\pi(\cdot |X_1, \ldots, X_n)$ from our target density $\mu$. This is valid for any $\delta > 0$, and we can think of $\vartheta_m$ as a Gaussian random walk, which moves forward calibrated by a sequence of corresponding likelihood ratio tests between $\vartheta_m$ and $S_m$. This way we can use Monte Carlo samples $(\vartheta_m : m=M_0, \ldots, M_0+M)$ where $M_0$ is some turn after initialisation at $\vartheta_0$, to approximate the posterior mean $\E [\theta |X_1,\ldots,X_n]$ by $\frac{1}{M}\sum_{m=M_0+1}^{M_0+M} \vartheta_m$, and likewise the posterior quantiles $R_n$ by empirical quantiles of the chain. In particular, we can approximately compute credible sets 
 \[
 	C_n = \{\theta : \|\theta - \E [\theta|X_1,\ldots,X_n]\| \le R_n\}, \pi(C_n|X_1,\ldots,X_n) = 1-\alpha
 ,\] which by the Bernstein-von Mises theorem are approximate $1-\alpha$ confidence sets, without requiring estimation of $I(\theta)^{-1}$.
@@ -1712,7 +1728,7 @@ Initialise $X= x_0$, then draw $Y_1 \sim f_{Y|X}(\cdot |x_0)$, then $X_1 \sim f_
 
 One shows that $(X_m, Y_m), X_m, Y_m$ form Markov chains with invariant densities equal to $f_{X,Y}, f_{X|Y}, f_{Y|X}$ respectively.
 
-\section{Bootstrap Methods}
+\subsection{Bootstrap Methods}
 
 There are non-Bayesian ways to bootstrap the 'asymptotic' quantiles of confidence sets, known often as 'bootstrap methods', the first of which (due to B. Efron) we will now study.
 
@@ -1730,7 +1746,7 @@ and so by linearity $\E \overline{X_n^{b}} = \overline{X}_n$
 
 The idea is to use the 'known' distribution of $\overline{X_{n}^{b}} - \overline{X}_n$ as a proxy for the unknown distribution of $\overline{X}_n - \mu, \mu = \E X_i$.
 
-We can calculate \texit{roots} $R_n^{b} = R_n^{b}(X_1,\ldots,X_n)$ such that
+We can calculate \textit{roots} $R_n^{b} = R_n^{b}(X_1,\ldots,X_n)$ such that
 \[
 	\P_n\left(\omega \in \chi_n^{b} : | \overline{X_n^{b}}(\omega) - \overline{X}_n(\omega)| \le \frac{R_n}{\sqrt{n} }\right) = 1- \alpha, 0 < \alpha < 1
 \] by evaluating the quantiles of the empirical approximation  of $\P_n(\cdot )$ obtained from repeated bootstrap sampling (via Monte Carlo). One then proposes a bootstrap confidence set
@@ -1771,10 +1787,10 @@ We now prove 'consistency' of the bootstrap of the mean $\overline{X}_n$.
 	\end{enumerate}
 \end{remark}
 
-\begin{proof} 
+\begin{proof} (Non-examinable)
 	We start with a fact on convergence in distribution:
 	
-	Recall that $Z_n \to ^{d} Z$ if $\mathbb{P}\left( Z_n \le x \right) \underset{n\to \infty}{\to } \mathbb{P}\left( Z \le x \right)$ when the limit is continuous at x. 
+	Recall that $Z_n \to ^{d} Z$ if $P\left( Z_n \le x \right) \underset{n\to \infty}{\to } P\left( Z \le x \right)$ when the limit is continuous at x. 
 
 	\begin{lemma}
 		Suppose $F_n, F$ are cdf's on $\R$, and $F$ is continuous on $\R$. If further  $F_n(x) \to F(x)$ $\forall x \in \R$, then 
@@ -1788,13 +1804,13 @@ We now prove 'consistency' of the bootstrap of the mean $\overline{X}_n$.
 	\begin{proof}
 		Since F is continuous, it takes $\R$ onto $[0,1]$. Thus 
 		\[
-			\forall k \in \N$, there exist points $-\infty = x_0 < x_1 < \ldots < x_n = \infty
-		\], s.t. $F(x_i) = \frac{i}{k}$, $i_0,\ldots,k$.
+			\forall k \in \N, \text{there exist points} -\infty = x_0 < x_1 < \ldots < x_n = \infty
+		,\] s.t. $F(x_i) = \frac{i}{k}$, $i_0,\ldots,k$.
 
 		Now let $\epsilon > 0$ and choose $k > \frac{2}{\epsilon}$, then for $x \in [x_i, x_{i+1}]$, we can write
 		\begin{align*}
 			F_n(x) - F(X) &\le  F(x_{i+1}) - F(x_i) \\
-				      &= F_n(x_{i+1}) = F(x_{i+1}) + \frac{1}{k} \\
+				      &= F_n(x_{i+1}) - F(x_{i+1}) + \frac{1}{k} \\
 		\end{align*}
 		
 		Likewise,
@@ -1815,6 +1831,146 @@ We now prove 'consistency' of the bootstrap of the mean $\overline{X}_n$.
 		 \sqrt{n}\left( \frac{1}{n} \sum_{j=1}^{n} X_{nj}^{b} - \E X_{nj}^{b} \right) \to ^{d} N(0, \sigma^2)  
 	\]
 	on an event of $P^{\N}$-probability one. 
+
+	\begin{prop} (CLT for triangular arrays)
+		
+		For each $n \in \N$, let $(Z_{n,i} : i = 1,\ldots,n)$ be iid r.v's with finite variance s.t.
+		\begin{enumerate}
+			\item $\forall \delta > 0 (\delta = \frac{1}{m}, m \in \N \text{ actually suffices})$, \[
+					n P\left( |Z_{n1}| > \sqrt{n}\delta  \right) \underset{n\to \infty}{\to } 0
+	\]
+
+			\item $\var\left( Z_{n1} 1_{\{|Z_{n1}| \le \sqrt{n} \}}  \right) \underset{n\to \infty}{\to } \sigma^2$
+
+			\item $\E Z_{n1} 1_{\{|Z_{n1} > \sqrt{n} \}} \underset{n\to \infty}{\to } 0$
+		\end{enumerate}
+
+		Then $\sqrt{n} \left( \frac{1}{n} \sum_{i=1}^{n} Z_{ni} - \E Z_{ni} \right) \underset{n\to \infty}{\to ^{d}} N(0, \sigma^2)$
+	\end{prop}
+
+	We will apply this proposition to $Z_{ni} = X_{ni}^{b}$ under $\P_n = \P_{n}(\cdot |X_1,\ldots,X_n)$, and show that there exists a set $A \subseteq \R^{n}$ supporting $\{X_1,\ldots,X_n\} $ s.t. $\P^{\N}(A) = 1$, and on $A$, the conditions of the proposition are verified. Then on A, the previous lemma implies uniform convergence of the cdf's, and the theorem will be proved.
+
+	To check our conditions, a key observation is the following: For all $c>0$, the SLLN for $X_i$ 's (under $\P^{\N}$ ) implies that for $1\le p\le 2$,
+	\[
+	\frac{1}{n}\sum_{i=1}^{n}|X_i|^{p} 1_{\{|X_i| > c\} } \underset{n\to \infty}{\to^{a.s} } \E |X_1|^{p} 1_{\{|X_1| > c\} }
+	\]
+
+	Since the limit is the tail $\int_{|x|>c} |x|^{p} dP(x)$ of a convergent integral, it tends to $0$ as $c\to \infty$. Therefore, given $\epsilon >0$, we can choose $c = c_{\epsilon}$ large enough s.t. 
+	\[
+	\E |X_1|^{p} 1_{\{|X_1| > c\} } < \frac{\epsilon}{2}
+	\]
+
+	Therefore, for any $\delta > 0$, we can choose $n = n_{\delta, c} = n_{\delta, \epsilon}$ large enough s.t $\sqrt{n} \delta > c$ s.t.
+	\[
+	0 \le \frac{1}{n} \sum_{i=1}^{n}|X_i|^{p} 1_{\{|X_i| > \sqrt{n}\delta \} } \le \frac{1}{n} \sum_{i=1}^{n} |X_i|^{p} 1_{\{|X_i| > c\} } - \E |X_1|^{p}1_{\{|X_1| > c\} } + \E |X_1|^{p}1_{\{|X_1| > c\} } \le  \frac{\epsilon}{2} + \frac{\epsilon}{2}
+,\]
+where our last inequality comes from our choice of $c$ and our observation about the SLLN. So overall, we have that
+
+\[
+	(\dagger) \frac{1}{n}\sum_{i=1}^{n}|X_i|^{p} 1_{\{|X_i| > \sqrt{n} \delta\} } \underset{n\to \infty}{\to } 0 \; \P^{\N}-a.s, 1\le p\le 2, \delta > 0
+\]
+
+Denote $A^{\dagger}$ the event on $P^{\N}$-probability one, on which the last limit holds. Then on $A^{\dagger}$,
+
+\begin{enumerate}
+	\item \begin{align*}
+		n \P_n \left( |X_{n1}^{b}| > \sqrt{n} \delta \right) &= n \int_{|x|> \sqrt{n} \delta} \phi \P_n  \\
+		&= n \frac{1}{n} \sum_{i=1}^{n} 1_{\{ |X_i| > \sqrt{n} \delta\} } \text{ on } 1\le \frac{\delta^{-1}}{\sqrt{n} } |X_i| \\
+		&= \frac{\delta^{-2}}{n} \sum_{i=1}^{n} X_i^2 1_{\{|X_i| > \sqrt{n} \delta\} } \\
+		&\to 0 \text{ on } A^{\dagger} \text{ as } n\to \infty
+		\end{align*}
+
+\item[3.] $\sqrt{n} |\E X_{n1}^{b} 1_{\{|_{n1}^{b} > \sqrt{n} \} }  \le  \sqrt{n} \frac{1}{n}\sum_{i=1}^{n} |X_i| 1_{\{|X_i| > \sqrt{n} \} } \le \frac{1}{n} \sum_{i=1}^{n} X_i^2 1_{|X_i| > \sqrt{n} } \underset{n\to \infty}{\to }0 \text{ on } A^{\dagger} \text{ as before.}$
+
+\item[2.] \begin{align*}
+		\var \left( X_{n1}^{b} 1_{\{|X_{n1}^{b}| \le \sqrt{n} \} } \right) &= \E \left[X_{n1}^{b} 1_{\{|X_{n1}^{b}| \le \sqrt{n} \} }  \right]^2 - \left[ \E X_{n1}^{b} 1_{\{|X_{n1}^{b}| \le  \sqrt{n} \} } \right]^2   \\
+		&= \frac{1}{n} \sum_{i=1}^{n} X_i^{2} 1_{\{|X_i| \le \sqrt{n} \}} - \left( \frac{1}{n}\sum_{i=1}^{n} X_i 1_{\{|X_i| \le \sqrt{n} \} } \right)^2 \\
+		&= \left[ \frac{1}{n} \sum_{i=1}^{n} X_i^2 - \left(\frac{1}{n}\sum_{i=1}^{n}\right)^2 \right] - \frac{1}{n} \sum_{i=1}^{n} X_i^2 1_{\{|X_i| > \sqrt{n} \} } \\
+		&\text{  }- \left[ \left(\frac{1}{n} \sum_{i=1}^{n} X_i 1_{\{|X_i|\le \sqrt{n} \} }\right)^2 - \left( \frac{1}{n}\sum_{i=1}^{n} X_i \right)^2  \right] \\
+	\end{align*}
+
+	Now, our first term converges to $\sigma^2$ on an event $A$ of $\P^{\N}$-probability $1$ by the SLLN. Our second term converges to $0$ on $A^{\dagger}$, and writing our last term as $a_n^2 - b_n^2$, we have that  $a_n^2 - b_n^2 \to 0$ whenever $a_n - b_n \to 0$, as $a_n + b_n$ is stochastically bounded. Since $a_n - b_n \to 0$ on $A^{\dagger}$, we indeed have 
+	\[
+		\var \left( X_{n1}^{b} 1_{\{|X_{n1}^{b}| \le \sqrt{n} \} } \right) \to \sigma^2
+	\]
+\end{enumerate}
 \end{proof}
+
+\begin{remark}
+	One can show that Efron's bootstrap works \textit{iff} the CLT holds for the $X_i$'s. 
+\end{remark}
+
+\subsection{Non-Parametric Methods}
+
+For $X_1, \ldots, X_n$ iid from distribution $P$, the cdf $F$ is given by
+\[
+	F(t) = P(X\le t) = \int_{\R} 1_{(-\infty, t]}(x) dP(x), t\in \R
+\] 
+
+$F$ can be estimated unbiasedly by the empirical cdf
+\[
+	F_n(t) = \frac{1}{n} \sum_{i=1}^{n} 1_{(-\infty, t]}(X_i) = \frac{\#X_i's \le t}{n}
+\]
+
+\begin{thm} (Glivenko-Cantelli)
+	
+	For any $P$, as $n\to \infty$,
+	\[
+		\sup_{t \in \R} |F_n(t) - F(t)| \to 0 \; P^{\N}-a.s
+	\] 
+\end{thm}
+
+\begin{proof}
+	We can write 
+	\begin{align*}
+		\sup_{t \in \R} |F_n(t) - F(t)| &= \sup_{t \in \R} = \left| \frac{1}{n} \sum_{i=1}^{n}1_{(-\infty,t]} (X_i) - \E 1_{(-\infty,t]}(X) \right| \\
+		&= \sup_{h\in \mathcal{H}} \left| \frac{1}{n} \sum_{i=1}^{n} h(X_i) - \E h(X) \right|
+	\end{align*}
+	Where $\mathcal{H} = \{1_{(-\infty,t]}, t\in \R\} $, and we will use the ULLN from earlier, and need to check the '$\epsilon$-bracketing' condition. Thus, given  $\epsilon = \frac{1}{m}, m \in \N$, we can partition $[0,1]$ into $m$ parts such that, for $F$ continuous, and a corresponding dissection $\{t_i : i=0,\ldots,N(\epsilon)\} $ of $\R$, s.t.  $F(t_{i+1}) - F(t_i) = \frac{1}{m} = \epsilon$. Including $t_0 = -\infty$, $t_{N(\epsilon)} = \infty$ by convention, the family of brackets
+\[
+	\underline{h}_i(x) = 1_{(-\infty, t_{i}]}, \overline{h}_i(x) = 1_{(-\infty, t_{i+1}]}
+\] 
+covers $\mathcal{H}$, and s.t. $\E |\overline{h}_i(x) - \underline{h}_i(x)| = |F(t_{i+1}) - F(t_i)| \le \epsilon$, so that the result follows for continuous F.
+
+The general case follows similarly, noting that $F$ can only have at most $m$ jumps over $\frac{1}{m}$, and adding a bracket for any such jumps.
+\end{proof}
+
+A version of the CLT can be given as well. Let  $\mathcal{G}$ be a Brownian bridge on $[0,1]$, that is, a Brownian motion started at 0 and conditioned to equal  $0$ at $1$. A F-Brownian bridge is $\mathcal{G}_{F}(x) = \mathcal{G}(F(x)) $, $x\in \R$.
+
+\begin{thm} (Donsley, Doob, Kolmogorov)
+        
+        $\left( \sqrt{n} (F_n - F)(t): t \in \R \right) \to ^{d} \left( \mathcal{G}_F(t) : t \in \R \right) \text{ as } n\to \infty$ uniformly.
+\end{thm}
+
+
+\begin{thm} (Kolmogorov-Smirnoff)
+	For any continuous $F: \R \to [0,1]$, we have
+	\[
+		\sqrt{n} \sup_{t\in \R} |F_n(t)-F(t)| \to ^{d} \sup_{x\in[ 0,1]} \underbrace{|\mathcal{G}(x)|}_{\text{std B. bridge }} < \infty \text{ a.s}
+	\] 
+	i.e our worst case error is approximately the maximum of a standard Brownian bridge.
+\end{thm}
+
+The idea of the proof is as follows: One applies 'Donsley's' theorem and the continuous mapping theorem for $v \mapsto \sup_{t} |v(t)|$, and observe that for $\tilde{X}_i \stackrel{iid}{\sim} U(0,1)$, with cdf $\tilde{F}(t) = t$ to the effect that
+\begin{align*}
+	\sqrt{n}  \sup_{t\in [0,1]} \left| \frac{1}{n} \sum_{i=1}^{n} 1_{-\infty,t]}(\tilde{X}_i) - \tilde{F}(t) \right| \underset{n\to \infty}{\to ^{d}} \sup_{t\in [0,1]} |\mathcal{G}(t)|
+\end{align*}
+
+Since $F$ takes $\R$ onto $[0,1]$, we can write the supremum on the LHS as
+ \begin{align*}
+	 \sqrt{n} \sup_{x \in \R} \left| \frac{1}{n} \sum_{i=1}^{n} \underbrace{1_{\{\tilde{X}_i \le F(X)\} }}_{=^{d} 1_{\{X_i \le x\} }, X_i \stackrel{iid}{\sim} F} - F(x) \right| =^{d} \sqrt{n} \sup_{x\in \R} |F_n(x) - F(x)|
+\end{align*}
+
+Applications of KS-theorem:
+
+\begin{enumerate}
+	\item One constructs a universal confidence band $C_n(x) = \left[ F_n(x) - \frac{R_n}{\sqrt{n} }, F_n(x) + \frac{R_n}{\sqrt{n} } \right] $, s.t. \[\P_F (F(X) \in C_n(X) \forall X  \in \R) \underset{n\to \infty}{\to} 1 - \alpha .\]
+
+	\item In a parametric model $\{f\left( \cdot , \theta \right) : \theta \in \Theta \}$ with MLE $\hat{\theta}$, one constructs a goodness of fit test/model check by referring (possibly after sample-splitting)
+		\[
+			\sqrt{n} \sup_{t} |F_n(t) - F_{\hat{\theta}_n}(t)|
+		\]
+		to the quantiles of $\sup_{x \in [0,1]} |\mathcal{G}(x)|$, where $F_{\hat{\theta}_n}$ is the cdf corresponding to $\hat{\theta}_n$.
+\end{enumerate}
 
 \end{document} 
