@@ -824,7 +824,8 @@ Euler showed the well known result that $\zeta(2) = \frac{\pi^2}{6}$.
 	\begin{align*}
 		\zeta(z) \Gamma(z) &= \sum_{n=1}^{\infty} \int_0^{\infty} s^{z-1} e^{-ns} \\
 		&= \int_0^{\infty} t^{z-1} \sum_{n=1}^{\infty} e^{-nt} dt \\
-		&= \int_0^{\infty} \frac{t^{z-1}}{e^{-t} -1} dt
+		&= \int_0^{\infty} \frac{t^{z-1} e^{-t}}{1 - e^{-t}} dt \\
+		&= \int_0^{\infty} \frac{t^{z-1}}{e^t - 1}
 	\end{align*}
 \end{proof}
 
