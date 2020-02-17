@@ -1,0 +1,904 @@
+\documentclass[a4paper]{article}
+\input{../../../preamble.tex}
+
+\title{Asymptotic Methods}
+\author{}
+
+\begin{document}
+	
+\maketitle
+
+\section{Introduction}
+	
+	 \[
+		 f(x) = x + 3 + \frac{1}{x^2}
+	 \]
+	 graph showing asymptotically like x+3
+
+	 \[
+		 f(x) - (x+3) \to \frac{1}{x^2}
+	 \]
+	 \[
+		 g(x) = x^2 + x + 3 + \frac{1}{x^{3}}
+	 \] 
+
+	 The purpose of this course is to analyse how functions, integrals, and solutions to differential equations behave in some asymptotic limit.
+
+
+\subsection{Important Definitions}
+
+\begin{defn} Big $\mathcal{O}$ Notation
+
+	For $f: (a, \infty) \to \C / \R$, $g: (a,\infty) \to \R$, with $g(x)>0$ for  $x\ge A > a$, we say
+	\[
+		f(x) = \mathcal{O}\left( g(x) \right)  \text{ as } x\to \infty
+	\]
+	if $\exists M > 0, B>0 $  st
+	\[
+		|f(x)| \le Mg(x), \; x\ge B>A
+	\] 
+	
+
+	We say
+	\[
+		f(x) =  \mathcal{O}\left( g(x) \right) x\to x_0
+	\]
+	if $\exists M, \delta > 0$ s.t.
+	\[
+		|f(x)| \le M g(x), \; 0 < |x-x_0| < \delta
+	\]
+
+	or alternatively
+	\[
+		\lim \sup_{x\to x_0} \frac{|f(x)|}{g(x)} < \infty
+	\] 
+\end{defn}
+
+\begin{observation}
+	If $f(x) = \mathcal{O}\left( g(x)  \right), x\to x_0$, then $ cf(x) =  \mathcal{O}\left( g(x) \right), c \in \R $
+\end{observation}
+
+\begin{eg}
+	$f(x) = \frac{1}{x^2}\sin(\frac{1}{x}), x\to 0$ is $\mathcal{O(\frac{1}{x^2}})$, as $\lim\sup_{x\to 0} |\sin(\frac{1}{x})| = 1$
+\end{eg}
+
+
+\begin{defn} Little-o Notation
+	
+	$f(x) = o\left( g(x) \right)$ as $x\to x_0$ if
+	\[
+		\lim_{x\to x_0} \frac{f(x)}{g(x)} = 0
+	\] 
+
+\end{defn}
+
+\begin{eg}
+	$f(x) = \frac{1}{x^2}\sin(\frac{1}{x})$, $g(x) = \frac{1}{x^3}$
+
+	\[
+		\lim_{x\to 0} \frac{f(x)}{g(x)} = \lim_{x\to 0} x \sin\left(\frac{1}{x}\right) = 0
+	\]
+	So as $x\to 0$, $f(x) = o\left( g(x) \right) $
+\end{eg}
+
+\begin{notation}
+
+	$f(x) = o\left( g(x) \right) $ is sometimes written as $f(x) \ll g(x)$.
+	
+\end{notation}
+
+\section{Asymptotic Series}
+
+\begin{defn} Asymptotic Sequence
+	
+	$\phi_n : D \subset \C \to  \C$, $n = 0, 1, \ldots$ is called an asymptotic sequence as $z\to z_0 \in D$, if
+	\[
+		\forall n > m, \phi_n(z) = o\left( \phi_m(z) \right) \text{ as } z\to z_0
+	\] 
+\end{defn}
+
+\begin{eg}
+	\begin{enumerate}
+		\item $\phi_n(x) = x^{n-3}$ defines an asymptotic sequence as $x\to 0$.
+
+		\item $\phi_n(x) = (x-5)^{-n}$ defines an asymptotic sequence as $x\to \infty$
+
+		\item $\phi_n(x) = \frac{1}{x^2}\cos(nx)$ is not asymptotic as $x\to 0$, as $\lim\sup_{x\to 0} \frac{\cos(nx)}{\cos(mx)} = 1$. 
+	\end{enumerate}
+\end{eg}
+
+Using simple asymptotic sequences, our goal is to describe the behaviour of much more complicated functions.
+
+\begin{defn} Asymptotic Expansion
+
+	Let $\phi_n : D \subset \C \to \C$ be an asymptotic sequence about $z_0$.
+
+	We say the sum $\sum_{n=0}^{\infty} a_n \phi_n(z)$ is an asymptotic expansion of f(z) as $z\to z_0$ if for all  $N \in \N$, as $z\to z_0$,
+	\[
+		f(z) - \sum_{n=0}^{N} a_n \phi_n(z) = o\left( \phi_N(z) \right) 
+	\] 
+
+	i.e. 
+	\[
+		\lim_{z\to z_0} \frac{f(z) - \sum_{n=0}^{N}a_n \phi_n(z)}{\phi_N(z)} = 0
+	\]
+
+	If this holds, we write
+	\[
+		f(z) \sim \sum_{n=0}^{\infty} a_n \phi_n(z)
+	\] 
+\end{defn}
+
+\begin{remark}
+	We do not require that $\sum_{n=0}^{\infty} a_n \phi_n(z)$ converges.
+\end{remark}
+
+\begin{prop}
+	If $f(z) \sim \sum_{n=0}^{\infty} a_n \phi_n(z)$, then
+	\[
+		a_{N+1} = \lim_{z\to z_0} \frac{f(z) - \sum_{n=0}^{N} a_n \phi_n}{\phi_{N+1}}
+	\] 
+\end{prop}
+
+\begin{remark}
+	If $a_n =0 \forall n$, we have that $\lim_{z\to z_0} \frac{f(z)}{\phi_n(x)} = 0$, so our asymptotic sequence is subdominated and provides no information.
+\end{remark}
+
+\begin{eg} (Taylor)
+	
+	$f \in C^{\infty}: [a,b] \to \R$, $f(x) \sim \sum_{n=0}^{\infty} \frac{f^{(n)}(x_0)}{n!} (x-x_0)^{n}$
+
+	We have that $f(x) - \sum_{n=0}^{N} \frac{f^{(n)}(x_0)}{n!} (x-x_0)^{n} = \int_{x_0}^{x} \frac{(x-t)^{N}}{N!} f^{(N+1)}(t) dt =: R_N(x)$.
+
+	$|R_N(x)| \le \max_{a\le t\le b} |f^{(N+1)}(t)| \frac{1}{N!}\int_{x_0}^{x} |x-t|^{N} = \frac{|x-x_0|^{N+1}}{(N+1)!} \max |f^{(N+1)}(t)|$
+
+	So $\left|\frac{R_N(x)}{(x-x_0)^{N}} \right| \le \frac{|x-x_0|}{(N+1)!} \max |f^{(N+1)}(t)| \to 0$ 
+\end{eg}
+
+\begin{prop}
+	\begin{enumerate}
+		\item If $f(z) \sim \sum_{n=0}^{\infty} a_n \phi_n(z)$, $g(z) \sim \sum_{n=0}^{\infty} b_n \phi_n(z)$, then
+			\[
+				\alpha f + \beta g \sim \sum_{n=0}^{\infty} (\alpha a_n+ \beta b_n) \phi_n(z)
+			\]
+
+		\item If $f(z) \sim \sum_{n=0}^{\infty} a_n (x-x_0)^{n}$, $g(z) \sim \sum_{n=0}^{\infty} b_n (z-z_0)^{n}$ then
+			\[
+				f\cdot g (z) \sim \sum_{n=0}^{\infty} c_n (z-z_0)^{n}
+		\]
+		with $c_n = \sum_{k=0}^{n} a_k b_{n-k}$
+
+
+	\end{enumerate}
+\end{prop}
+
+
+\begin{prop}
+	
+	The asymptotic expansion is unique. That is to say, if $f(z) \sim \sum_{n=0}^{\infty} a_n \phi_n(z)$, $f(z) \sim  \sum_{n=0}^{\infty} b_n \phi_n(z)$, then $a_n = b_n$ everywhere.
+\end{prop}
+
+\begin{proof}
+	\begin{align*}
+		a_0 - b_0 = \frac{(a_0\phi_0 - f) + (f - b_0 \phi_0)}{\phi_0} \to 0
+	\end{align*}
+
+	The rest follows inductively.
+\end{proof}
+
+\begin{eg}
+	$f(x) = \begin{cases}
+	 e^{-x^2}, x\neq 0 \\
+	 0, x=0
+	\end{cases}$
+
+	Then $f(x)$ subdominates all polynomials, so $f(x) + \sin(x)$ has the same asymptotic expansion as $\sin(x)$ about $0$. Hence we can see that while the asymptotic expansion of a function is unique, an asymptotic expansion does not uniquely define a function. 
+\end{eg}
+
+\begin{prop}
+
+	If $f(x) \sim \sum_{n=0}^{\infty} a_n (x-x_0)^{n}$, then
+	\[
+		\int_{x_0}^{x} f(\xi) d\xi \sim \sum_{n=0}^{\infty} \frac{a_n}{n+1} (x-x_0)^{n+1}
+	\] 
+\end{prop}
+
+\begin{proof}
+	Let $\epsilon > 0$.  $\exists \delta(\epsilon) > 0$ s.t. if $0<|\xi - x_0| < \delta$, then
+	\[
+		\left| f(\xi) - \sum_{n=0}^{N} a_n (\xi - x_0)^{n} \right| \le \epsilon |\xi - x_0|^{N}
+	\]
+	Then integrating,
+	\begin{align*}
+		\left|\int_{x_0}^{x} f(\xi) - \sum_{n=0}^{N} a_n (\xi - x_0)^{n} d\xi \right| &\le \int_{x_0}^{x} \left| f(\xi) - \sum_{n=0}^{N} a_n (\xi - x_0)^{n}\right| d\xi \\
+		&\le  \epsilon \int_{x_0}^{x} |\xi - x_0|^{N} d\xi \\
+		&\le \epsilon \frac{|x-x_0|^{N+1}}{N+1}
+	\end{align*}
+	And hence
+	\[
+		\frac{\left| \int_{x_0}^{x} f(\xi)d\xi - \sum_{n=0}^{N} \frac{a_n (x-x_0)^{n+1}}{n+1}\right|}{|x-x_0|^{N+1}} \le \epsilon
+	,\]
+	i.e. \[
+		\int_{x_0}^{x} f(\xi) d\xi - \sum_{n=0}^{N} a_n (x-x_0)^{n+1} = o\left( (x-x_0)^{N+1} \right) 
+	\] 
+
+\end{proof}
+
+\begin{ex}
+	For $x_0 \in  (a, b)$, and $f(x)$ continuous on $[a,b]$, let $\{\phi_n\}\rvert_{n=0}^{\infty} $ be an asymptotic sequence of functions on $[a,b]$ s.t. $\phi_n(x) \neq 0$ for $x\neq x_0$. Then,
+	\begin{enumerate}
+		\item $\int_{x_0}^{x} \phi_n(\xi) d\xi$ is an asymptotic sequence. \\
+		\item $\int_{x_0}^{x} f(\xi)d\xi \sim \sum_{n=0}^{\infty} a_n \int_{x_0}^{x} \phi_n(\xi) d\xi$
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+	$f(x) = \tan x, x=0$.
+
+	$f(x) = x + \frac{x^3}{3} + \ldots = \sum_{n=1}^{\infty}  \frac{2^{n} (2^{n-1}}{(2n)!} |B_{2n}| x^{2n-1}$
+
+	$\phi_n(x) = (\sin x)^{n} ~x^{n}$ 
+
+	Then we have asymptotic expansion
+	\[
+		\tan x \sim \sum_{n=1}^{\infty} \frac{(2n)!}{(n!)^{2}} (\sin x)^{n}
+	\] 
+\end{ex}
+
+\subsection{Asymptotic Integrals}
+
+\subsection*{Gamma Function}
+
+\begin{align*}
+	\Gamma(z) &= \int_{0}^{\infty} t^{z-1} e^{-t} dt\ \quad Re(z) > 0 \\
+	&= \frac{t^{z}}{z} e^{-t} \big\rvert_{0}^{\infty} \int_{0}^{\infty} \frac{t^{z}}{z} e^{-t} dt \\
+	\implies \Gamma(z) &= \frac{1}{z} \Gamma(z+1)
+\end{align*}
+Noting that $\Gamma(1) = \int_{0}^{\infty} e^{-t} dt =1$, we have that $n! = \Gamma(n+1)$.
+
+
+$\Gamma(n+1) = n! \sim (2\pi n)^{\frac{1}{2}} (\frac{n}{e})^{n}$ 
+
+$\Gamma(n) \sim (\frac{2\pi}{n})^{\frac{1}{2}} (\frac{n}{e})^{n}[n+\frac{1}{12n} + \frac{1}{28 n^2} + \ldots] $
+
+$\Gamma(\frac{1}{2}) = \int_{0}^{\infty} t^{-\frac{1}{2}} e^{-t} dt = \int_{0}^{\infty} 2 e^{-s^2} ds = \sqrt{\pi} $
+
+\subsection*{Stilljes Integral}
+
+$S(x) = \int_{0}^{\infty} \frac{\rho(t)}{1+xt} dt,\quad x\to 0^{+}$.
+Here, $\rho(t)$ is very smooth, and decays very fast at $\infty$.
+
+We have that $S(0) = \lim_{x\to 0} S(x) = \int_{0}^{\infty} \rho(t) dt$. 
+
+Now, \begin{align*}\frac{1}{1+xt} &= \sum_{n=0}^{N} (-xt)^{n} + \frac{(-1)^{N+1} x^{N+1} t^{N+1}}{1+xt} \\
+	\frac{1}{1+xt} - \sum_{n=0}^{N} (-xt)^{n} &= \frac{(-1)^{N+1} x^{N+1} t^{N+1}}{1+x
+t} \\
+\implies \int_{0}^{\infty} \frac{\rho(t)}{1+xt}dt - \sum_{n=0}^{N} \int_{0}^{\infty} (-xt)^{n}\rho(t)dt &= (-x)^{N+1} \int_{0}^{\infty} \frac{\rho(t) t^{N+1}}{1+xt} \\	
+\end{align*}
+Let $C_n = \int_{0}^{\infty} t^{n} \rho(t) dt$ be the moments of $\rho(t)$, and note that  $\frac{1}{1+xt} \le 1$ for $x,t > 0$.
+
+Then  \[
+	\left| \int_{0}^{\infty}\frac{\rho(t)}{1+xt}dt - \sum_{n=0}^{N}(-1)^{n} C_n x^{n} \right| \le  x^{N+1} C^{N+1} = o(x^{N}) \text{ as } x\to 0
+\] 
+
+Hence
+\[
+	\int_{0}^{\infty} \frac{\rho(t)}{1+xt} dt \sim \sum (-1)^{n} C_n x^{n}
+\] 
+
+\subsection{Approximation of Integrals}
+
+\begin{thm}
+	Let $f, g$ be continuously differentiable, with integrable derivatives on $(a,b)$. Then
+	 \[
+		 \int_{a}^{b} f'(t) g(t) dt = \left[ f(t) g(t) \right]_{a}^{b} - \int_{a}^{b} f(t) g'(t) dt 
+	\]
+
+	In general,
+	\[
+	\int_{a}^{b} f^{(n)}(t) g(t)dt = \sum_{k=1}^{n} (-1)^{k-1} f^{(n-k)}(t)g^{(k)}(t) \big\rvert_{a}^{b} + (-1)^{n} \int_{a}^{b} f(t) g^{(n)}(t)dt
+	\] 
+\end{thm}
+
+ \begin{eg}
+	 $\erf(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty} ^{x} e^{-\frac{t^2}{2}} dt$. We wish to consider its behaviour for $x \gg 1$.
+
+	 Let $F(x) = \sqrt{2\pi} (1-\erf(x) )$. Then
+	 \begin{align*}
+		 F(x) &= \int_{x}^{\infty} e^{-\frac{t^2}{2}} \frac{t}{t} dt \\
+		 &= -\frac{1}{t} e^{-\frac{t^2}{2}} \big\rvert_{x}^{\infty} - \int_{x}^{\infty}\frac{1}{t^2} e^{-\frac{t^2}{2}} dt \\
+		 &= \frac{e^{-\frac{x^2}{2}}}{x} - \int_{x}^{\infty} \frac{1}{t^2} e^{-\frac{t^2}{2}}dt \\
+		 &:= \frac{e^{-\frac{x^2}{2}}}{x} -R(x) \\
+		 |R(x)| &= \int_{x}^{\infty} \frac{e^{-\frac{t^2}{2}}}{t^2} \frac{t}{t}dt \le \frac{1}{x^{3}} e^{-\frac{x^2}{2}} \text{ as } \frac{1}{t^3} \le \frac{1}{x^3} \\
+	 \end{align*}
+	 Hence
+	 \[
+	 \left| \frac{F(x) - \frac{e^{-\frac{x^2}{2}}}{x}}{\frac{e^{-\frac{x^2}{2}}}{x}} \right| \le  \frac{1}{x^2} \text{ as } x \to \infty
+	 \] 
+
+	 Repeating inductively, integrating by parts, we get that
+
+	 \[
+		 \int_{x}^{\infty} e^{-\frac{t^2}{2}} dt \sim \frac{e^{-\frac{x^2}{2}}}{x} \sum_{n=0}^{\infty} \frac{(-1)^{n} (2n-1)!!}{x^{2n}}
+	 \] 
+\end{eg}
+
+\begin{eg}
+	Let $f \in C^{\infty}([a,b])$, with $f(b) \neq 0$. Find the expansion of 
+	\[
+		I(x) = \int_{a}^{b} f(t) e^{xt} dt \text{ as } x \to \infty
+	.\]
+
+	Intuition: Near $t=b$, is the main contribution. So we expect
+	 \[
+		 \int_{a}^{b} f(t) e^{xt} dt \sim \int_{b-\epsilon}^{b} f(t)e^{xt}dt \sim  f(b) \int_{b-\epsilon}^{b} e^{xt}dt = f(b) \frac{e^{xb} - e^{x(b-\epsilon)}}{x} \sim \frac{f(b) e^{xt}}{x}
+	\]
+
+	Integrating by parts, it is easy to see that
+	\begin{align*}
+	I(x) &= \sum_{k=1}^{n} f^{(n-1)} \frac{e^{xt}}{x^{k}}(-1)^{k-1} \Big\rvert_{a}^{b} + (-1)^{n} \int_{a}^{b} f^{(n-1)}(t) \frac{e^{xt}}{x^{n}} dt \\
+	&=  \sum_{k=1}^{n} f^{(n-1)}(b) \frac{e^{xb}}{x^{k}}(-1)^{k-1} + (-1)^{n} \int_{a}^{b} f^{(n-1)}(t) \frac{e^{xt}}{x^{n}} dt -\sum_{k=1}^{n} f^{(n-1)}(a) \frac{e^{xa}}{x^{k}}(-1)^{k-1} \\
+	&= e^{xb}\left( \sum_{k=1}^{n} f^{(n-1)}(b) \frac{1}{x^{k}}(-1)^{k-1} \Big\rvert_{a}^{b} + (-1)^{n} \int_{a}^{b} f^{(n-1)}(t) \frac{e^{x(t-b)}}{x^{n}} dt -\sum_{k=1}^{n} f^{(n-1)}(a) \frac{e^{-x(b-a)}}{x^{k}}(-1)^{k-1} \right) \\
+\end{align*} 
+
+We can see that $e^{-x(b-a)} = o(x^{-m}, m = 1,2,\ldots$
+
+\begin{align*}
+	\left| (-1)^{n} \int_{a}^{b} f^{(n-1)}(t) \frac{e^{x(t-b)}}{x^{n}} \right| &\le \max_{a\le t\le b} |f^{(n-1)}(t)| \int_{a}^{b} \frac{e^{x(t-b)}}{x^{n}} dt \\
+	&= \frac{1}{x^{n+1}}(e^{-x(b-a)} - 1) \underbrace{\max_{a\le t \le b} |f^{(n-1)}(t)|}_{:=C_n} \\
+	&= o\left(\frac{1}{x^{n}}\right)
+\end{align*}
+
+We can then see that
+\[
+	I(x) \sim  e^{xb} \sum_{k=1}^{n}\frac{(-1)^{k-1} f^{(k-1)}(b)}{x^{k}} 
+,\] so in fact
+\[
+	I(x) \sim \frac{f(b)}{x} e^{xb}
+\] 
+\end{eg}
+
+\begin{thm} Watson's Lemma
+
+	Let $0 < T \le \infty $. Suppose f(t) has an asymptotic expansion about $t=0$ ( $t>0$)
+	 \[
+		 f(t) \sim t^{\alpha} \sum_{n=0}^{\infty} a_n t^{\beta n} \text{ as } t \to 0^{+}
+	 ,\] with $\alpha > -1$,  $\beta > 0$.
+
+	 Assume further that $f(t)$ satisfies one of the following:
+
+	 \begin{enumerate}
+		\item $|f(t)| \le  K e^{bt}, \quad t\ge 0$ \\
+		\item $\int_{0}^{T} |f(t)| dt < \infty$	
+	 \end{enumerate}
+	
+	 Then
+	 \[
+		 F(x) = \int_{0}^{T} e^{-xt}f(t) dt \sim \sum_{n=0}^{\infty} \frac{a_n \Gamma(\alpha + \beta n + 1)}{x^{\alpha + \beta n + 1}} \text{ as } x\to \infty
+	 \]
+
+\end{thm}
+
+\begin{proof}
+	\[
+		F(x) = \int_{o}^{T} e^{-xt}f(t) dt = \int_{0}^{\epsilon}e^{-xt} f(t) dt + \int_{\epsilon}^{T} e^{-xt}f(t) dt
+	\]
+
+	Recall that  \[
+		\int_{0}^{\infty} e^{-xt} t^{\lambda} dt \overset{u=xt}{=} \int_{0}^{\infty} e^{-u} \frac{u^{\lambda}}{x^{\lambda}} \frac{du}{x} = \frac{\Gamma(\lambda + 1)}{x^{\lambda + 1}}
+	\] 
+
+	We need to show that 
+	\[
+		R_N(x) := F(x) - \sum_{n=0}^{N} \frac{a_n \Gamma(\alpha + \beta n + 1)}{x^{\alpha + \beta n + 1}} = o\left( \frac{1}{x^{\alpha + \beta N+ 1}} \right) \text{ as } x\to \infty
+	\]
+
+	By our above comment,
+	\[
+		R(x) = F(x) - \sum_{n=0}^{N} a_n \int_{0}^{\infty} e^{-xt} t^{\alpha + \beta n} dt
+	\]
+
+	We can rewrite this as
+         \begin{align*}
+		 R_N(x) &= \int_{0}^{\epsilon} f(t) e^{-xt}dt + \int_{\epsilon}^{T} f(t) e^{-xt} dt - \sum_{n-0}^{N}a_n \left( \int_{0}^{\epsilon} e^{-xt}t^{\alpha + \beta n +1} dt + \int_{\epsilon}^{T} e^{-xt} t^{\alpha + \beta n} \right) \\
+		 &= \left( \int_{0}^{\epsilon} e^{-xt} \left(f(t) - \sum_{n=0}^{N} a_n t^{\alpha+\beta n}\right) dt \right) + \int_{\epsilon}^{T} e^{-xt}f(t)dt + \sum_{n=0}^{N} a_n \int_{\epsilon}^{T} e^{-xt}t^{\alpha + \beta n} dt \\
+		 &:= R_{N_1} + R_{N_2} + R_{N_3}
+         \end{align*}
+
+	 Now,
+	 \begin{align*}
+		 |R_{N_3}| &\le \sum_{n=0}^{N} |a_n| \int_{\epsilon}^{T} e^{-xt} t^{\alpha + beta n}dt \\
+		 &= e^{-\epsilon x} \sum_{n=0}^{N} \int_{\epsilon}^{T} e^{-x(t-\epsilon)} t^{\alpha + \beta n} \\
+		 &\le  \frac{e^{-\epsilon x}}{x} \sum_{n=0}^{N} |a_n| \int_{0}^{\infty} e^{-u} \left(1+\frac{u}{\epsilon x}\right)^{\alpha + \beta n} du \; \epsilon^{\alpha + \beta n} \text{ using $u = xt$}\\
+		 &\le \frac{e^{-\epsilon x}}{x} \sum_{n=0}^{N} |a_n| \int_{0}^{\infty} e^{-u} \left(1+\frac{u}{\epsilon x}\right)^{\alpha + \beta n} du \; \epsilon^{\alpha} \text{ as $\beta$ positive} \\
+		 &\le \frac{e^{-\epsilon x} \epsilon^{\alpha}}{x} \sum_{n=0}^{N}|a_n| \int_{0}^{\infty} C(\alpha, \beta, N) \left( 1 + \left( \frac{u}{\epsilon x} \right)^{\alpha + \beta n + 1}  \right)du \\
+		 &=o(x^{-m}) \; \forall m\ge 1
+	 \end{align*}
+
+	Next,
+	\begin{align*}
+		|R_{N_1}| &= \left|\int_{0}^{\epsilon}e^{-xt} \left( f(t) - \sum_{n=0}^{N} a_n t^{\alpha + \beta N} \right) dt \right| \\
+		&\le \int_0^{\epsilon} e^{-xt} \eta t^{\alpha + \beta N} dt \\
+		&\le \eta \int_0^{\infty} e^{-xt} t^{\alpha + \beta n}dt \text{ for some suitably chosen $\eta(\epsilon)$}\\
+		&= \eta \frac{\Gamma(\alpha + \beta n + 1}{x^{\alpha + \beta n + 1}} \\
+		&= o\left( x^{-(\alpha + \beta n + 1)} \right) 
+	\end{align*} 
+
+	In the case that $|f(t)|$ is integrable,
+
+	\begin{align*}
+		|R_{N_2}| &\le e^{-xt} |f(t)| dt \\
+			&\le  e^{-\epsilon x} \int_{0}^{T}|f(t)| dt
+			&= o(x^{-m}) \; \forall m \ge_1
+	\end{align*}
+
+	Finally, in the case that $|f(t)| \le  Ke^{bt}$ asymptotically,
+	\begin{align*}
+		|R_{N_2}| &\le \int_{\epsilon}^{T} e^{-xt} |f(t)| dt \\
+		&\le K \int_{\epsilon}^{T} e^{-xt}e^{bt} dt \text{ by assumption} \\
+		&\le K \frac{e^{-(x-b)\epsilon}}{x-b} \\
+		&= o(x^{-m}) \; \forall m \gg 1
+	\end{align*}
+\end{proof}
+
+If we instead consider complex values,
+\begin{align*}
+	F(z) &= \int_0^{T} e^{-zt} f(t) dt
+\end{align*}
+Now, \[
+|e^{-zt}| = e^{-xt}
+,\]
+and $|x|\ge |z| - |y| \ge |z|(1-\sin \theta) \ge |z|(1 - \sin\delta)$, where we enforce that $z$ is at least an angle $\delta$ into the RHP, $0<\delta<\frac{\pi}{2}$.
+
+Like this, we can reformulate Watson's lemma for complex values.
+
+\begin{eg}
+	$F(x) = \int_{0}^{\infty} e^{-xt} \sin t dt$.
+
+	$f(t) = \sin t = \sum_{k=0}^{\infty} \frac{(-1)^{k}t^{2k+1}}{(2k+1)!}$, $|f(t)| \le 1$, so we can apply Watson's lemma.
+
+	Then \[
+		I(x) \sim  \sum_{k=0}^{\infty} \frac{(-1)^{k}}{(2k+1)!} \frac{\Gamma(2k+1 + 1)}{x^{2k+2}}
+	\]
+	or more neatly, as $k \in \N$,
+	\[
+		I(x) \sim \frac{1}{x^2} \sum_{k=0}^{\infty} \frac{(-1)^{k}}{x^{2k}}
+	\] 
+\end{eg}
+
+\begin{eg}
+	One of the solutions of the hypergeometric equation
+	\[
+		xy_{x x} + (b-x) y_x - ay = 0
+	\]
+	With $\Re b > \Re a > 0$, is given by
+	 \[
+		 M(a,b,x) = \frac{e^{x}}{\Gamma(a)\Gamma(b-a)} \int_{0}^{1}  e^{-xt} (1-t)^{1-a} t^{b-a-1} dt
+	\]
+
+	So, let $f(t) = (1-t)^{1-a}t^{b-a-1}, \quad 0\le t\le 1$.
+	\begin{align*}
+		f(t) = t^{b-a-1} \sum_{n=0}^{\infty} \frac{(-1)^{n}}{n!} \frac{\Gamma(a)}{\Gamma(a-n)} t^{n}
+	\end{align*}
+	and as such we can apply Watson's Lemma to $I(x)$, getting 
+	\[
+		M(a,b,t) = \sum_{n=0}^{\infty} \left( \frac{(-1)^{n} \Gamma(a)}{\Gamma(a-n) n!} \frac{\Gamma(b-a+n)}{z^{b+a-n}} \right) \frac{e^{x}}{\Gamma(a)\Gamma(b-a)}
+-a)
+\]
+
+So to leading order, \[
+	M(a,b,x) = \frac{e^{x}}{x^{b-a} \Gamma(a)}
+.\] 
+\end{eg}
+
+\section{Asymptotics of Integrals}
+
+\subsection{Laplace's Method}
+
+Consider
+\[
+	F(x) = \int_a^{b} f(t) e^{x\phi(t)} dt
+,\] as $x\to \infty$. 
+
+Firstly, consider the case that $\phi$ has a \textbf{unique} global maximum at $c\in [a,b]$, such that $\phi'(c) = 0$, and  $\phi''(c) < 0$. Assume also that $f(c) \neq 0$
+
+Then we have  
+\begin{align*}
+	F(x) &\sim \int_{c-\epsilon}^{c+\epsilon} f(t) e^{x\phi(t)}dt \\
+	&\sim \int_{c-\epsilon}^{c+\epsilon} f(t) e^{x (\phi(c) + \frac{1}{2} \phi''(c) (t-c)^2)} dt \\
+	&\sim f(c)e^{x\phi(c)} \int_{c-\epsilon}^{c+\epsilon}e^{\frac{1}{2}\phi''(c)(t-c)^2}dt \\
+	&\sim \frac{f(c) e^{x\phi(c)}}{|x\phi''(c)|^{\frac{1}{2}}} \underbrace{\int_{-|x\phi''(c)|^{\frac{1}{2}}}^{|x\phi''(c)|^{\frac{1}{2}}} e^{-\frac{s^2}{2}}ds}_{s= \sqrt{-x\phi''(c)}(t-c)}\\
+	&\sim \frac{\sqrt{2\pi} }{|x\phi''(c)|^{\frac{1}{2}}} e^{x\phi(c)}f(c)
+\end{align*}
+
+\begin{eg}
+	\[
+		I(x) = \int_{-\infty}^{\infty} e^{-xt^2} e^{at} dt
+	\]
+
+	So we have $f(t) = e^{at}$, $\phi(t) = -t^2$, and
+	\begin{align*}
+		I(x) &\sim \frac{e^{a\cdot 0}e^{0} \sqrt{2\pi} }{(2x)^{\frac{1}{2}}} \\
+			&\sim \sqrt{\frac{\pi}{x}} \text{ as } x\to \infty 
+	\end{align*}
+
+	It is also quite simple to calculate this explicitly, where we find that this is as expected correct to leading order.
+\end{eg}
+
+Next, we consider the case of Laplace's method when the global maximum occurs at the endpoint $t=a$, with $\phi'(a), \, f(a) \neq 0$ (so $\phi'(a) < 0$).
+ \[
+	 F(x) \sim \int_{a}^{a+\epsilon} f(t) e^{x\phi(t)} dx
+\]
+
+We see $\phi(t) \sim \phi(a) + \phi'(a) (t-a)$, so that
+\begin{align*}
+	F(x) &\sim  \int_{a}^{a+\epsilon} f(t) e^{x\left(\phi(a) + \phi'(a)(t-a)  \right) } dt \\
+	&\sim f(a)e^{x\phi(a)} \int_{a}^{a+\epsilon} e^{\phi'(a)(t-a)}dt\\
+	&\sim f(a)e^{x\phi(a)} \int_0^{\epsilon x |\phi'(a)|} e^{-u} \frac{du}{x |\phi'(a)|} \\
+	&\sim  \frac{f(a)e^{x\phi(a)}}{x|\phi'(a)|}\left( \underbrace{\int_{0}^{\infty} e^{-u} du}_{=1} - \underbrace{\int_{\epsilon x|\phi'(a)|}^{\infty} e^{-u} du}_{\text{exponentially decays in $x$}} \right) \\
+	&\sim \frac{f(a)e^{x\phi(a)}}{x|\phi'(a)|}
+\end{align*}
+
+\begin{remark}
+	If our global maximum is instead at $t=b$, with $\phi'(b) >0$, we see that
+	 \[
+		 F(x) \sim \frac{f(b)e^{x\phi(b)}}{x\phi'(b)}
+	\] 
+\end{remark}
+
+Our third case is that we have a unique global maximum of $\phi(t)$ at $c \in (a,b)$, with $\phi'(c) = \phi''(c) =0$. Assume  $f(c) \neq 0$.
+
+\[
+	F(x) = \int_{a}^{b} f(t) e^{x\phi(t)} dt \sim \int_{c-\epsilon}^{c+\epsilon} f(t) e^{\phi(t)}dt
+\]
+
+As $c$ is a maximum, we must have that
+\[
+	\phi(t) \sim \phi(c) + \frac{\phi^{(p)}(c)}{p!}(t-c)^{p}
+,\] where p is the first (even) power such that $\phi^{(p)}(c) \neq 0$. For a maxima, $\phi^{(p)}(c) < 0$
+
+Then 
+\begin{align*}
+	F(x) &\sim \int_{c-\epsilon}^{c+\epsilon} f(c) e^{x\left( \phi(c) + \frac{\phi^{(p)}(c)}{p!}(t-c)^{p} \right) } dt  \\
+	&\sim f(c)e^{x\phi(c)} \int_{c-\epsilon}^{c+\epsilon} e^{x\phi^{(p)}(c)}\frac{(t-c)^{p}}{p!} dt
+\end{align*}
+
+Let $s = \left( \frac{x |\phi^{(p)}(c)|}{p!} \right)$. So
+\begin{align*}
+	F(x) &\sim  f(c)e^{x\phi(c)} \int_{- \epsilon \left( \frac{x|\phi^{(p)}(c)|}{p!} \right)^{\frac{1}{p}} }^{\epsilon \left( \frac{x|\phi^{(p)}(c)|}{p!} \right)^{\frac{1}{p}} } e^{-s^{p}} \frac{1}{\left( \frac{x|\phi^{(p)}(c)|}{p!} \right)^{\frac{1}{p}} } ds  \\
+	&\sim \frac{f(c)e^{x\phi(c)}}{\left( \frac{x|\phi^{(p)}(c)|}{p!} \right)^{\frac{1}{p}} } \int_{-\infty}^{\infty}e^{-s^{p}} ds \\
+	&\sim \frac{2 f(c) e^{x\phi(c)} (p!)^{\frac{1}{p} \Gamma(1+p)}}{(x|\phi^{(p)}(c)|)^{\frac{1}{p}}}
+\end{align*}
+Where the last integral (for even $p $) is left as an exercise to the reader.
+
+\subsection*{Laplace Method - Higher Order Expansion}
+
+Motivation: What if $f(c) = 0$?
+
+Again, we assume that  $\phi(t)$ has a unique global maximum at $t=c$, $c\in (a,b)$, with $\phi'(c) = 0$,  $\phi''(c) < 0$. 
+
+So $f(c)\sim f(c) + f'(c)(t-c) + \frac{1}{2} f''(c) (t-c)^2 + \ldots$
+
+And $\phi(c) \sim \phi(c) + \frac{1}{2} \phi''(c) (t-c)^2 + \frac{1}{6}\phi'''(c) (t-c)^3 + \frac{1}{24} \phi''''(c) (t-c)^{4} + \ldots$
+
+Then as before,
+\begin{align*}
+	F(x) &\sim \int_{c-\epsilon}^{c+\epsilon} f(t)e^{x\phi(t)}dt \\
+	&\sim  \int_{c-\epsilon}^{c+\epsilon} \left(f(c) + f'(c)(t-c) + \frac{1}{2} f''(c) (t-c)^2 \right)  e^{x\left(\phi(c) +\frac{1}{2} \phi''(c) (t-c)^2 + \frac{1}{6}\phi'''(c) (t-c)^3 + \frac{1}{24} \phi''''(c) (t-c)^{4} \right)} dt \\
+	&\sim \int_{c-\epsilon}^{c+\epsilon} \left(f(c) + f'(c)(t-c) + \frac{1}{2} f''(c) (t-c)^2 \right) e^{x\phi(c)} e^{\frac{1}{2}\phi''(c) (t-c)^2} e^{x\left(\frac{1}{6}\phi'''(c) (t-c)^3 + \frac{1}{24} \phi''''(c) (t-c)^{4}\right)} dt \\
+	&\sim \frac{e^{x\phi(c)}}{\left( |x\phi''(c)| \right)^{\frac{1}{2}} } \int_{-\epsilon|x\phi''(c)|^{\frac{1}{2}}}^{\epsilon |x\phi''(c)|^{\frac{1}{2}}} E_1(s) e^{-\frac{s^2}{2}} \exp\left( \frac{\phi'''(c) s^3}{6 x^{\frac{1}{2}} |\phi''(c)|^{\frac{3}{2}}} + \frac{\phi''''(c)}{24} \frac{s^{4}}{x|\phi''(c)|^2} \right) ds
+\end{align*}
+
+Where \[
+	E_1(s) = f(c) + \frac{f'(c)}{\left( x|\phi''(c)| \right)^{\frac{1}{2}} }s + \frac{f''(c) s^2}{2x|\phi''(c)|} 
+\]
+
+Now, writing our second exponential as $e^{z}$ and expanding to second order,
+
+\begin{align*}
+	F(x) &\sim \frac{e^{x\phi(c)}}{\left( |x\phi''(c)| \right)^{\frac{1}{2}} } \int_{-\epsilon|x\phi''(c)|^{\frac{1}{2}}}^{\epsilon |x\phi''(c)|^{\frac{1}{2}}} E_1(s) E_2(s) ds 
+\end{align*}
+
+Where \[
+	E_2(s) = 1 + \left[ \frac{\phi''(c) s^3}{6x^{\frac{1}{2}} |\phi''(c)|^{\frac{3}{2}}} + \frac{\phi''''(c) s^{4}}{24 z|\phi''(c)|^2 } \right]  + \frac{(\phi'''(c))^2s^{6}}{2\cdot 32 |\phi''(c)|^3}
+\]
+
+Note that if $c$ is at an endpoint, our odd terms contribute, but here, we need only consider even terms by symmetry.
+
+So,
+\begin{align*}
+	F(x) &\sim \frac{e^{x\phi(c)}}{\left( |x\phi''(c)| \right)^{\frac{1}{2}} } \int_{-\epsilon|x\phi''(c)|^{\frac{1}{2}}}^{\epsilon |x\phi''(c)|^{\frac{1}{2}}} \left( f(c) + \frac{1}{x} \left[ \frac{f''(c) ^2}{2 |\phi''(c)|} + \frac{f'(c) \phi'''(c) s^{4}}{6|\phi''(c)|^2} + \frac{f(c) \phi''''(c) s^{4}}{24|\phi''(c)|^2} + \frac{f(c)(\phi'''(c))^2 s^{6}}{721 |\phi''(c)|^3}\right]  \right) ds \\
+	&\sim \frac{e^{x\phi(c)}}{\left( x|\phi''(c)| \right)^{\frac{1}{2}} } \sqrt{2\pi}  \left( f(c) + \frac{1}{x} \left[ \frac{f''(c) ^2}{2 |\phi''(c)|} + \frac{f'(c) \phi'''(c) s^{4}}{2|\phi''(c)|^2} + \frac{f(c) \phi''''(c) s^{4}}{8|\phi''(c)|^2} + \frac{f(c)(\phi'''(c))^2 s^{6}}{24 |\phi''(c)|^3}\right]  \right) 
+\end{align*}
+
+Where we used the identity (exercise) that for $p=2n$ even,
+\[
+	\int_{-\infty}^{\infty} e^{-\frac{s^2}{2}} s^{p} ds = \sqrt{2\pi} s^{n}\Gamma(n+\frac{1}{2}) 
+\] 
+
+\section{Oscillatory Integrals}
+
+We wish to consider integrals of the form
+\[
+	I(\omega) = \int_{a}^{b} f(t) e^{i\omega \phi(t)} dt
+,\] as $|\omega| \to  \infty$, for $f, \phi \in \R$.
+
+We often call $\phi(t)$ the phase function.
+
+\begin{lemma} Riemann-Lebesgue Lemma
+	
+	Let $-\infty \le a \le b \le  \infty$, with $|f(t)|$ integrable.
+
+	Then
+	\[
+		I(\omega) = \int_{a}^{b} f(t) e^{i\omega t} dt \to 0 \text{ as } \omega \to \infty 
+	\] 
+\end{lemma}
+
+\begin{proof}
+	Consider first the case where $f \in C^{1}[a,b]$ 
+
+	\begin{align*}
+		I(\omega) &= \int_a^{b} f(t)e^{i\omega t} dt \\
+			  &= \frac{f(t)e^{i\omega t}}{i\omega} \Bigg\rvert_{a}^{b} - \frac{1}{i\omega} \int_{a}^{b} f'(t) e^{i\omega t}dt \\
+			  |I(\omega)| &\le  \frac{|f(b)| + |f(a)|}{|\omega|} + \frac{1}{|\omega|}(b-a) \max_{a\le t\le b} |f'(t)| \\
+			  &\to 0 \text{ as } |\omega| \to \infty
+	\end{align*}
+
+	In our general case, we go back to definitions of Riemann Integrability. 
+	$\forall \epsilon > 0$ , there is a partition such that our lower and upper sums satisfying 
+	\[ 
+		m(t) \le f(t) \le M(t)
+	\]
+	with
+	\begin{align*}
+		\left|\int_{a}^{b} f(t) - m(t) dt \right| &\le \epsilon \\
+		\left| \int_a^{b} M(t) - f(t)  dt \right| &\le \epsilon \\
+		\left| \int_a^{b} M(t) - m(t) dt \right| &\le \epsilon
+	\end{align*}
+
+	Hence
+	\begin{align*}
+		|\int_a^{b} f(t)e^{i\omega t}dt| &\le  \left|\int_a^{b} \left(f(t) - m(t)\right) e^{i\omega t} dt\right| + \left| m(t) e^{i\omega t} dt \right| \\
+						 &\le  \int_a^{b}f(t) - m(t) dt + \left|\int_a^{b} m(t) e^{i\omega t} dt \right| \\
+						 &= \epsilon + \left|\int_a^{b} m(t)e^{i\omega t} dt \right|
+	\end{align*}
+
+	Taking $\lim\sup_{\omega\to \infty}$ of both sides, we get the result.
+
+	Note that in our first case, if $f'$ is Riemann integrable, we get that $I(\omega) = \mathcal{O}(\frac{1}{\omega})$.
+\end{proof}
+
+\subsection{Method of Stationary Phase}
+
+\begin{prop}
+	Consider $f \in C^{\infty}[a,b]$ Then
+
+	\begin{align*}
+		I(\omega) \sum_{n=0}^{\infty} \frac{(-1)^{n}}{(i\omega)^{n+1}} \left( e^{i\omega b} f^{(n)}(b) - e^{i\omega a} f^{(n)}(a) \right) 
+	\end{align*}
+\end{prop}
+
+\begin{ex}
+	For $f(t) = \frac{1}{1+t}$, $I(\omega) = \int_0^{1} \frac{e^{i\omega t}}{ 1+t} dt$.
+
+	Then  \[
+		f^{(n)} (t) = \frac{(-1)^{n}n!}{(1+t)^{n+1}}
+	\]
+	and
+	\[
+		I(\omega) \sim \sum_{n=0}^{\infty} \frac{n!}{(i\omega)^{n+1}} \left[ \frac{e^{i\omega}}{2^{n+1}} - 1 \right] 
+	\] 
+\end{ex}
+
+\begin{prop}
+	Suppose $\phi'(t) \neq 0$ on $[a,b]$, and $f'(t)$ integrable.
+
+	Then
+	\[
+		I(\omega) \sim  \frac{1}{i\omega} \left[ \frac{f(b)}{\phi'(b)} e^{i\omega \phi(b)} - \frac{f(a)}{\phi'(a)} e^{i\omega \phi(a)} \right] 
+	\] 
+\end{prop}
+
+\begin{proof}
+	Let $u=\phi(t)$. Then we can define $t = \phi^{-1}(u)$ by monotonicity.
+
+	So
+	\begin{align*}
+		I(\omega) = \int_{\phi(a)}^{\phi(b)} f(\phi^{-1}(u)) \frac{e^{i\omega u}}{\phi'(\phi^{-1}(u))} du
+	\end{align*}
+\end{proof}
+
+We now consider the case where $\phi(t)$ has a unique local max/min at $t=c, 1-c$, where  $\phi'(c) = 0, \phi''(c) > 0$
+In the areas $a<t<c-\epsilon$ and $c+\epsilon<t<b$, our contribution is $\mathcal{O}(\frac{1}{\omega})$ as before. So, we consider
+\begin{align*}
+	\int_{c-\epsilon}^{c+\epsilon} f(t)e^{i\omega \phi(t)} dt &= \int_{c-\epsilon}^{c+\epsilon} f(t) e^{i\omega \left( \phi(c) + \frac{1}{2}\phi''(c)(t-c)^2 \right) } dt \\
+	&\sim f(c) \int_{c-\epsilon}^{c+\omega} e^{i\frac{\omega}{2} \phi''(c) (t-c)^2} dt  \\
+\end{align*}
+
+We first consider $\phi''(c), \omega > 0$. Let  $s = \sqrt{\frac{\omega \phi''(c)}{2}}(t-c)$. Then
+\begin{align*}
+	\int_{c-\epsilon}^{c+\epsilon} f(t)e^{i\omega \phi(t)} dt &\sim \frac{f(c) e^{i\omega\phi(c)}}{\sqrt{\frac{\omega \phi''(c)}{2}}} \int_{-\epsilon \sqrt{\frac{\omega \phi''(c)}{2}} }^{\epsilon \sqrt{\frac{\omega \phi''(c)}{2}}} e^{is^2} ds \\
+	&\sim \frac{f(c) e^{i\omega\phi(c)}}{\sqrt{\frac{\omega \phi''(c)}{2}}} \int_{-\infty}^{\infty} e^{is^2} ds \\
+	&= \frac{2 f(c) e^{i\omega\phi(c)}}{\sqrt{\frac{\omega \phi''(c)}{2}}} \int_{0}^{\infty} e^{is^2} ds  \\
+\end{align*}
+
+We have found ourselves a Fresnel integral, $I = \int_{0}^{\infty} e^{ix s^2} ds = \frac{1}{2 }\sqrt{\frac{\pi}{x}} e^{i\frac{\pi}{4}} $. In general we might like to (for higher order expansions) consider $I_n = \int_{0}^{\infty} e^{ixs^{2n}}$. This can be done by considering wedges of angle $\frac{\pi}{2n}$.
+
+So \[
+	\int_{c-\epsilon}^{c+\epsilon} f(t) e^{i\omega \phi(t)} dt \sim \frac{f(c) e^{i\omega\phi(c)}\sqrt{2\pi} }{\sqrt{\omega \phi'(c)} } e^{i\frac{\pi}{4}}
+\]
+
+and in general, we get\[
+	I(\omega) \sim f(c) e^{i\omega\phi(c)}\sqrt{\frac{2\pi}{|\omega \phi''(c)|}} e^{i\frac{\pi}{4} \sgn(\omega \phi''(c))} \text{ as } |\omega| \to \infty 
+\]
+
+As opposed to the Laplace's method, every local maxima or minima contributes. If our maxima occurs at the endpoint of the integral, we get a prefactor of $\frac{1}{2}$.
+
+\begin{remark}
+	If $c$ is a max/minx, with $\phi^{(2n)}\neq 0$ our first non-zero derivative, then we get that $I(\omega) \sim \mathcal{O}\left(\frac{1}{|\omega|^{\frac{1}{2n}}}  \right) $ 
+\end{remark}
+
+\begin{eg} Bessel Function of order $0$.
+
+	\begin{align*}
+		J_0(r) = \frac{1}{2\pi} \int_{0}^{2\pi} e^{ir \sin t} dt, \quad r\ge 0, \; r\to \infty
+	\end{align*}
+	For $\phi(t) = \sin t$, we have a maximum at $t = \frac{\pi}{2}$, and a minima at $t=\frac{3\pi}{2}$.
+
+	At $\frac{\pi}{2}$, our contribution is
+	\[
+		\frac{1}{2\pi} \sqrt{\frac{2\pi}{r|-\sin(\frac{\pi}{2})}} e^{ir \sin \frac{\pi}{2} (-1)} = \frac{1}{\sqrt{2\pi r} } e^{ir} e^{-i\frac{\pi}{4}}
+	,\]  and at $\frac{3\pi}{2}$ our contribution is similarly $\frac{1}{\sqrt{2\pi r} } e^{-ir} e^{i\frac{\pi}{4}}$.
+
+	Then $J_0(r) \sim \sqrt{\frac{2}{\pi r}} \cos\left( r - \frac{\pi}{4} \right)  $.
+\end{eg}
+
+\subsection{Method of Steepest Descent}
+
+We now wish to consider 
+\[
+	I(x) := \int_{C} g(z, x) dz
+\] about some contour $C \subset \C$. We might like to try deforming our contour within a region of analyticity to some more convenient integral which is equal by Cauchy's Theorem.
+
+We now consider the class of functions given by
+\[
+	I(x) = \int_{C} f(z) e^{x\phi(z)} dz
+\] where $f, \phi$ are analytic in some region $D \supset C$.
+
+Writing $\phi(z) = u(p, q) + iv(p,q)$, we have that $u_p = v_q$, $u_q = -v_p$, and so $\nabla u \cdot  \nabla v = 0$. Also, $\nabla u \neq  0 \iff \nabla v \neq 0 \iff \phi'(z) \neq 0$. We say then that $\phi$ is conformal at $z$.
+
+\begin{eg}
+	Take $\phi(z) = z^2 = p^2-q^2 + 2ipq$. Then $|e^{x\phi(z)}| = |e^{xu}|$ for real $x$.
+\end{eg}
+
+\subsubsection*{Ideal Case}
+
+Ideally, we can deform $C \to \tilde{C}$ in a manner such that, for $e^{x\phi(z)} = e^{xu(p,q)} e^{iv(p,q)}$, $\tilde{C}$ is a level curve of $v$, i.e. $v(p,q) = v(p_0, q_0) = \text{const}$. 
+
+In this case, \[
+	I(x) = e^{iv(p_0,q_0)}\int_{\tilde{C}} f(z) e^{iu(p,q)} dz
+\]
+
+We can then parameterize $\tilde{C}$ as $z(t), \alpha \le t \le \beta$, and we can use Laplace's Method on 
+\[
+	I(x) = e^{ixv(p_0, q_0)} \int_{\tilde{C}} f(z(t)) e^{xu(p(t), q(t))} (\dot{p} + i \dot{q})dt
+\]
+
+\subsubsection*{Added Value}
+
+In addition we have by Cauchy-Riemann that $\phi'(z_0) \neq 0 \iff \nabla u(p_0, q_0) \neq 0 \iff \nabla v(p_0, q_0) \neq 0$. Then if $phi'(z_0)$, we have a unique orthogonal intersection of curves with $u=\text{const}$ and $v = \text{const}$. The curve $v = \text{const}$ is in fact the steepest descent curve of $u$, that is along the direction of $\nabla u$.
+
+\subsubsection*{Fixing Things}
+
+Suppose $v(p_0, q_0) = v(p_1, q_1)$, where $C$ connects $z_0$ and $z_1$. In this case, we cannot deform to a curve $\tilde{C}$ with $v(p,q) = \text{const}$. 
+
+\begin{idea}
+
+We hope that by continuing two paths of $v=\text{const}$ from $z_0$ and $z_1$ to infinity, we can make it such that the connecting contour goes to 0, and we magically get the right answer (see example).
+\end{idea}
+
+Consider instead what happens at a point with $\phi'(z_0)$. Then $u$ (and $v$) is stationary at $(p_0, q_0)$. Now, $u,v$ are harmonic functions, so $u_{pp} = -u_{qq}$, and all interior stationary points must be saddle points. Then we can find a direction of steepest descent. 
+
+\begin{eg} Saddle point
+
+	Let $\phi(z) = iz^2$. Then $\phi'(z) = 2iz = 0 \iff z=0$.
+
+	Now, $u = -2pq$, and $v = p^2 - q^2$.
+	$v(0,0) = 0$. Consider the curve $v(p,q) = 0$. These are given by $p=q$ and $p=-q$.
+
+	On these two curves,  $u= -2p^2$ or $u = 2p^2$. The former has a maximum at the origin, the latter has a minimum. Then to use steepest descent, we go along the curve $p=q$, where we can use Laplace's method.
+\end{eg}
+
+\begin{eg} (Bender and Orszage)
+
+Let \[
+	I(x) = \int_0^{1} e^{ixt^2} dt, \quad x\to \infty
+\] (Fresnel integral at finite interval)
+
+Then we expect, as $t^2$ is minimal at the origin, that $I(x) \sim \mathcal{O}\left(\frac{1}{\sqrt{x} }\right)$, with our leading contribution being from $t=0$. 
+
+So, $\phi(z) = iz^2$, $f(z) = 1$, $C = [0,1]$. We have  $u = -2pq$, $v = p^2 - q^2$. Note that $v(0,0)  = 0 \neq v(1,0) = 1$.
+
+By before, at $z =0$, our curve of steepest descent is $p=q$, where we go in to the UHP. Now, $\phi'(1) = 2i$, so there is a single line of steepest descent here. To have $v(p,q) = 1$, we have $p^2 - q^2 = 1$, so $p = \pm \sqrt{q^2 + 1} $. On this curve, we have $u = \mp 2q\sqrt{q^2 + 1} $. We pick the negative curve for steepest descent.  
+
+We consider truncating at $q=T$, connecting the two curves with a segment of $q=T$.  
+
+So we let $\Gamma_2(T) = \{z + s + iT: T \le s \le \sqrt{T^2 +1} \} $.
+
+\begin{align*}
+	\left| \int_{\Gamma_2(T)} e^{ixz^2} dz \right| &= \left| \int_{T}^{\sqrt{T^2 + 1} } e^{ix \left( s^2 -T^2  + 2isT \right) } ds \right| \\
+	&\le  \left| \int_T^{\sqrt{T^2 + 1} } e^{-2sT} ds  \right| \\
+	&= \frac{1}{2xT} \left( e^{-2xT^2} - e^{-2xT\sqrt{T^2 + 1} } \right)  \\
+	& \to 0 \text{ as } T \to \infty
+\end{align*}
+
+Let $\Gamma_1(T)$ be our curve of steepest descent,  $p=q$.
+
+\begin{align*}
+	\int_{\Gamma_1}  e^{ixz^2} dz &= \int_0^{\infty} e^{-2q^2 x} (1+i) dq  \\
+	&= \frac{1}{2} \sqrt{\frac{\pi}{x}} e^{i\frac{\pi}{4}} \\
+\end{align*}
+
+Finally, we let $\Gamma_3$ be our right curve of steepest descent, $p = \sqrt{q^2 + 1} $.
+
+\begin{align*}
+	\int_{-\Gamma_3} e^{ixz^2} dz &= \int_{0}^{\infty} \left( \frac{q}{\sqrt{1+q^2} } + 1 \right) e^{ix}e^{-2q\sqrt{1+q^2} } dq\\
+\end{align*}
+Let $s = 2q \sqrt{1+q^2} $. Then $i z^2 = i - s, z^2 = 1 + is$.
+
+So
+\begin{align*}
+	\int_{-\Gamma_3} e^{ixz^2} dz &= \int_{0}^{\infty} \frac{e^{(i-s)x} i}{2(1+is)^{\frac{1}{2}}} ds \\
+	&= \frac{i}{2} e^{ix} \int_0^{\infty} \frac{e^{-sx}}{(1+is)^{\frac{1}{2}}} \\
+\end{align*}
+
+Now, 
+\[
+	\frac{1}{(1+is)^{\frac{1}{2}}} = \sum_{n=0}^{\infty} (-i)^{n} \frac{s^{n}}{n!} \frac{\Gamma\left(n+\frac{1}{2}\right)}{\Gamma \left( \frac{1}{2} \right)}
+,\] 
+And so by Watson's Lemma,
+\begin{align*}
+	\int_{-\Gamma_3} e^{ixz^2} dz &\sim \frac{i}{2} e^{ix} \sum_{n=0}^{\infty} (-i)^{n} \frac{\Gamma \left(n + \frac{1}{2} \right)}{\Gamma \left( \frac{1}{2} \right) n! } \frac{\Gamma \left( n+1 \right) }{x^{n+1}} \\
+	&= \frac{e^{i\frac{\pi}{2}}}{2} \sum_{n=0}^{\infty} (-i)^{n} \frac{\Gamma \left( n+\frac{1}{2} \right) }{\Gamma\left( \frac{1}{2} \right) } \frac{1}{x^{n+1}}
+\end{align*}
+
+And \[
+	I(x) \sim \int_{\Gamma_1} - \int_{-\Gamma_3}
+\] 
+\end{eg}
+
+We go back now to our general form
+\[
+	\int_{C} f(z) e^{x(u+iv)} dz
+\]
+
+We seek to deform $C$ to reach a saddle point, as there we have multiple curves of steepest descent, giving then the major contribution to the integral from the saddle point.
+
+Suppose $C$ in fact starts from a saddle point and is of steepest descent for u. Then $\phi'(z_0) = 0$. Assume that $\phi''(z_0) \neq 0$.
+
+\begin{align*}
+	\int_{C} f(z) e^{x\phi(z)} dz = e^{ixv_0} \int_{C} f(z) e^{xu(z)} dz
+\end{align*}
+As $C$ is a curve of steepest descent, we can happily consider just a small region about $z_0$ for our majority contribution.
+
+So
+ \begin{align*}
+	 \int_{C} f(z) e^{x\phi(z)} dz \sim f(z_0) e^{x\phi(z_0)}\int_{C_\epsilon} e^{\frac{1}{2} \phi''(z_0) (z-z_0)^2} dz
+\end{align*}
+
+Let $z(t) = z_0 + r(t) e^{i\theta(t)}$. Then $\phi''(z_0) (z-z_0)^2 = \phi''(z_0) r^2 e^{2i\theta(t)}$, and $\phi''(z_0) = |\phi''(z_0)| e^{i\alpha}$. $\Im (\phi(z) - \phi(z_0)) =0 $ on $C_{\epsilon}$, as $v$ is constant. So, writing  $\phi''(z_0) (z-z_0)^2 = |\phi''(z_0)| r^2 e^{i(2\theta + \alpha)}$, we have that $\sin (2\theta + \alpha) = 0$. Also, $\Re (\phi(z) - \phi(z_0)) <0$ for $z \neq z_0$ on $C_{\epsilon}$. So $\cos(2\theta + \alpha) < 0$, and so  $2\theta + \alpha = (2k+1)\pi$, $k=0,1$.
+
+Then
+ \begin{align*}
+	 I(x) &\sim f(z_0) e^{x\phi(z_0)} \int_{C_{\epsilon}} e^{\frac{x}{2} |\phi''(z_0)| r^2 e^{i(2\theta + \alpha)}} d(re^{i\theta}) \\
+	 &\sim  f(z_0) e^{x\phi(z_0)} e^{i\theta}\int_{0}^{\epsilon} e^{\frac{x}{2} |\phi''(z_0)| r^2 e^{i(2\theta + \alpha)}} dr \\
+\end{align*}
+Let $s = -i \left( \frac{|\phi''(z_0)| x}{2} \right)^{\frac{1}{2}} re^{i(\theta + \frac{\alpha}{2})} $ 
+
+Then 
+\begin{align*}
+	I(x) &\sim f(z_0) e^{i\theta} e^{x\phi(z_0)} i \left( \frac{2}{x |\phi''(z_0)|} \right)^{\frac{1}{2}} e^{-i\frac{\alpha}{2}} e^{-i\theta} \int_{0}^{\infty} e^{-s^2} ds \\
+	&\sim  \frac{i}{2} \left( \frac{2\pi}{x\phi''(z_0)} \right)^{\frac{1}{2}} e^{x\phi(z_0)} f(z_0)
+\end{align*} as $\phi''(z_0) = |\phi''(z_0)| e^{i\alpha}$. 
+\end{document}
