@@ -1,0 +1,919 @@
+\documentclass[a4paper]{article}
+\input{../../../preamble.tex}
+
+\title{Further Complex Methods}
+\date{}
+\author{}
+
+\begin{document}
+	
+\maketitle
+
+\section{Complex Variables}
+
+\begin{defn}
+	A \textit{neighbourhood} of a point $z\in \C$ is an open set containing z.
+\end{defn}
+
+\begin{defn}
+	The extended complex plane $\C_{\infty}$ or $\overline{\C}$ is defined as $\C \cup \{\infty\}$. All directions lead to $\infty$, as in the Riemann sphere. 
+\end{defn}
+
+\begin{defn}
+	A function $f(z)$ is \textit{differentiable} at z if $f'(z) = \lim_{a\to 0} \frac{f(z+a) - f(z)}{a}$ exists (i.e. is the same for all paths $a \to 0$).
+\end{defn}
+
+\begin{defn}
+	We say that that $f(z)$ is \textit{analytic/holomorphic/regular} at a point $z$ if it is differentiable in a neighbourhood of $z$. This definition naturally extends to being analytic in a domain $D \subset \C$.
+\end{defn}
+
+\begin{prop} Cauchy-Riemann Conditions
+
+For $f(z) = u(z) + i v(z)$, with $u, v \in \R$, f is differentiable at $z$, iff
+ \[
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y}  
+\]
+
+Where it exists, this is equivalent to the Wirtinger derivative $\frac{\partial f}{\partial \overline{z}} = 0$, where $\frac{\partial }{\partial \overline{z}} = \frac{\partial }{\partial x} + i \frac{\partial }{\partial y} $ 
+
+\end{prop}
+
+\begin{thm} Cauchy s Theorem
+	
+	If $f(z)$ is analytic within and on a closed contour $C$ then $\oint_C f(z) = 0$.
+	Note that the interior is simply connected.
+
+\end{thm}
+
+\begin{thm} Cauchy s Integral Formula
+	
+	For $z_0 \in \intr C $, 
+	\[
+		f(z_0) = \frac{1}{2\pi i} \oint_C \frac{f(z)}{z-z_0} dz
+	\]
+
+	Consequently, 
+	\[
+		f^{(n)}(z_0) = \frac{n!}{2\pi i} \oint_C \frac{f(z)}{(z-z_0)^{n-1}} dz
+	,\]
+	
+	implying that an analytic function is infinitely differentiable. 
+	Here, all path integrals are taken anti-clockwise. 
+\end{thm}
+
+\begin{defn}
+	A function $f(z)$ is \textit{entire} if it is analytic on $\C$ (not  $\C_{\infty}$ ).
+\end{defn}
+
+\begin{thm} Liouville's Theorem
+
+	If $f$ is entire and bounded on $\C_{\infty}$, then it is constant. 
+	
+\end{thm}
+
+\begin{proof}
+	Consider a circular disk of radius $R$, i.e. $D = \{z: |z-z_0| < R\}$, and pick $M$ s.t. $|f(z)| < M$.
+
+	Then \[
+		|f^{(n)}(z_0)| \le \frac{n!}{2\pi} \oint_{C} \frac{|f(z)|}{|z-z_0|^{n-1}} dz \le \frac{n!M}{2\pi R^{n+1}} \oint_C |dz| \le \frac{n!M}{R^{n}}
+	\]
+	As this holds for all $R, z_0$, we must have that $f'$ vanishes identically, and so $f(z) = f(0)$. 
+\end{proof}
+
+\subsection{Series expansions}
+
+An analytic function has a convergent Taylor expansion about any point within its domain of analyticity:
+\[
+	f(z) = \sum_{n=1}^{\infty} \frac{f^{(n)}(z_0)}{n!} (z-z_0)^{n}
+
+\] 
+
+We can also consider Laurent series for functions $f(z)$ with an isolated singularity about some point $z_0$, but analytic in a neighbourhood of $z_0$.
+
+\[
+	f(z) = \sum_{n=-\infty}^{\infty} C_n (z-z_0)^n, \quad C_n = \frac{1}{2\pi i} \oint \frac{f(z)}{(z-z_0)^{n+1}} dz
+\] 
+
+We can classify the singularity as follows:
+
+\[
+	f(z) = \sum_{n=0}^{\infty} C_n (z-z_0)^{n} + \sum_{n=1}^{N} C_{-n} (z-z_0)^{-n}
+\]
+
+Then $z_0$ is:
+
+\begin{enumerate}
+	\item A regular point (or 0) if $C_{-n} = 0 \, \forall n\ge 1$.\\
+	\item A simple pole if $N=1$ \\
+	\item A  pole of order  $N$ if $N>1$ (here we can write $f = \frac{g}{(z-z_0)^{N}}$, $g$ analytic)\\
+	\item And essential singularity if $N \to \infty$.
+\end{enumerate}
+
+The coefficient $C_{-1}$ in our Laurent series is called the \textit{residue} of $f$ at $z_0$.
+
+For a pole of order $N$, $C_{-1} = \frac{1}{(N-1)!} \frac{d^{N-1}}{dz^{N-1}} [(z-z_0)^{N} f(z)]\Bigr\rvert_{z=z_0}$
+
+\begin{thm} Residue Theorem
+	
+	If $f$ is analytic in a simply-connected domain, except at a finite number of isolated singularities $z_1, \ldots, z_n$, then
+
+\[
+	\oint f(z) dz = 2\pi i \sum_{k=1}^{n} \res(f(z); z_k)
+\]
+
+\end{thm}
+
+\begin{lemma} The Identation Lemma
+
+	Consider a simple pole at $z_0$.
+
+\begin{figure}[ht]
+    \centering
+    \incfig{indentation}
+    \caption{}
+    \label{indentation}
+\end{figure}
+	
+Then \[
+	\lim_{\epsilon \to 0} \int_{C_{\epsilon}} f(z) dz = i(\beta - \alpha) \res(f; z_0)
+,\] where on $C_{\epsilon}$, $z = z_0 + \epsilon e^{i \theta}$, $\alpha \le \theta \le \beta$. 
+\end{lemma}
+
+\begin{proof}
+	
+Consider the Laurent expansion of $f$ about $z_0$.
+\[
+	f(z) = \frac{\res(f; z_0)}{z-z_0} + g(z)
+,\] where $g$ is analytic in the region $|z-z_0| < r$, $r>0$.
+
+By continuity of  $g$ at $z_0$, we can choose $r$ small enough such that $g$ is bounded by some $M\in \R$. On $0 < \epsilon < r$, we have 
+\begin{align*}
+	\int_{C_{\epsilon}} f(z) dz &= \res(f;z_0) \int_{C_{\epsilon}} \frac{dz}{z-z_0} + \int_{C_{\epsilon}} g(z) dz \\
+	&= i \res(f;z_0) \int_{\alpha}^{\beta} i d\theta + \int_{C_{\epsilon}} g(z) dz  \\
+	&= i(\beta-\alpha) \res(f;z_0) \text{ in the limit } \epsilon \to 0, \text{ as $g$ is bounded. }
+\end{align*}
+
+\end{proof}
+
+\subsection{Functions defined by integrals}
+
+Consider $F(z) = \int_{C} f(z,t) dt$, where $C$ is some contour in $\C$ (not necessarily closed). We wish to find out when such an $F$ is defined and analytic.
+
+\subsubsection*{Conditions on analyticity}
+
+We need to check that:
+\begin{enumerate}
+	\item The integrand is continuous in $t$ and $z$.
+	\item The integral converges uniformly in each subset of its domain.
+	\item The integrand is analytic in $z$ for each value of $t$.
+\end{enumerate}
+This second condition will not be treated rigorously.
+
+\begin{eg}
+	\[
+		F(z) = \int_{-\infty}^{\infty} e^{-zt^2} dt \left( = \sqrt{\frac{\pi}{z}}  \right) 
+	\]
+
+	The integral converges for $\Re(z) > 0$, and diverges for $\Re(z) <0$. If  $z \in i\R$, then the integrand $e^{-iyt}$ oscillates increasingly rapidly, and $F(z)$ is not absolutely convergent, but conditionally convergent, i.e.
+	\[
+	\lim_{l\to \infty} \int_{-l}^{l} |e^{-iyt^2}|dt \to  \infty
+	,\] but
+	\[
+		\lim_{l\to \infty} \int_{-l}^{l} e^{-iyt^2} dt \text{ is finite.}
+	\] 
+
+	Conditions 1&3 hold. It can be shown that 2 also holds. 
+\end{eg}
+
+\begin{eg}
+	\[
+		F(z) = \int_{0}^{\infty} \frac{u^{z-1}}{u+1} du
+	\]
+
+	\begin{enumerate}
+		\item Existence: Potential problems when $u=0,\infty$. The integrand is otherwise well behaved (except for $-1$, which is outside the range of integration). There are no problematic values of $z$, as  $u^{z-1} = e^{(z-1)\log u}$.
+
+		At $u=0$, we have  $\int_{0} u^{z-1} du = \frac{u^{z}}{z} \big\rvert_{0}$
+		\[
+		|u^{z}| = |e^{z\log u}| = e^{x\log u}
+		\]
+		So to have this converge (to  $0$ ), we require $\Re(z) >  0$. 
+
+		At $u = \infty$, $u+1 \approx u$, and  $\int ^{\infty} u^{z-2} = \frac{u^{z-1}}{z-1}$
+		\[
+			|u^{z-1}| = e^{(x-1)\log u}
+		,\] so we require $\Re(z) < 1$.
+
+		If $\Re(z) = 0,1$, we also do not have convergence.
+		Thus  $F(z)$ is defined for $0<\Re(z) < 1$.
+
+	\item Analyticity: Conditions 1&3 are clearly satisfied in $0<\Re (z) < 1$. 2 probably is.
+	\end{enumerate}
+
+	So $F(z)$ is analytic for $0 < \Re(z) < 1$.
+
+	We can evaluate it using a circular keyhole contour. On $C_R$,  $t = Re^{i\theta}$, on $C_{+}$, $ t = u, \epsilon < u < R $, on $C_{-}$, $t = ue^{2\pi i}, R > u > \epsilon$, and on $C_{\epsilon}$, $t = \epsilon e^{i\theta}$.
+	
+	So, $\int_{C_{-}} \frac{t^{z-1}}{t+1} du = -(e^{2\pi i})^{z-1} F(z)$.
+
+	As $0 < \Re(z) < 1$, $\lim_{R\to \infty} R^{1-z} = $, and so our  $C_R$ integral goes to $0$.
+	Similarly, so too does our  $C_{\epsilon}$ integral.
+
+	Therefore,
+
+	\begin{align*}
+		(1-e^{2\pi i(z-1)})F(z) &= 2\pi i \times e^{-i \pi (z-1)} \\
+		\implies F(z) &=  \frac{\pi}{\sin \pi z }
+	\end{align*} 
+
+	We will see later that $F(z) = \Gamma(z) \Gamma(1-z)$.
+\end{eg}
+
+\subsection{Analytic Continuation}
+
+We have that  $F(z) = \int_{-\infty}^{\infty} e^{-zt^2}dt$ is analytic for $\Re(z) > 0.$ We would like to know if it is possible to extend its domain of analyticity, and whether such an extension is unique.
+
+\begin{thm} Identity Theorem
+	
+	Let $g_1, g_2$ be analytic functions in a connected, non-empty, open set $D \subset \C$ with $g_1 = g_2$ in a non-empty open subset $\tilde{D} \subset D$. Then $g_1 = g_2$ on $D$.
+
+\end{thm}
+
+\begin{proof} (sketch)
+
+Expand $g_1 - g_2$ as a Taylor expansion about $z_0 \in \tilde{D}$. Then the series holds in all of $D$, and is identically $0$ in $\tilde{D}$. Therefore  $g_1-g_2 = 0$ on $D$. 
+\end{proof}
+We can extend this proof by replacing our set $\tilde{D}$ by a contour $\gamma \subset D$.
+
+\begin{defn} Analytic Continuation
+
+	Let $D_1, D_2$ be open sets with $D_1 \cap D_2 \neq \emptyset$. Let $f_1$ and $f_2$ be analytic on $D_1$ and $D_2$ respectively, with $f_1 = f_2$ on $D_1 \cap D_2$. Then we say that $f_2$ is the \textit{analytic continuation} of $f_1$ from $D_1$ to $D_2$.
+\end{defn}
+
+\begin{prop}
+	Our analytic continuation $f_2$ is unique.
+\end{prop}
+
+\begin{proof}
+	Suppose there exists  $\tilde{f}_2 \neq f_2$ which provides such an analytic continuation with $\tilde{f}_2 = f_1$ on $D_1 \cap D_2$. Define
+	\begin{align*}
+		g_1 &= \begin{cases}
+		f_1 \text{ on } D_1 \\
+		f_2 \text{ on } D_2
+	\end{cases} \\
+	g_2 &= \begin{cases}
+		f_1 \text{ on } D_1 \\
+		\tilde{f}_2 \text{ on } D_2
+	\end{cases}
+\end{align*}
+
+Then by the identity theorem, $g_1 = g_2$, and so $f_2 = \tilde{f}_2$ and our analytic continuation is unique. 
+\end{proof}
+
+ \begin{prop} Monodromy Theorem
+
+	 If we have open sets $D_1$, $D_3$ with $D_1 \cap D_3 = \emptyset$, with a function $f_1$ defined on $D_1$. A unique analytic continuation of this to $D_3$ is possible iff we can analytically continue $f_1$ through all domains $D_2$ connecting $D_1$ and $D_3$ with $D_1 \cap D_2, D_2 \cap D_3 \neq \emptyset$.	 
+\end{prop}
+
+\begin{proof}
+	Left as an exercise to a different reader.
+\end{proof}
+
+\subsubsection*{Methods of Analytic Expansion}
+
+\begin{enumerate}
+	\item Taylor expansion
+
+		If we pick $z_0$ near the boundary of our domain $D$, we can extend  $f_1$ to a disk $|z-z_0| < r$ for some radius of convergence $r$.
+
+	\begin{eg} Note that
+		\begin{align*}
+			f(z) &= \frac{1}{1-z} \\
+			&= \frac{1}{1-z_0} \frac{1}{1-\frac{z-z_0}{1-z_0}} \\
+			&= \frac{1}{1-z_0} \sum_{n=0}^{\infty} \left(\frac{z-z_0}{1-z_0}\right)^{n}\\
+		,\end{align*} which converges for $|z-z_0| < |1-z_0|$.
+
+		Now, let $f_1 = \sum_{n=0}^{\infty} z^{n}$. It is analytic for $|z|<1$. Let $f_2 = \sum_{n=0}^{\infty} \frac{(z-\frac{i}{2})^{n}}{(1-\frac{i}{2})^{n+1}}$, analytic on $|z-\frac{i}{2}| < \frac{\sqrt{5} }{2} $. We have that  $f_1 = f_2$ on the intersection of the disks, and hence by the identity theorem, $f_2$ is the analytic continuation of $f_1$. This can be continued as a chain of disks covering $\C \setminus \{1\} $, to obtain the function $\frac{1}{1-z}$, which has a simple pole at $z=1$. 	
+	\end{eg}
+	This is known as meromorphic continuation (analytic continuation excluding singularities).
+	However, such extensions are not always possible.
+
+	\begin{eg}
+		Let $f(z) = \sum_{n=0}^{\infty} z^{2^{n}}$ is convergent in $|z|<1$ by ratio test, but its singularities are dense, and analytic continuation is not possible. We call $|z|=1$ a \textit{natural barrier}.
+	\end{eg}
+	\item Contour deformation
+		\begin{eg}
+		Let $F(z) = \int_{-\infty}^{\infty} \frac{e^{it}}{t-z} dt$ for $\Im z > 0$.
+
+		We want to continue $F(z)$ to the lower half-plane, but obviously it is not analytic for  $\Im z = 0$. So, we might think to re-define $F$ for $\Im z \neq 0$. We shall see shortly why this does not work.
+
+		Pick  $z_1$ with $\Im z_1 <0$. We wish to continue $F$ into a neighbourhood of $z_1$ by deforming our path of integration. 
+
+\begin{figure}[ht]
+    \centering
+    \incfig{deformed-path}
+\end{figure}
+		Define \[
+			F_1(z) = \int_{C} \frac{e^{it}}{t-z}
+		\] 
+
+		Then $F_1$ is analytic for all $z$ above $z_1$. For $\Im z > 0$, we can see by deforming our new path to the real axis, that $F_1 = F$. Therefore, $F_1$ is the analytic continuation of $F$ into $\Im z < 0$.
+
+		Now, instead consider $G(z) = \int_{-\infty}^{\infty} \frac{e^{it}}{t-z} dt$ for $\Im z \neq 0$. So if  $\Im z > 0$, then $G(z) = F(z)$ by definition.
+
+		If $\Im z < 0$, then consider closing the contour with our path $C$ above. We find \[
+			F_1(z) - G(z) = 2\pi i e^{iz} 
+		\]
+		So for $\Im z > 0$, we have that $F = F_1 = G$, and for $\Im z < 0$ we have  $F_1 = G- 2\pi i e^{iz}$. 
+
+		Hence $G$ jumps by $2\pi i e^{iz}$ as it crosses the real axis.
+		\end{eg}
+\end{enumerate}
+
+\subsection{Cauchy Principal Value}
+
+\begin{idea}
+	Can we say that \[
+	\int_{-1}^{2} \frac{dx}{x} = \log 2 - \log|-1| = \log 2
+	?\] 
+\end{idea}
+
+\begin{defn}
+	If $f(x)$ is badly-behaved at $x=c$ and $a<c<b$, we can define the \textit{Cauchy Principal Value} integral by
+	\[
+		\mathcal{P} \int_a^{b} f(x) dx := \lim_{\epsilon \to 0} \int_{a}^{c-\epsilon} f(x) dx + \int_{c + \epsilon}^{b} f(x) dx
+	\]
+	when the limit exists of course.
+\end{defn}
+
+\begin{eg}
+	Let $I = \mathcal{P} \int_{-\infty}^{\infty} \frac{f(x)}{x} dx$, where $f$ is analytic  in the upper half-plane and real axis, and $f(x) \to 0$ at infinity.
+
+	Closing in the UHP, our $C_R$ contribution vanishes in the limit $R\to \infty$, and our $C_{\epsilon}$ term contributes $-i\pi f(0)$, where by analyticity of $f$, our residue at the origin is $f(0)$.
+	Hence
+	\[
+		\mathcal{P} \int_{-\infty}^{\infty} \frac{f(x)}{x} = i\pi f(0)
+	\] 
+\end{eg}
+
+\begin{eg}
+	Let $I = \int_{-\infty}^{\infty} \frac{1-\cos x}{x^2}$. Our integrand has a removable singularity at $x=0$. We can show using standard methods that  $I = \pi$.
+
+	Alternatively, $I = \Re \mathcal{P} \int_{-\infty}^{\infty} \frac{1-e^{ix}}{x^2}$. Closing this in an arch, we get by indentation lemma that
+	\[
+		\mathcal{P}\int_{-\infty}^{\infty} \frac{1-e^{ix}}{x} -i\pi (-i) = 0
+	,\]
+	So $I=\pi$, and $\mathcal{P} \int_{-\infty}^{\infty} \frac{\sin x}{x^2} = 0$.
+\end{eg}
+
+\subsection*{Hilbert Transforms}
+
+\begin{defn}
+	The Hilbert transform of $f(x)$ is defined by
+	\[
+		\mathcal{H}(f)(y) = \frac{1}{\pi} \mathcal{P} \int_{-\infty}^{\infty} \frac{f(x) dx}{x-y}
+	\] 
+\end{defn}
+
+\begin{remark}
+	Observe that $\mathcal{H}$ is a linear functional.
+\end{remark}
+
+We shall assume that $f$ has a Fourier decomposition, so we only need to consider the Hilbert transform of $e^{i\omega x}$, and then use linearity of the transform. We will show that 
+\[
+	\mathcal{H}(e^{i\omega x})(y) = \begin{cases}
+		ie^{i\omega y}, \; \omega > 0 \\
+		-ie^{i\omega y}, \; \omega < 0
+	\end{cases} = i \sgn(\omega) e^{i\omega y}
+\] 
+
+Integrating in an arch shaped contour about $y$, we get
+\begin{align*}
+	\mathcal{P} \int_{-\infty}^{\infty} \frac{e^{i\omega x}}{x-y} dx + \underbrace{\int_{C_R}}_{\to 0} + \underbrace{\int_{C_\epsilon}}_{= -i\pi e^{i\omega y}} &= 0
+\end{align*}
+
+And flipping our arch for $\omega < 0$, we get a negative sign from the indentation lemma, so the result indeed holds.
+
+\begin{remark}
+	From this it follows that $\mathcal{H}^2(e^{i\omega x}) = -e^{i\omega x}$, so $\mathcal{H}$ is "anti-self-inverse" here.
+
+	More (but not completely of course)  generally, if $g(y) = \mathcal{H}(f)(y)$, then
+	\[
+		f(x) = \frac{1}{\pi} \mathcal{P} \int_{-\infty}^{\infty} -\frac{g(y)}{y-x}
+	\] 
+\end{remark}
+
+\subsection*{Kramers-Kronig Relations}
+
+Let $f=u+iv$ be analytic in $\Im z >0$, with $f\to 0$ as $|z|\to \infty$. Let $x' = z' \in \R$, and consider C as follows:
+\begin{figure}[ht]
+    \centering
+    \incfig{contour}
+\end{figure}
+
+Then by indentation lemma, \[
+	\int_{C} \frac{f(z)}{z-z'} dz = \mathcal{P} \int_{-\infty}^{oo} \frac{f(x) dx}{x-x'} - i\pif(x) = 0 \tag{1}
+\]
+
+For $z \in \R$, we can write $f(z) = f(x,y) = f(x,0)$, with $f(x,0) = u(x,0) + iv(x,0)$.
+
+Hence, taking real and imaginary parts of (1), we obtain
+
+\begin{align*}
+	\mathcal{P} \int_{-\infty}^{\infty} \frac{u(x) dx}{x-x'} &= -\pi v(x') \\
+	\mathcal{P} \int_{-\infty}^{\infty} \frac{v(x)dx}{x-x'} &= \pi u(x')
+\end{align*}
+
+Or
+\begin{align*}
+	\mathcal{H} u(x') &= -v(x') \\
+	\mathcal{H} v(x') &= u(x')
+\end{align*}
+
+These are known as the Kramers-Kronig relations, relating the real and imaginary parts of functions analytic in the upper half plane.
+
+\begin{eg} The Laplace equation in the upper half plane
+
+	Let $u(x,y)$ be a harmonic function in $\Im z>0$. Recall that for $\frac{\partial }{\partial z}  = \frac{1}{2} \left( \frac{\partial }{\partial x} - i \frac{\partial }{\partial y}  \right)$, we have
+	\[
+	4 4 4 4 \frac{\partial ^2 u}{\partial z \partial \overline{z}}u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2u }{\partial y^2}  = 0
+	\]
+
+	Suppose $u\to 0$ for large $|x|, y$.
+
+	Consider  $F(z) = \frac{\partial u}{\partial z} $. $\frac{\partial F}{\partial \overline{z}} $ implies analyticity for $\Im z > 0$, and so
+	\begin{align*}
+		u_x (x,0) &= -\mathcal{H} u_y (x,0) \\
+		u_y (x,0) &= \mathcal{H} u_x (x,0)
+	\end{align*}
+	 
+\end{eg}
+
+\subsection{Multivalued Functions}
+
+\begin{defn}
+	A multivalued function $f(z)$ admits more than one value for given $z$.
+\end{defn}
+
+\begin{defn}
+	A point $z=a$ is a branch point of the multivalued function $f(z)$ if $f$ is discontinuous upon traversing in a small circle about $z=a$ i.e.  $f(a+re^{2\pi i}) \neq f(a+r)$.
+\end{defn}
+
+\begin{eg}
+	$f(z) = (1-z^2)^{\frac{1}{2}} = (1-z)^{\frac{1}{2}(1+z)^{\frac{1}{2}}}$ has branch points at $z=\pm 1$.
+
+	For $z=1$, consider $z=1 + \epsilon e^{i\theta}, 0<\epsilon \ll 1$.
+	\[
+		f(z) = (-\epsilon e^{i\theta})^{\frac{1}{2}}(2+\epsilon e^{i\theta})^{\frac{1}{2}} \approx \pm i \sqrt{2\epsilon} e^{i\frac{\theta}{2}}
+	\]
+	And it is easily seen that this is a branch point.
+
+	Note that $\infty$ is not a branch point (consider $t = \frac{1}{z}$).
+
+\end{eg}
+
+\vspace{1em}
+
+We seek to express a multivalued function in terms of a singlevalued function. This is achieved by restricting the region in $\C$ to cut in such a way that the resulting function is singlevalued and continuous.
+
+\begin{defn}
+	A continuous singlevalued function obtained in this way is called a \textit{branch} of the multivalued function.
+\end{defn}
+
+\subsection*{Integrating using a branch cut}
+
+We seek to evaluate \[
+	I = \int_{-1}^{1} (1-x^2)^{\frac{1}{2}} dx
+\] by contour integration.
+
+We choose $f(z)$ to be the branch of $(1-z^2)^{\frac{1}{2}}$ with $f(0^{+}) = 1$, given in local polars by \[
+	f(z) = |1-z^2|^{\frac{1}{2}} e^{\frac{i}{2}\left(\phi_1 + \phi_2 - \frac{\pi}{2}  \right) }
+\]
+
+You then do some boring stuff, and get the answer to be  $2\pi$ or something.
+
+\subsection*{The arcsin function defined as an integral}
+
+Let \[
+	\Arcsin z = \int_{0}^{2\pi} \frac{dt}{(1-t^2)^{\frac{1}{2}}}
+,\] where $\sqrt{1-t^2} $ is defined by a branch cut between $-1$ and $1$ as before, such that it takes value  $1$ at $0^{+}$, and where $0 \le  \arg z < \pi$
+
+See siklos' notes.
+
+\section{Special Functions}
+
+\subsection{The Gamma Function}
+
+We are motivated by finding a smooth curve that interpolates the points $f(n) = n!, n \in \N$. We find such a magical function to be given by $f(x) = \Gamma(x+1)$! We now seek to generalize this in integral form to $\C$.
+
+Let  $I(z) = \int_{0}^{\infty} t^{z-1} e^{-t} dt$ (Euler's Integral), which converges and is analytic for $\Re z >0$. 
+
+Now, 
+\begin{align*}
+	I(z+1) = \int_{0}^{\infty} t^{z}e^{-t} dt &= \left[ -t^{z}e^{-t} \right]_{0}^{\infty} + \int_0^{\infty} zt^{z-1}e^{-t} dt \\
+	&= \I(z)
+\end{align*}
+
+Also, $I(1) = 1$. Hence  \[
+	I(n+1) = n!I(1) = n!, \; n\in \N
+\]
+
+So our idea is to define
+\[
+	\Gamma(z) = \begin{cases}
+		I(z), \qquad \Re z >0 \\
+		\text{Analytic continuation elsewhere}
+	\end{cases}
+\] 
+
+Now, we can see that  \[
+	I(z) = \frac{I(z+1)}{z}
+\] is analytic for $\Re (z+1) > 0$, and  $z\neq 0$. As such, we can iteratively extend this to
+\[
+	I(z) = \frac{I(z+n+1)}{z(z-1)\ldots(z+n)}
+,\] which is analytic for $\Re z > -(n+1)$, $z\neq 0, -1, \ldots, -n$.
+
+Hence we can meromorphically continue $\Gamma(z)$ to $\C\setminus \{-n: n\in \N\} $, with simple poles at the negative integers. It is easily seen that $\res(\Gamma(z); -n) = (-1)^{n} \Gamma(1) \frac{1}{n!} = \frac{(-1)^{n}}{n!} $
+
+\subsubsection*{Some alternative definitions and formulae}
+
+\begin{prop} Euler Product Formula
+	\[
+		\Gamma(z) = \lim_{n\to \infty} \frac{n! n^{z}}{z(z+1)\ldots(z+n)}, \qquad \forall z \in \C \setminus (-\N)
+	\] 
+\end{prop}
+
+\begin{proof}
+	Firstly, we consider $\Re z > 0$. Recall that  $e^{-t} = \lim_{n\to \infty} \left(1-\frac{t}{n}\right)^{n}$.
+
+	So,
+	\begin{align*}
+		\Gamma(z) &= \lim_{n\to \infty} \int_{0}^{n} \left(1-\frac{t}{n}\right)^{n} t^{z-1} dt \\
+		&= \lim_{n\to \infty} n^{z} \left[ \frac{(1-\tau)^{n}\tau^{z}}{z}  \right]_{0}^{1} - \frac{n^{\tau}}{z} (-n) \int_{0}^{1} (1-\tau)^{n-1} \tau^{z} d\tau  \quad (\tau = \frac{t}{n}) \\
+		&= \lim_{n\to \infty} 0 + (-1)^{n}n^{z} n! \int_{0}^{1} \frac{\tau^{z+n-1}}{z(z+1)\ldots(z+n-1)} \\
+		&= \lim_{n\to \infty} \frac{n! n^{z}}{z(z-1)\ldots(z+n)}
+	\end{align*} 
+	
+	For $\Re z \le 0$, it is clear to see that our analytic continuation by $\Gamma(z) = \frac{\Gamma(z+1)}{z}$ continues the product formula, and is indeed analytic. 
+\end{proof}
+
+\begin{prop} Gauss Product Formula
+	\[
+		\Gamma(z) = \frac{1}{z} \prod_{n=1}^{\infty} \frac{\left(1+\frac{1}{n}\right)^{z}}{1+\frac{z}{n}}
+	\] 
+\end{prop}
+
+\begin{proof}
+	By the Euler product formula, we can write
+	\begin{align*}
+		\Gamma(z) &= \lim_{n\to \infty} \frac{1}{z} \frac{n^{z}}{\frac{z+1}{1}\frac{z+2}{2}\ldots\frac{z+n}{n}} \\
+		&= \frac{1}{z} \lim_{n\to \infty} \frac{\left\frac{n+1}{n}\right)^{z}\left( \frac{n}{n-1}\right)^{z} \ldots \left \frac{2}{1} \right)^{z} \left( \frac{n}{n+1}\right)^{z} }{(1+z)(1+\frac{z}{2})\ldots(1+\frac{z}{n})} \\
+	\end{align*}
+	As $\left( \frac{n}{n+1} \right)^{z} \to 1 \text{ as } n\to \infty$, we obtain the required expression.
+\end{proof}
+
+\begin{prop} The Weierstrass Canonical Product
+	\[
+		\frac{1}{\Gamma(z)} = z e^{\gamma z} \prod_{k=1}^{\infty} \left( 1 + \frac{z}{k} \right) e^{-\frac{z}{k}}
+	,\] where $\gamma = \lim_{n\to \infty} 1 + \frac{1}{2} + \ldots + \frac{1}{n} - \log n \approx 0.577$ is the Euler-Mascheroni constant.
+\end{prop}
+
+\begin{proof}
+	Using Euler's product formula,
+	\begin{align*}
+		\frac{1}{\Gamma(z) } &= z \lim_{n\to \infty} \frac{(1+z)(2+z)\ldots(n+z)}{n! n^{z}} \\
+		&= z \lim_{n\to \infty} e^{-z \log n} \left(1+z\right)\left(1+\frac{z}{2}\right)\ldots\left(1+\frac{z}{n}\right) \\
+		&= z \lim_{n\to \infty} e^{-z\left( \log n - (1 + \frac{1}{2} + \ldots + \frac{1}{n}) \right) }e^{-z\left( 1+\frac{1}{2} + \ldots + \frac{1}{n} \right) } \left(1+z\right)\ldots\left(1+\frac{z}{n}\right)  \\
+		&= z e^{\gamma z} \prod_{k=1}^{\infty} \left( 1+ \frac{z}{k} \right) e^{-\frac{z}{k}}
+	\end{align*} 
+\end{proof}
+
+\begin{prop} Reflection Formula
+	
+	\[
+		\Gamma(z)\Gamma(1-z) = \pi \csc (\pi z), \quad z \not\in \Z
+	\]
+\end{prop}
+
+\begin{proof}
+	We first consider the case  $\Re z \in (0,1)$ so that we can write $\Gamma(z)$ and $\Gamma(1-z)$ can be written in integral form. Using substitutions $t = r \sin^2\theta$, $s = r \cos^2\theta$, we have 
+	\begin{align*}
+		\Gamma(z) \Gamma(1-z) &= \int_0^{\infty} e^{-t} t^{z-1} dt \int_0^{\infty} e^{-s} s^{-z} ds \\
+				      &= 2 \int_0^{\frac{\pi}{2}} (\tan \theta )^{2z-1} d\theta \\
+				      &= \int_{0}^{\infty} \frac{u^{z-1}}{u+1} du \\
+				      &= \frac{\pi}{\sin (\pi z)}
+	\end{align*}
+	Where we used the substitution $\tan \theta = u^{\frac{1}{2}}$, and calculated the last integral earlier.
+
+	Now, $\Gamma(z)$, $\Gamma(1-z)$ and $\pi (\csc \pi z)$ are analytic for all $ z$ except integer points, and they are equal for $\Re z \in (0,1)$, and so the result holds by analytic continuation.
+\end{proof}
+
+\begin{corollary}
+	$\Gamma(\frac{1}{2}) = \sqrt{\pi} $
+\end{corollary}
+
+\subsection{Hankel Representation of $\Gamma(z)$ }
+
+\begin{prop} Hankel Representation
+	
+	For $z \not\in \Z\setminus\N$,
+	\[
+		\Gamma(z) = \frac{1}{2i \sin(\pi z)} \int_{-\infty}^{0^+} e^{t}t^{z-1} dt
+	,\] where $-\pi \le \arg t \le  \pi$, and the path is called the \textit{Hankel contour}. Note that the function is analytic in both $z$ and $t$.
+\end{prop}
+
+\subsubsection*{Well-Definedness of Hankel Integral}
+
+Note that for $\Re z > 0$, the Hankel representation is equal to the Gaussian integral $I(z)$ from earlier. To see this, we collapse the Hankel contour onto the branch cut, and define for $\Re z > 0$,
+\[
+	J(x) = \int_{-\infty}^{0^{+}} e^{t}t^{z-1} dt = \int_{\gamma_1} + \int_{\gamma_2} + \int_{\gamma_{\epsilon}}
+,\] defining contours
+\[
+\gamma_1: t = xe^{i\pi}, \infty > x > \epsilon, \quad \gamma_2: t = x e^{i\pi}, \epsilon < x < \infty, \quad \gamma_{\epsilon}: t = \epsilon e^{i\theta}, -\pi < \theta < \pi
+\] 
+
+Note that we have
+\begin{align*}
+	\int_{\gamma_1} &\to (e^{-\pi})^{z} \int_{-\infty}^{0} e^{-x}x^{z-1} dx \\
+	\int_{\gamma_2} &\to (e^{i\pi})^{z} \int_0^{\infty} e^{-x} x^{z-1} dx \\
+	\int_{\gamma_{\epsilon}} &\to 0 \text{ as } \Re z > 0 \text{ and } \epsilon \to 0
+\end{align*}
+
+so we have
+\[
+	J(z) = 2i \sin(\pi \) I(z)
+\]
+
+Hence the claim is proved by analytic continuation.
+
+Note that for $z \in \N$, the zeroes of $\sin (\pi z)$ are cancelled by the integral, and $t=0$ is not a branch point, so there are no singularities in the Hankel contour. This suggests that $J(z) = 0$.
+
+\subsubsection*{Residues of $\Gamma(z)$ in Hankel Representation}
+
+In this case with $z \in \N$, we can choose a Hankel contour to be a unit circle enclosing the origin anticlockwise. Now,
+\[
+	J(-m) = \int_{|t| = 1} e^{t}t^{-(m+1)} dt = 2\pi i \res\left(e^{t} t^{-(m+1)}; 0  \right) 
+\]
+Using Taylor expansion,
+\[
+	e^{t}t^{-(m+1)} = \sum_{n=0}^{\infty} \frac{t^{n-m-1}}{n!}
+,\]
+and the residue is then the coefficient of $t^{-1}$, $m!$.
+So  $J(-m) = \frac{2\pi i}{m!}$.
+
+Thus the residue of $\Gamma(z)$ at $z = -m$ is $\lim_{z\to -m} \frac{z+m}{2i \sin \pi z} J(z) = \frac{2\pi i}{m!} \lim_{z\to -m} \frac{z+m}{2i \sin \pi z} = \frac{(-1)^{m}}{m!}$ by l'H\^{o}pital as expected. 
+
+\vspace{1em}
+
+We now seek to answer whether the Gamma function is the unique analytic interpolation problem of the factorial.
+
+\begin{thm}
+	Wielondt's Theorem
+
+	If $F(z)$ satisfies:
+	\begin{enumerate}
+		\item $F(z)$ is analytic for $\Re z > 0$ \\
+		\item  $F(z+1) = zF(z)$ \\
+		\item  $F(z)$ is bounded in $1 \le  \Re z \le 2$ \\
+		\item $F(1) = 1$ 
+	\end{enumerate}
+	then $F(z) = \Gamma(z)$.
+\end{thm}
+
+\begin{lemma}
+	Define the difference function
+	\[
+		f(z) := F(z) - \Gamma(z)
+	\]
+
+	Then $f(z)$ is entire.
+\end{lemma}
+
+\begin{proof}
+	Properties 1 and 2 imply that $F(z)$ can be meromorphically continued into $\C \setminus\left( -\N \right) $, 
+	\[
+		F(z) = \frac{F(z+n)}{z(z+1)\ldots(z+n-1}
+	\]
+
+	By property 4, $\res\left( F(z); -n \right) = \frac{F(1) (-1)^{n}}{n!}$, which is the same as the gamma function. Hence $f(z)$ has only removable poles, and is in fact entire.
+\end{proof}
+
+\begin{lemma}
+	$f(z)$ is bounded in the strip $0 \le \Re z \le  1$.
+\end{lemma}
+
+\begin{proof}
+	We first show that $f(z)$ is bounded on $ 1 \le  \Re z \le 2$. It suffices to check that $\Gamma(z)$ is.
+
+	\begin{align*}
+		|\Gamma(z)| &= \left| \int_{0}^{\infty} e^{-t}t^{z-1} dt \right| \\
+		&\le \int_{0}^{\infty} \left| e^{-t} t^{x+ iy -1} \right| dt \\
+		&= \int_{0}^{\infty} e^{-t} t^{x-1} dt \\
+		&\le  \int_{0}^{\infty} e^{-t} t^{2-1} dt \\
+		&= 1
+	\end{align*}
+
+	We examine our last inequality more closely:
+
+	Define $I(x) = \int_{0}^{\infty} e^{-t} t^{x-1} dt$
+	$I(1) = I(2) = 1$.  $\frac{d^2 I}{dx^2} > 0 $, so $I(x) $ is convex in $[1,2]$, and the inequality indeed holds.
+
+	Now, for $0\le \Re z \le 1$, we can write $f(z) = \frac{f(z+1)}{z}$. As f is bounded on $1 \le  \Re z \le 2$, we conclude that it is also bounded on $0 \le \Re z \le 1$, noting that the pole is removable at the origin.
+\end{proof}
+
+We now prove the original theorem.
+
+\begin{proof} (2.6)
+
+	Let $S(z) = f(z)f(1-z)$. $S(z)$ is entire by lemma 2.7, and is bounded in $0 \le  \Re z \le 1$ by lemma 2.8. Indeed, both $f(z)$ and $f(1-z)$ have the same range in this domain by symmetry.
+
+	Now, $S(z+1) = f(z+1)f(-z) = zf(z) (-z)^{-1} f(1-z) = -S(z)$. Thus $S(z)$ is bounded in $1 \le  \Re z \le  2$.
+
+	Also, $S(z+2) = S(z)$, so $S(z)$ is periodic with period 2, and so is bounded in $\C$. Hence by Liouville's theorem, we must have that $S(z) = S(1) = f(1)f(0) = \left(F(1) - \Gamma(1)\right) f(0) = 0$. Then  $f(z)f(1-z) = 0$ for all $z$. Hence  $f(z) \equiv 0$, and $F(z) \equiv \Gamma(z)$.
+	
+\end{proof}
+
+\subsection{The Beta Function}
+
+\begin{defn}
+	\[
+		B(p,q) := \int_0^{1} t^{p-1}(1-t)^{q-1} dt, \quad \Re p, \Re q > 0
+	,\]
+	and is analytically continued in $p$ and $q$.
+\end{defn}
+
+Setting $t = \sin^2\theta$, it is easily shown (on the example sheet) that
+\[
+	B(p,q) = 2 \int_0^{\frac{\pi}{2}} \sin^{2p-1} \cos^{2q-1} \theta d\theta
+\]
+
+\begin{prop}
+	\begin{enumerate}
+		\item $B(p,q) = B(q,p)$ \\
+		\item  $B(1,q) = \frac{1}{q}$ \\
+		\item $B(p,z+1) = \frac{z}{p+z} B(p, z)$
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	(1) and (2) are trivial.
+	For (3): 
+	\begin{align*}
+		B(p,z+1) &= \int_0^{1} t^{p-1} (1-t)^{z-1} (1-t) dt \\
+			 &= B(p,z) - B(p+1, z) \\
+			 &= B(p,q) - \frac{p}{z} B(p, z+1) \text{ upon integrating by parts.}\\
+	\end{align*}
+\end{proof}
+
+This last identity gives us an analytic continuation of the Beta function into $\Re z > -1$, just as we constructed for the Gamma function.
+
+As our continuation is from $B(p,z) = \frac{p+z}{z} B(p, z+1)$, it is easy to see that much like the Gamma function, for fixed $p$ there are simple poles at $z \in (-\Z)$.
+
+\begin{prop}
+	\begin{enumerate}
+		\item[4.] $B(p,q) = \frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}$ 
+	\end{enumerate}
+\end{prop}
+
+Notice that for $(n,m) \in \N^2$, $B(n,m) = \frac{(n-1)!(m-1)!}{(n+m-1)!}$ 
+
+\begin{proof}
+	 \begin{align*}
+		 \Gamma(p)\Gamma(q) &= \int_0^{\infty} e^{-s} s^{p-1} ds \int_0^{\infty} e^{-t} t^{q-1} \\
+				    &= \Gamma(p+q) \Beta(p,q), \quad \text{ using } s = r\cos^\theta, t = r \sin^2\theta 
+	\end{align*}
+\end{proof}
+
+\begin{prop} Pochhammer Representation (non-examinable)
+
+	Let $J(p,q) := \int_{P} f(t) dt$, where  $P$ is Pochhammer's contour
+
+\begin{figure}[H]
+    \centering
+    \incfig{pochhammer}
+\end{figure}
+
+See handout.
+\end{prop}
+
+\subsection{The Zeta function}
+
+\begin{defn}
+	\[
+		\zeta(z) := \sum_{n=1}^{\infty}\frac{1}{n^{z}}, \quad \Re z > 1
+	\]
+	and is analytically continued wherever possible.
+\end{defn}
+
+Euler showed the well known result that $\zeta(2) = \frac{\pi^2}{6}$.
+
+\begin{prop} Integral Representation of $\zeta(z)$
+
+	\[
+		\zeta(z) = \frac{1}{\Gamma(z)} \int_{0}^{\infty} \frac{t^{z-1}}{e^{t} - 1} dt, \quad \Re z > 1
+	\] 
+\end{prop}
+
+\begin{proof}
+	Let $t = ns$, for some fixed $n \in \N$, with $s \in \R$.
+
+	Then
+	\begin{align*}
+		\Gamma(z) = \int_{0}^{\infty} n^{z} s^{z-1} e^{-ns} ds, \quad \Re z > 0 
+	\end{align*}
+	Hence 
+	\begin{align*}
+		\zeta(z) \Gamma(z) &= \sum_{n=1}^{\infty} \int_0^{\infty} s^{z-1} e^{-ns} \\
+		&= \int_0^{\infty} t^{z-1} \sum_{n=1}^{\infty} e^{-nt} dt \\
+		&= \int_0^{\infty} \frac{t^{z-1}}{e^{-t} -1} dt
+	\end{align*}
+\end{proof}
+
+\begin{prop} Hankel Representation 
+
+	\[
+		\zeta(z) = \frac{\Gamma(1-z)}{2\pi i} \int_{-\infty}^{0^{+}} \frac{t^{z-1}}{e^{-t} - 1} dt
+	\] 
+\end{prop}
+
+Note that the integrand has simple poles at $2\pi i n$, for $n \in \Z$. We take a branch cut on the negative real axis.
+
+\begin{figure}[H]
+    \centering
+    \incfig{hankel}
+\end{figure}
+
+\begin{proof}
+	We show that \[
+		\frac{\Gamma(1-z)}{2\pi i} \int_{-\infty}^{0^{+}} \frac{t^{z-1}}{ e^{-t} - 1} dt = \frac{1}{\Gamma(z)} \int_{0}^{\infty} \frac{t^{z-1}}{e^{t} -1} dt
+	,\] 
+	and show that the LHS gives the analytic continuation of the RHS into $\Re z < 1$.
+
+	On our bottom line, $t = xe^{-i\pi}$, on the circle, $t = \epsilon e^{i\theta}$, and on top $t = xe^{i\pi}$. Treating this just as with the Gamma function,
+
+	 \begin{align*}
+		 \int_{-\infty}^{0^+} &= \int_{\gamma_1} + \underbrace{\int_{\gamma_{\epsilon}}}_{\to 0} + \int_{\gamma_2} \\
+		 &= \left(e^{i\pi z} - e^{-i \pi z}\right)\int_{0}^{\infty} \frac{x^{z-1}}{e^{x} - 1} dx \\
+		 &= 2 i \sin \pi z \Gamma(z) \zeta(z) \text{ by } (2.14)\\ 
+	 \end{align*}
+
+	 Then 
+	 \begin{align*}
+		 \frac{\Gamma(1-z)}{2\pi i} \int_{-\infty}^{0^{+}} \frac{t^{z-1}}{e^{-t} - 1} dt &=  \frac{\Gamma(1-z)}{2\pi i} 2 i \sin \pi z \Gamma(z) \zeta(z)\\ 
+		 &= \pi \frac{\csc \pi z}{\pi} \sin \pi z \zeta(z) \text{ by reflection formula}\\
+		 &= \zeta(z)
+	 \end{align*}
+\end{proof}
+
+The integral on the LHS is entire in $z$ and smooth in $t$, and hence provides an analytic continuation of $\zeta(z) $ into $\Re z < 1$.
+
+ \begin{prop}
+	The $\zeta$-function extends to a meromorphic continuation into $\C$, with the only singular point being a simple pole at  $z=1$ with residue $1$.
+\end{prop}
+
+\begin{proof}
+	Notice that $\Gamma(1-z)$ has simple poles at $z = 1,2,3,\ldots$
+	But $\zeta(z) $ is analytic for $\Re z > 1$ from its series definition. Hence, $z=1$ is the only singularity of $\zeta$.
+
+	The residue
+	\begin{align*}
+		\res(\zeta(z); 1) &= \lim_{z\to 1} \frac{(z-1) \Gamma(1-z)}{2\pi i} \int_{-\infty}^{0^{+}} \frac{t^{z-1}}{e^{-t} - 1} dt \\
+		&= \lim_{z\to 1} \frac{(z-1)\Gamma(1-z)}{2\pi i} \cint_{|z| = \frac{1}{2}} \frac{dt}{e^{-t} - 1} dt
+	\end{align*}
+
+	Note that for $z = -n$, $n \in \N_0$, then $\Gamma(z) = \frac{(-1)^{n}}{n!} \frac{1}{z+n} + \text{ analytic function}$.
+
+	So,
+	\begin{align*}
+		\lim_{z\to 1} (z-1) \Gamma(1-z) = \lim_{z\to 1} (z-1) \left( \frac{(-1)^{0}}{0!} \frac{1}{1-z} + \text{ analytic function} \right) = -1
+	\end{align*}
+	Also,
+	\[
+		\cint_{|z|=\frac{1}{2}} \frac{dt}{e^{-t} - 1} = 2\pi i \cdot  (-1)
+	\]
+
+	Hence $\res\left( \zeta(z) ; 1 \right) = 1$. 
+\end{proof}
+
+What about the zeroes of $\zeta(z)$? 
+
+\begin{prop}
+	Functional Equation for $\zeta(z)$.
+
+	 \[
+		 \zeta(z) = 2^{z} \pi^{z-1} \sin\left( \frac{\pi z}{2} \right) \Gamma(1-z) \zeta(1-z)
+	 \] for all z.
+\end{prop}
+
+\begin{proof}
+	We derive this for $\Re z < 0$, and then use analytic continuation.
+
+	We modify the Hankel contour as follows, closing in a rectangle with vertices at $z = \pm R \pm (2n + 1) \pi i$:
+\begin{figure}[H]
+    \centering
+    \incfig{hankel2}
+\end{figure}
+
+The integral has a branch cut on the negative real axis, with branch point at $0$, and poles at $z = 2\pi i n$, $n \in \Z\setminus \{0\} $. The residues at these points are given by $\frac{1}{(2\pi i n)^{1-z}}$. 
+
+\end{proof}
+\end{document}
