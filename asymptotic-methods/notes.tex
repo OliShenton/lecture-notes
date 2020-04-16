@@ -900,5 +900,843 @@ Then
 \begin{align*}
 	I(x) &\sim f(z_0) e^{i\theta} e^{x\phi(z_0)} i \left( \frac{2}{x |\phi''(z_0)|} \right)^{\frac{1}{2}} e^{-i\frac{\alpha}{2}} e^{-i\theta} \int_{0}^{\infty} e^{-s^2} ds \\
 	&\sim  \frac{i}{2} \left( \frac{2\pi}{x\phi''(z_0)} \right)^{\frac{1}{2}} e^{x\phi(z_0)} f(z_0)
-\end{align*} as $\phi''(z_0) = |\phi''(z_0)| e^{i\alpha}$. 
+\end{align*} as $\phi''(z_0) = |\phi''(z_0)| e^{i\alpha}$.
+
+\subsection*{Airy Equation and Function}
+
+The Airy equation is given by \[
+y'' = xy
+,\] and we seek to understand its asymptotic behaviour.
+
+We solve this by taking Fourier transforms, getting 
+\[
+\frac{d}{dk} \hat{y} = ik^3 \hat{y}
+,\] and so inverting,
+\[
+	Ai(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} e^{\frac{1}{3} it^3 +ixt} dt
+\]
+
+We let $s = \sqrt{x} t$ for $x > 0$.
+
+Then
+\[
+	Ai(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \sqrt{x} e^{i x^{\frac{3}{2}} \left( \frac{1}{3} s^3 + s \right) } ds
+\]
+
+So we let $\phi(z) = \frac{1}{3} i z^3 + iz$, and seek to use the method of steepest descent. As such, we look for the saddle points of $\phi$.
+
+$\phi'(z) = i(z^2 + 1)$, so our saddle points  are at $z + \pm i$. We will choose  $z= i$, leaving $z=-i$ as an exercise.
+
+Now, $\phi(p+iq) = \frac{1}{3}q^3 - p^2q - q + i\left( \frac{1}{3} p^3 - pq^2 + p \right) $.
+So we seek curves $\frac{1}{3} p^3 - pq^2 + p = 0$, as it takes value $0$ at $z=i$.
+
+Hence we have two such curves:  $p=0$, and $q^2 = \frac{1}{3} p^2 + 1$. The former gives $u= \frac{1}{3} q^3 - q$, the latter gives $u = -\frac{1}{3} q\left(2 + \frac{8}{3} q^2  \right) $. Picking the curve of steepest descent through $z=i$, we pick $q = \sqrt{\frac{1}{3} p^2 + 1} $.
+
+Now, $\phi(i+z) = -\frac{2}{3} + z^2 + \mathcal{O}\left( z^3 \right) $, so using our formula from before for contributions of a saddle point, noting that we get double the contribution than before as our integral does not start at the saddle point.
+
+\[
+	Ai(x) \sim x^{\frac{1}{2}} e^{ix^{\frac{3}{2}}\phi(i)} \sqrt{\frac{2\pi}{-x^{\frac{3}{2}}\phi''(i) }} =  \frac{1}{2\sqrt{\pi} } x^{-\frac{1}{4}} e^{-\frac{2}{3} x^{\frac{3}{2}}}
+\] 
+
+Now we do the same for $x<0$. We let $s = (-x)^{\frac{1}{2}} t$, so that $\phi(z) = i\left( \frac{1}{3} z^3 - z \right) $, and $\phi'(z) = z^2 - 1$.
+
+Our saddle points in this case are then $z = \pm 1$.
+
+One can use the stationary phase method to find
+
+ \[
+	 Ai(x) \sim \frac{1}{2\pi} (-x)^{\frac{1}{4}} \sqrt{\frac{2\pi}{(-x)^{\frac{3}{2}}}} \left( e^{-\frac{2i}{3} (-x)^{\frac{3}{2}}} \frac{1}{\sqrt{2} } e^{i\frac{\pi}{4}} + e^{\frac{2i}{3} (-x)^{\frac{3}{2}}} e^{i\frac{\pi}{4}} \frac{1}{\sqrt{-2} } \right) = \frac{1}{\sqrt{\pi} }(-x)^{-\frac{1}{4}} \cos\left( \frac{2}{3} (-x)^{\frac{3}{2}} - \frac{\pi}{4} \right) 
+\] 
+
+Of course, we should really check that when we truncate our curve at steepest descent, connecting it to our path of integration, the real axis, that the integral contributions vanish. But that shall be left as an exercise.
+
+
+\section{Dispersive Equations and Dispersive Functions}
+
+Let $g: \R \to \R$ be a smooth function, and $u(x,t) := g(x-ct)$ (c > 0). We can think of this as a wave propagating at a speed  $c$ to the right.
+
+We consider the wave $e^{i(kx - \omega t)}$ where in general we allow $\omega = \omega(k)$. This propagates with speed $\frac{\omega}{k}$.
+
+Consider the wave equation
+\[
+u_{t t} - c^2 u_{x x} = 0
+\]
+This has solution $u = e^{i(kx - \omega t)}$, with $w^2 = c^2 k ^2$, and so general solution
+\[
+	u = \int b(k) e^{ik(x - ct)} + a(k) e^{ik(x+ct)} dt
+,\] which is non-dispersive.
+
+\vspace{1em}
+
+Next, we consider the 1-d Schr\"{o}dinger Equation. 
+\[
+i\psi_t + \psi_{x x} = 0
+\]
+
+We consider $\psi = e^{i(kx - \omega t)}$, and we see that here $\omega = k^2$, so the wave in fact travels at a speed $\frac{\omega}{k} = k$, so we have dispersion.
+
+ \[
+	 \psi(x,0) =  \int b(k) e^{ikx} dk
+ ,\] where $b(k) \ge 0$. 
+ \[
+	 \psi(x,t) = \int b(k) e^{i(kx - k^2t)} dk
+ \] 
+
+We want to see what happens to our wavepacket as time progresses.
+
+\vspace{1em}
+Suppose we have a general wavepacket,
+\[
+	\psi(x,t) = \int e^{i(kx - \omega(k)t)} b(k) dk
+\] 
+
+We will investigate $\psi(x,t)$ and $\psi(ct, t)$ as $t\to \infty$.
+
+\begin{align*}
+	\psi(ct, t) = \int b(k) e^{i(kc - \omega(k))t} dk
+\end{align*}
+
+We let $\phi(k) = kc - \omega(k)$, and look for its stationary values given by  $\omega'(k) = c$. Suppose it has a solution at  $k = \overline{k}$. Assume that $\phi''(\overline{k}) \neq 0$. Then by the stationary phase method,
+
+\begin{align*}
+	\psi(ct, t) &\sim b(\overline{k}) e^{i(\overline{k}c  -\omega(\overline{k}))t} \sqrt{\frac{\pi}{t\omega''(\overline{k})}} e^{i\frac{\pi}{4} \sgn \omega''(\overline{k})} \\
+	&\sim  \mathcal{O} \left( t^{-\frac{1}{2}} \right) 
+\end{align*}
+
+While $\int |\psi(x,t)|^2 = \int |b(k)|^2 dk = \text{ const}$, the wave disperses, and its amplitude decreases.
+
+We call $\frac{\omega(k)}{k}$ the wave speed, and $\omega'(k)$ the group velocity.
+
+In the case of Schr\"{o}dinger's equation, we get $\overline{k} = \frac{c}{2}$.
+
+\begin{eg} Shallow Water Equation
+	
+	We model the motion of shallow water by
+	\[
+		u_t + u_{x x x} + u u_x = 0  
+	\]
+
+	We consider the linearised initial value problem,
+	\begin{align*}
+		u_t + u_{x x x } &= 0 \\
+		u(x,0) = f(x)
+	\end{align*}
+
+	Taking Fourier transforms,
+	 \[
+		 \hat{u}_t + (ik^3) \hat{u} = 0
+	\]
+
+	And so
+	\[
+		\hat{u}(k, t) = \hat{u}(k, 0) e^{-ik^3t} = e^{-ik^3 t} \hat{f}(k)
+	\]
+
+	Giving that
+	\begin{align*}
+		u(x,t) &= \frac{1}{2\pi} \int_{-\infty}^{\infty} e^{ikx} e^{-ik^3t} \hat{f}(k) dk \\
+		&= \frac{1}{2\pi} e^{i(kx - k^3 t)} \hat{f}(k) dk\\
+	\end{align*}
+	And so we have a dispersive wave with $\omega = k^3$, and so speed  $k^2$.
+	
+	If we assume that $\hat{f}(k)$ is real, then $\hat{f}(-k) = \hat{f}(k)^{\ast}$.
+
+	Now, our constant speed solution is given by
+	\[
+		u(ct, t) = \frac{1}{\pi} \int_{-\infty}^{\infty} e^{i(kc - k^3)t} \hat{f}(k) dk
+	\]
+
+	So, we define $\Phi(z) = i(cz - z^3)$, which is stationary at $z^2 = \frac{c}{3}$, which are saddle points.
+
+	We define $K_{L / R} = \pm \sqrt{\frac{c}{3}} $. These are saddle points, but as for $c>0$  $\Phi$ is purely imaginary, we can just use the stationary method.
+
+	We let $\phi(k) = -i\Phi(k) = ck - k^3$. So $\phi''(k) = -6k$, and it is stationary at  $K_L$ and $K_R$, with second derivatives  $-6\sqrt{\frac{c}{3}} \neq 0 $.
+
+	For our approach to be valid, we assume that $K_ L$ and $K_R$ are within the support of $\hat{f}(k)$. 
+
+
+	So,
+	\begin{align*}
+		u(x,t) &\sim \frac{1}{2\pi} \int_{K_L - \epsilon}^{K_L + \epsilon} \hat{f}(k) e^{it\phi(t)} dk + \frac{1}{2\pi} \int_{K_R - \epsilon}^{K_R + epsilon} \hat{f}(k) e^{it\phi(t)} dk + \mathcal{O}\left(\frac{1}{t}\right) \\
+		&:= I_L + I_R + \mathcal{O}\left( \frac{1}{t} \right) \\
+		I_L &\sim \frac{1}{2\pi} \hat{f}(K_L) \sqrt{\frac{2\pi}{it \phi''(K_L)}} e^{it\phi(K_L)} \\
+		&\sim e^{-i\frac{\pi}{4}}\sqrt{\frac{1}{12 \pi t}} \hat{f}\left(-\sqrt{\frac{c}{3}}\right) \left(\frac{3}{c}\right)^{\frac{1}{4}} e^{-2i \left( \frac{c}{3} \right)^{\frac{3}{2}} t} + \mathcal{O}\left( \frac{1}{t} \right) \\
+		I_R &\sim \frac{1}{2\pi} \hat{f}(K_R) \sqrt{\frac{2\pi}{it \phi''(K_R)}} e^{it\phi(K_R)} \\
+		&\sim e^{i\frac{\pi}{4}} \sqrt{\frac{1}{12\pi t}} \hat{f}\left(\sqrt{\frac{c}{3}}\right) \left(\frac{3}{c}\right)^{\frac{1}{4}} e^{2i \left( \frac{c}{3} \right)^{\frac{3}{2}}t } + \mathcal{O}\left( \frac{1}{t} \right) 
+	\end{align*}
+	Now, writing $\hat{f}(K_R) = |\hat{f}(K_R)|e^{i\Theta (K_R)}$, we see that
+
+	\[
+		u(ct, t) \sim \frac{|\hat{f}(K_R)|}{\sqrt{3  \pi t}} \left( \frac{c}{3} \right)^{\frac{1}{4}} \cos\left( 2t\left( \frac{c}{3} \right)^{\frac{3}{2}}  - \frac{\pi}{4} + \Theta(K_R) \right)  
+	\] 
+
+	Now, if $c < 0$, we have that  $\Phi'(z) = 0$ at $z = \pm i \sqrt{\left|\frac{c}{3} \right|} $. As with the Airy function, working with the saddle point at $i \sqrt{\left|\frac{c}{3} \right|}$, we get exponential decay.
+\end{eg}
+
+\section{Asymptotic Behaviour of Solutions to Differential Equations}
+
+We consider linear equations of the form
+\[
+	y'' + p(x)y' + q(x)y = 0, \qquad \text{ about } x = x_0 \text{ or } x = +=\infty
+\] 
+and
+\[
+	\epsilon y'' + p(x) y' + q(x) y = 0, \qquad \epsilon \ll 1 \text{ as } \epsilon \to 0
+\] 
+
+\subsubsection*{Type 1}
+
+Consider 
+\[
+	y'' + p(x) y' + q(x) y = 0
+\] about $x=x_0$.
+
+If $x_0$ is a regular point, we can use the power series method as in $IA$. If $x_0$ is a regular-singular point, such that $(x-x_0)p(x)$ and $(x-x_0)^2 q(x)$ are analytic at $x_0$, we can use the Frobenius method as in $IA$, considering power series solutions of the form $y = (x-x_0)^{\alpha} \sum_{k=0}^{\infty} a_k (x-x_0)^{k}$, or with a logarithmic singularity instead of polynomial ($\alpha$).
+
+If we have an irregular singular point, then we expect an essential singularity at  $x_0$. As such, we consider solutions of the type $y = e^{S(x)}$, where $S(x)$ isn't analytic at $x_0$ (motivated by $e^{\frac{1}{x}}$ ). This is the Liouville-Green method.
+
+Then 
+ \[
+	 e^{S(x)} \left[ s'' + (s')^2 + p(x) s' + q(x) \right] = 0
+\] 
+
+This gives a non-linear equation to solve:
+\[
+	s'' + (s')^2 + p(x) s' + q(x) = 0
+\]
+
+What about $x = \pm \infty$? We consider $X= \frac{1}{x}$, and define $Y(X) = y(\frac{1}{X})$. Then $Y' = -\frac{1}{X^2} y'(\frac{1}{X})$, and $Y'' = \frac{2}{X^3} y'(\frac{1}{X}) + \frac{1}{X^{4}} y''(\frac{1}{X})$ 
+
+So we now consider
+\[
+	Y''(X) + P(X) Y'(X) + Q(X)Y(X) = 0
+\] as $X \to 0$, where
+
+\begin{align*}
+	P(X) &= \frac{2}{X}-\frac{1}{X^2} p(\frac{1}{X}) \\
+	Q(X) &= \frac{1}{X^{4}} q(\frac{1}{X})
+\end{align*}
+
+\begin{prop}
+	\begin{align*}
+		& y'' + p(x) y' + q(x) y = 0 \\
+		\iff & u''  + Q(x)u = 0
+	\end{align*}
+\end{prop}
+
+\begin{proof}
+	Let $y = uv$ for some  $u,v$.
+
+	Then  \begin{align*}
+		y'& = u'v + uv' \\
+		y'' &= u''v + 2u'v' + uv''
+	\end{align*}
+
+	So 
+	\[
+		u''v + u' (2v' + pv) + u(qv + v'' + pv') = 0
+	\]
+
+	We are free to choose
+	 \[
+		 v = e^{\frac{1}{2}\int ^{x} p(t) dt} \neq 0
+	\] 
+
+	Then we can happily write
+	\[
+		u'' + u\left( \frac{qv + v'' + pv'}{v} \right) = 0
+	\] 
+\end{proof}
+
+So, we can now wlog work with equations 
+\[
+	y'' + Q(x) y =0
+,\] assuming that $x=x_0 < \infty$ is an irregular singular point.
+
+So, using our ansatz solution $y = e^{S(x)}$,
+\[
+	S'' + (S')^2 + Q(x) = 0
+\] 
+
+We might expect a solution along the lines of $S = \frac{C}{(x-x_0)^{\alpha}}$ for $\alpha > 0$.
+Then  $S' = \frac{-c \alpha}{(x-x_0)^{\alpha+ 1}}$, $S'' = \frac{c\alpha (\alpha + 1)}{(x-x_0)^{\alpha+2}}$. So $(S')^2$ is our dominant term asymptotically, and we initially consider only this term.
+
+We then might expect to find an asymptotic series $S \sim  S_0 + S_1 + \ldots$, as we keep considering our next most dominant terms. As our series is for a irregular point, we will stop when we find $S_n = o(1)$.
+
+With this in mind, we look for our first approximation.
+
+Assume that $S_0 '' \ll (S_0)^{2}$. (To be checked in retrospect).
+
+Then
+\[
+	S_0' = \pm \sqrt{-Q(x)} 
+\] We let $\sigma = \pm 1$ for ease of notation.
+
+So  \[
+S_0 = \sigma \int \sqrt{-Q} dx 
+\] 
+
+We get that 
+\begin{align*}
+	(S_0')^2  &= -Q(x) \\
+	S_0'' = \frac{-\sigma Q'(x)}{2\sqrt{-Q(x)} }
+\end{align*} 
+We must check that $S_0'' \ll (S_0')^2.$ Assuming it is, we carry on.
+
+Consider $y \sim  e^{S_0 + S_1}$.
+
+\begin{align*}
+	(S_0 + S_1)'' + (S_0' + S_1')^2 + Q(x) &= 0 \\
+	S_0'' + S_1'' + (S_0')^2 + (S_1')^2 + 2S_0'S_1' + Q(x) &= 0 \\
+	\implies S_1'' + (S_1')^2 + 2S_0S_1 = \frac{\sigma}{2} \frac{Q'(x)}{\sqrt{-Q(x)} }
+\end{align*}
+
+We are already working with the idea that $S_1 \ll S_0$. We further assume that $S_1' \ll S_0'$, and $S_1'' \ll S_1'S_0'$. Again, this must be checked upon calculation.
+
+So to leading order, our dominant balance is
+\begin{align*}
+	2 S_0' S_1' &= \frac{\sigma}{2} \frac{Q'}{\sqrt{-Q} } \\
+	S_1 ' &= \frac{1}{4} \frac{Q'}{-Q} \\#
+	\impleis S_1 &= -\frac{1}{4} \ln Q \\
+\end{align*}
+
+So our revised approximation is
+\[
+	y \sim  \frac{e^{\sigma \int\sqrt{-Q} dx}}{(Q)^{\frac{1}{4}}}
+\] 
+
+Then our general solution is (to this order),
+\[
+	y \sim  A \frac{e^{\int \sqrt{-Q} }}{(Q)^{\frac{1}{4}}} + B \frac{e^{-\int \sqrt{-Q} }}{(Q)^{\frac{1}{4}}}
+\] 
+
+\begin{eg}
+	\[
+	x^3u'' = u
+	,\] as $x \to  0^{+}$.
+
+	First we must classify the ODE at $x=0$. Here, it is easy to see that is an irregular singular point, as  $x^2 \times  \frac{1}{x^3} $ is not analytic at $0$.
+
+	So, we proceed with the ansatz 
+	 \[
+	y = e^{S}
+	,\] with $S \sim S_0 + S_1 + \ldots$
+
+	We have
+	\[
+		S_0'' + (S_0')^2 = \frac{1}{x^3}
+	\] 
+	Assuming that $S_0'' \ll (S_0')^2 $, then $S_0 ' = \frac{\sigma}{x^{\frac{3}{2}}}$, $S_0 = -2 \frac{\sigma}{x^{\frac{1}{2}}}$.
+
+	So, $S_0'' = -\frac{3}{2} \frac{\sigma}{x^{\frac{5}{2}}} \ll \frac{1}{x^3}$ as $x\to 0$, so our assumption is valid, and we can proceed.
+
+	We now consider our second term $S_1 \ll S_0$.
+
+	\[
+		S_0'' + S_1'' + (S_0')^2 + (S_1')^2 + 2S_0'S_1' = \frac{1}{x^3}
+	\] 
+	Assuming $S_0'S_1'$ is our leading order term, we get that
+	\[
+	S_1' = \frac{3}{4} \frac{1}{x}
+	\]
+
+	Note that if our original forcing term was e.g.  $\frac{1}{x^3} + \frac{1}{x^2}$, we would neglect the $\frac{1}{x^2}$ term in our $S_0$ expansion, as it is dominated at $0$. We would then reintroduce it for the second iteration here.
+
+	Continuing,
+	\[
+	S_1 = \frac{3}{4} \ln x
+	\]
+	Then $S_1 \ll S_0$, $S_1' \ll S_0'$, $S_1'' \ll S_1'S_0'$, so our assumptions are consistent.
+	
+	Continuing, we let $w = e^{S_0 + S_1 + S_2}$. So
+	\begin{align*}
+		(S_0 + S_1 + S_2)'' + (S_0' + S_1' + S_2')^2 &= \frac{1}{x^3} \\
+		(S_0'' + 2S_0'S_1') + ((S_0')^2 - \frac{1}{x^3}) + S_1 '' + S_2'' + (S_1')^2 + (S_2')^2 + 2S_2'(S_0' + S_1') &= 0 \\
+		\implies -\frac{3}{4}\frac{1}{x^2} + S_2'' + \left(\frac{3}{4}\frac{1}{x}\right)^2 + (S_2')^2 + 2S_2'(S_0' + S_1') &= 0\\
+	\end{align*}
+	So if we assume that $S_2'' \ll S_0' S_1'$, and $S_2' \ll S_1.$. We already know that $S_1' \ll S_0'$.
+
+	Then 
+	\begin{align*}
+		2S_0'S_2' &= \frac{3}{16}\frac{1}{x^2} \\
+		\implies S_2' &= \frac{3\sigma}{16} \frac{1}{\sqrt{x} } \\
+		S_2 &= \frac{3\sigma}{8} \sqrt{x} = o(1) \text{ as } x\to 0  \\
+	\end{align*}
+	You can check that this does not contradict our assumptions, so we stop here.
+
+	Hence
+	\[
+		y \sim e^{S_0 + S_1} = e^{2\sigma x^{-\frac{1}{2}} + \frac{3}{4} \ln x}
+	\] 
+	So we have general solution
+	\[
+		y \sim A e^{-2x^{-\frac{1}{2}}} x^{\frac{3}{4}} + B e^{2x^{-\frac{1}{2}}} x^{\frac{3}{4}
+		\]
+	We see that one of our solutions decays at 0, the other diverges.
+\end{eg}
+
+\begin{eg} (Airy Equation)
+	
+	\[
+	y'' = xy, \quad x \to \infty
+	\] We let $X =\frac{1}{x}$. Then
+	\[
+	Y'' + \frac{2}{X}Y' - \frac{1}{X^{5}}Y = 0
+	\] 
+	We can see that $X=0$ is an irregular singular point. As such, we use the Liouville-Green method.
+
+	Consider $y \sim e^{S_0}$.
+	Then \[
+		S_0'' + (S_0')^2 = x
+	\]
+	Assume that $S_0'' \ll (S_0')^2 $ as $x->\infty$.
+
+	Then 
+	 \[
+		 S_0' = \sigma \sqrt{x}, \quad S_0 = \frac{2}{3} \sigma x^{\frac{3}{2}} 
+	\]
+	This gives $S_0'' = \frac{\sigma}{2\sqrt{x} } \ll (S_0')^2$ as $x \to \infty$, so are assumptions hold.
+
+	So consider  $y \sim  e^{S_0 + S_1}$.
+
+	Then \begin{align*}
+		S_0'' + S_1'' + (S_0')^2 + (S_1')^2 + 2S_0'S_1' &= x \\
+		\implies S_1 '' + (S_1')^2 + 2S_0'S_1' = -\frac{\sigma}{2\sqrt{x}}
+	\end{align*}
+
+	We assume that $S_1'' \ll S_0'S_1'$.
+
+	Then our dominant balance is
+	\begin{align*}
+	2S_0'S_1' = -\frac{\sigma}{2\sqrt{x} }
+	\implies S_1' = -\frac{1}{4}x^{-1}, \quad S_1 = -\frac{1}{4} \ln x
+\end{align*} 
+Indeed $S_1'' \ll S_0'S_1'$, and so 
+\[
+y_1 \sim e^{\frac{2}{3} x^{\frac{3}{2}}} x^{-\frac{1}{4}}
+\]
+and
+\[
+y_2 \sim  e^{-\frac{2}{3} x^{\frac{3}{2}}} x^{-\frac{1}{4}}
+\] 
+\end{eg}
+
+\subsection{Regular and Singular Pertubations}
+
+We are interested in a family of problems
+\[
+	\Phi(x; \epsilon) = 0
+,\] where $\epsilon$ is small. We are interested in the behaviour of solutions $x_{\epsilon}$ as $\epsilon \to 0$. 
+Supposing that $\Phi(\overline{x}, 0) = 0$, we would certainly like if $X_{\epsilon} \to \overline{x}$, so that our problem is continuous in a sense. But what if $x_{epsilon}$ doesn't converge, or doesn't converge at all.
+
+As such, we might ask if we can approximate by a linear perturbation
+\[
+	\Phi(x; \epsilon) = F(x) + \epsilon G(x)
+,\] and ask if we can approximate by solutions of $F(x) = 0$. If we can, we call this a regular pertubation of $F(x) = 0$. If this is not the case, we call it a singular pertubation. 
+
+\begin{eg}
+	\[
+	x^2 - 2\epsilon x -1 =0
+	\]
+	In this case, \[
+	x_{\epsilon} = \frac{2\epsilon \pm \sqrt{4\epsilon^2 + 4} }{2} = \epsilon \pm \sqrt{1 + \epsilon^2} 
+	\] 
+	And so  $x_{\epsilon} \to \pm 1$. Our unperturbed equation is
+	\[
+	x^2 = 1
+	,\] so our pertubation is regular.
+\end{eg}
+
+\begin{eg}
+	\[
+	\epsilon x^2 -2x - 1 = 0
+	\] 
+	At $\epsilon = 0$, $x = -\frac{1}{2}$.
+
+	Our perturbed equation has solution
+	\[
+		x_{\epsilon} = \frac{1 \pm \sqrt{1+\epsilon} }{\epsilon} = \frac{1}{\epsilon} \left[ 1 \pm \left( 1 + \frac{\epsilon}{2} + \ldots \right)  \right] 
+	\] 
+
+	So
+	\begin{align*}
+		x_{+}(\epsilon) &= \frac{2}{\epsilon} + \mathcal{O}(1) \\
+		x_{-}(\epsilon) &= -\frac{1}{2} + o(1)
+	\end{align*}
+
+	And so our pertubation is singular.
+\end{eg}
+
+\begin{eg}
+	\[
+	y'' + 2\epsilony' + y = 0
+	\]
+	Our characteristic equation for ansatz $y = e^{\lambda x}$ is given by
+	\[
+	\lambda^2 + 2\epsilon\lambda + 1= 0
+	\]
+	So
+	\begin{align*}
+		\lambda = -\epsilon \pm \sqrt{\epsilon^2 -1} \to += i \text{ as } \epsilon \to 0 
+	\end{align*}
+	So
+	\begin{align*}
+		y_1(x) &= e^{-\epsilon x} \cos\left( \sqrt{1-\epsilon^2}  \right) \to \cos x \\
+		y_2(x) &= e^{-\epsilon x} \sin\left( \sqrt{1 - \epsilon}  \right) \to \sin x
+	\end{align*}
+
+	So we converge to our solutions to $y'' + y =0$
+\end{eg}
+
+\begin{ex}
+	\[
+	y'' + \epsilon y =0
+	\] 
+	This has solutions $y =  \cos \sqrt{\epsilon}x$ and $y = \sin \sqrt{\epsilon}x $. How do we recover the limiting solution $y = x$ from this methodology. 
+\end{ex}
+
+\begin{eg}
+	\[
+	\epsilon y'' + 2y' + y = 0
+	,\] with ansatz $e^{\lambda x}$.
+
+	Then
+	\[
+	\epsilon \lambda^2 + 2\lambda + 1 =0
+	\]
+	So
+	\[
+		\lambda_{\pm}(\epsilon) = \frac{-1 \pm \sqrt{1-\epsilon} }{\epsilon}
+	\]
+	And then
+	\begin{align*}
+		\lambda_{+}(\epsilon) &= -\frac{1}{2} + o(1) \\
+		\lambda_{-}(\epsilon) &= -\frac{2}{\epsilon} + \mathcal{O}(1)
+	\end{align*}
+	So \[
+	e^{\lambda_{+} x} \sim  e^{-\frac{1}{2}x}, \quad e^{\lambda_{-} x} \sim e^{-\frac{2}{\epsilon} x}
+	,\] and so our second solution diverges.
+\end{eg}
+
+\subsection{WKBJ Method}
+
+Consider equations of the form
+\[
+	\epsilon^2 y'' = q(x) y
+\] 
+
+Motivated by our previous example, we consider solutions of the form
+\[
+y = e^{\frac{S}{\delta}}
+,\] where $\delta(\epsilon)$ is to be determined.
+
+So,
+\begin{align*}
+	y' = \frac{S'}{\delta}e^{\frac{S}{\delta}}, \quad y'' = \left( \frac{S'^2}{\delta^2} + \frac{s''}{\delta} \right) e^{\frac{S}{\delta}}
+\end{align*}
+and so
+\[
+	\epsilon^2\left( \frac{S'^2}{\delta^2} + \frac{s''}{\delta} \right) = q(x)
+\]
+
+Here we can choose either $\epsilon^2 = \delta$, or $\epsilon^2 = \delta ^2$. We assume that $q \neq 0$.
+
+In the first case, our dominant balance gives \[
+\frac{S' ^2}{\delta} = 0 \quad \implies $S = \text{ const }$
+,\] which we don't care about.
+
+So,
+\[
+	S'^2 + \epsilon S'' = q(x)
+\] 
+Our dominant balance gives
+\begin{align*}
+	S'^2 &= q \\
+	S' &= \sigma \sqrt{q} \\
+	\implies y_{\pm} &= A_{\pm} \exp\left( \frac{1}{\delta} \int ^{x} \pm \sqrt{q} \right) 
+\end{align*}
+
+To next order, we take $S = S_0 + \delta S_1 = S_0 + \epsilon S_1$.
+
+So
+\begin{align*}
+	\epsilon^2 \left( \frac{(S_0' + \epsilon S_1')^2}{\epsilon^2} + \frac{(S_0'' + \epsilon S_1'')}{\epsilon} \right) &= q(x) \\
+	\implies \epsilon^2 S_1'^2 + 2\epsilon S_0' S_1' + \epsilon \frac{\sigma}{2} \frac{q'}{\sqrt{q} } + \epsilon^2 s_1'' = 0
+\end{align*}
+
+So to dominant balance,
+\[
+2S_0' S_1' = -\frac{\sigma}{2}\frac{q'}{\sqrt{q}  }
+\] 
+Hence $S_1 = -\frac{1}{4} \log q$
+
+So \[
+	y_{\pm} A_{\pm} q^{-\frac{1}{4}} \exp\left( \frac{\pm}{\epsilon} \int ^{x} \sqrt{q}  \right) 
+\] 
+
+In general, to higher order we get dominant balance of terms order  $\epsilon^{n}$
+\[
+2S_0' S_n ' + \sum_{k=1}^{n-1} S_k' S_{n-k}' + S_{n-1}'' = 0
+,\] which can be solved iteratively.
+
+Now begins the struggle to deal with cases where $q$ can be $0$.
+
+\subsubsection{One Turning Point}
+
+Suppose $q(a) = 0$, $q'(a) \neq  0$, and so wlog $q'(a) < 0$. We must consider the behaviour of our method locally around  $x=a$, as our dominant balance from earlier is then invalid.
+
+So, we approximate 
+\[
+	q(x) = \mu (x-a), \quad \mu > 0
+\] for $|x-a| < \eta \approx \epsilon^{\frac{1}{3}}$
+
+Consider
+\[
+	y'' = \frac{\mu}{\epsilon^2} (x-a) y
+\]
+
+Let $z = \left( \frac{\mu}{\epsilon^2} \right)^{\frac{1}{3}} (x-a) $. Then $\frac{d^2y}{dz^2} = zy$.
+
+But this just is the Airy equation, so we consider a decaying solution to it for $z \gg 0$, as we want it to decay for $x-a \gg \epsilon^{\frac{2}{3}}$, becoming $y_{-}$ from before.
+
+As such, we aim to match up the asymptotics of the decaying Airy function with the asymptotics of $y_{-}$, and this becomes our solution.
+
+We work similarly for $x - a \ll -\epsilon^{\frac{2}{3}}$, using our $y_{+}$ solution.
+
+\vspace{1em}
+
+For $x > a$,  $q(x) > 0$. 
+ \[
+	 y_{>} = A q^{-\frac{1}{4}} e^{-\frac{1}{\epsilon} \int_{a}^{x} \sqrt{q(t)} dt}
+\]
+And for $\epsilon^{\frac{2}{3}} \le  t-a \le \epsilon^{\frac{1}{3}}$, where $q(t) \approx \mu(t-a)$, we have
+ \[
+	 y_{>} \sim \frac{A}{\left( \mu (x-a) \right)^{\frac{1}{4}} } \exp\left( -\frac{\mu}{\epsilon} \frac{2}{3} (x-a)^{\frac{3}{2}} \right) 
+\] 
+
+Our decaying Airy function, with $Z \gg 1$, has asymptotics
+\[
+y_0 \sim \frac{1}{2\sqrt{\pi} } z^{-\frac{1}{4}} e^{-\frac{2}{3} z^{\frac{3}{2}}}
+\] 
+or
+\[
+y_0(x) \sim \frac{1}{2\sqrt{\pi} } \frac{1}{\left( \left\frac{\mu}{\epsilon^2}\right)^{\frac{1}{3}} (a-x) \right)^{\frac{1}{4}} } \exp\left( \frac{-2}{3} \frac{\sqrt{\mu} }{\epsilon} (x-a)^{\frac{3}{2}} \right) 
+\] 
+
+For $x < a$, we have real part solution
+\[
+	y_{<} \approx C (-q)^{-\frac{1}{4}} \cos\left( \frac{1}{\epsilon} \int_{x}^{a} \sqrt{-q(t)}  dt - \gamma \right)  
+\] 
+
+If we are $\epsilon^{\frac{2}{3}} \le a-t \le \epsilon^{\frac{1}{3}}$, we have $q(t) \approx \mu (t-a)$, and so
+\[
+	y_{<} \sim \frac{C}{\left( \mu (a-x) \right)^{\frac{1}{4}} } \cos \left( \frac{\mu}{2} \frac{2}{3} (a-x) ^{\frac{3}{2}} - \gamma \right) 
+\] 
+
+Our Airy asymptotics can be shown to be
+\[
+	y_0 \sim  \frac{1}{\sqrt{\pi} } \frac{1}{\left( (\mu \epsilon^{-2})^{\frac{1}{3}} (a-x) \right)^{\frac{1}{4}} } \cos\left( \frac{2}{3} \frac{\mu}{\epsilon} (a-x)^{\frac{3}{2}}  - \frac{\pi}{4}\right) \] 
+So we must have $\gamma = \frac{\pi}{4}$.
+
+We can see that both matching conditions work if we choose our constants appropriately:
+
+\begin{align*}
+	y = \begin{cases}
+		K (q(x))^{-\frac{1}{4}} \exp\left( -\frac{1}{\epsilon} \int_{a}^{x} \sqrt{q(t)} dt \right) \qquad x - a  \gg \epsilon ^{\frac{2}{3}} \\
+		2\sqrt{\pi} K (\mu \epsilon)^{-\frac{1}{6}} Ai\left( \epsilon^{\frac{2}{3}} \mu^{\frac{1}{2}} (a-x) \right) \qquad |x-a| \ll 1 \\
+		\frac{2}{3} K (-q)^{\frac{-1}{4}} \cos\left( \frac{1}{\epsilon} \int_{x}^{a} \sqrt{-q(t)} dt - \frac{\pi}{4} \right) \qquad a-x \gg \epsilon^{\frac{2}{3}}
+	\end{cases}
+\end{align*}
+
+Hence for linear approximation of $q$, we can simply use the Airy function to patch up our solution.
+
+\vspace{1em}
+
+Next we consider the case that $q$ has two turning points at $b, a$. We already know our behaviour far away from  $b, a$ (and so perhaps even in between), so we hope to match the $\cos$ solution from each root in the middle, i.e. to have
+\[
+	\frac{1}{\epsilon} \int_{x}^{a} \sqrt{-q(t)} dt - \frac{\pi}{4} = \frac{1}{\epsilon} \int_{b}^{x} \sqrt{q(t)}  dt - \frac{\pi}{4} \quad a < x < b
+\]
+
+As such, we focus on the interval $[b,a]$, as our solution is fine everyone else. In fact, let  $J = [b+\epsilon^{\frac{1}{3}}, a-\epsilon^{\frac{1}{3}}]$.
+
+Then
+\begin{align*}
+	y &\sim \frac{2R}{|q|^{\frac{1}{4}}} \cos\left( \frac{1}{\epsilon} \int_x^{a} |q|^{\frac{1}{2}}dt - \frac{\pi}{4} \right) \qquad x < a - \epsilon^{\frac{1}{3}} \\
+	y &\sim \frac{2L}{|q|^{\frac{1}{4}}} \cos\left( \frac{1}{\epsion}\int_b^{x} |q|^{\frac{1}{2}} - \frac{\pi}{4} \right) 
+\end{align*}
+
+So we seek (by parity of cosine)
+\[
+	\frac{1}{\epsilon} \int_{x}^{a}|q|^{\frac{1}{2}} dt - \frac{\pi}{4} = - \left(\int_{b}^{x} |q|^{\frac{1}{2}} dt i \frac{\pi}{4}\right) + n\pi \qquad x \in (b,a)
+\] 
+As such, if we can find an integer $n$ such that
+\[
+\frac{1}{\epsilon} \int_b^{a} |q|^{\frac{1}{2}} = \frac{\pi}{2} + n\pi
+,\] then taking $L = (-1)^{n}R$ gives a solution.
+
+This solution gives oscillations in $J$, peaking around $b$ and $a$ where $q = 0$ and our exponential solution takes hold.
+
+\begin{eg} The Stationary Schr\"{o}dinger Equation
+	
+\[
+	- \frac{\hbar}{2m} \psi_{x x } + V(x)\psi(x) = E\psi(x)
+\] 
+
+We wish to find $\psi$ bounded, decaying at $\pm \infty$, and the corresponding eigenvalues $E$. We consider $\hbar = \epsilon$.
+
+Then
+\[
+	\psi_{x x} = \frac{2m}{\epsilon^2} (V-E)\psi
+\] 
+
+We let $a, b$ be such that $V(a) = V(b) = E$. We know that  $a, b$ change continuously with $E$, so this is acceptable. In nice examples such as a harmonic oscillator, we precisely have the scenario of the two turning point WKBJ method from before, with  $q(x) = 2m(V(x) - E)$
+
+Hence we seek to find  $E$ such that
+\[
+	\frac{\sqrt{2m} }{\epsilon} \int_{b(E)}^{a(E)} \sqrt{E -V(x)} dx = \frac{\pi}{2}  + n\pi
+\] 
+
+By continuity, we find $E_0, E_1, \ldots, E_n$ with
+\[
+	\sqrt{2m}\int_{b(E_i)}^{a(E_i)} \sqrt{E_i - V(x)} dx = (i +\frac{1}{2})\pi \hbar
+,\] with $\left(b(E_n), a(E_n)\right)$ our classically allowed region.
+This is known as the Bohr-Sommerfeld quantisation. 
+\end{eg}
+
+\begin{eg}
+	Our classical energy is given by
+	 \[
+	E = \frac{p^2}{2m} + v
+	\] 
+	So $|p| = |2m(E-V)|^{\frac{1}{2}}$. So
+	\[
+		\oint |p| dx = 2 \int_{b}^{a} |2m(E-V)|^{\frac{1}{2}} dx = 2\pi \hbar (n + \frac{1}{2})
+	\] 
+
+	Consider a local wavelength $\lambda$ of the wavefunction $\psi$. 
+
+	\[
+	2\pi = \frac{1}{\epsilon}\int_{x}^{x+\lambda} |q|^{\frac{1}{2}} dt \approx \frac{1}{\epsilon} \lambda |q|^{\frac{1}{2}} = \frac{\lambda |p|}{\hbar}
+	\] 
+
+	This gives us the de Broglie wavelength
+	\[
+	\lambda = \frac{2\pi \hbar}{p}
+	\] 
+\end{eg}
+
+\subsection{Stokes Phenomenon}
+
+Suppose $f(z) \sim g(z)$, say as $|z| \to  \infty$. We don't expect this asymptote to be valid for all  $z \in \C$, but only in some sectors of $\C$.
+
+For example, $f(z) = e^{-z}$ only goes to 0 for $-\frac{\pi}{2} < \arg z > \frac{\pi}{2}$. We seek to understand more about when such transitions in asymptotic behaviour occur.
+
+\vspace{1em}
+
+We revisit the Liouville-Green method for second order differential equations, considering
+
+\[
+	y \sim  A e^{S_1(z)} + Be^{S_2(z)}
+\]
+
+Suppose $\Re S_2(z) \ll \Re S_1(z)$ on some sub-domain $D \subset \C$. Then in this region, we have  dominant and a recessive term.
+
+On curves with  $\Re \left( S_1(z) - S_2(z) \right) =0$, we do not get such behaviour. We call such curves (in this context) Stokes curves. We might expect that crossing the curves causes a switch in which asymptote is dominant. Similarly, for $S_i$ with branch cuts, we would likely get a change in behaviour.
+
+We call curves $\Im \left( S_1(z) - S_2(z) \right) =0$ anti-Stokes curves.
+
+\begin{eg} Airy Function and Airy Function
+
+	\[
+	y'' = xy
+	\] about $x=0$ gives a power series solution
+
+	\[
+		y(x) = C_1 \sum_{n=0}^{\infty} \frac{x^{3n}}{9^{n}n! \Gamma(n + \frac{2}{3}} + C_2\sum_{n=0}^{\infty} \frac{x^{3n+1}}{9^{n} n! \Gamma(n+\frac{4}{3})}
+	\] which has radius of convergence $R = \infty$, and so we get an entire function. No Stokes curves. 
+
+	Taking $C_1 = 3^{-\frac{2}{3}}$, $C_2 = -3^{-\frac{4}{3}}$, we get Airy's function of the first kind $Ai(x)$. For the Airy function of the second kind (Bairy function), we take $C_1 = 3^{-\frac{1}{6}}$, $C_2 = 3^{-\frac{1}{3}}$. These are linearly independent. 
+
+	Asymptotically, as $x \to \pm \infty$,
+
+	\begin{align*}
+		Ai(x) &\sim  \frac{1}{2\sqrt{\pi} } x^{-\frac{1}{4}} e^{-\frac{2}{3}x^{\frac{3}{2}}} \text{ as } x\to \infty \\
+		Ai(x) &\sim  \frac{1}{\sqrt{\pi} } |x^{-\frac{1}{4}} \cos\left( \frac{2}{3} |x|^{\frac{3}{2}} - \frac{\pi}{4} \right) \text{ as } x \to -\infty
+	\end{align*} and
+
+	\begin{align*}
+		Bi(x) &\sim \frac{1}{\sqrt{\pi} } x^{-\frac{1}{4}} e^{\frac{2}{3}x^{\frac{3}{2}}} \text{ as } x \to \infty \\
+		Bi(x) &\sim \frac{1}{\sqrt{\pi} } \sin\left( \frac{2}{3} |x|^{\frac{3}{2}} - \frac{\pi}{4} \right) \text{ as } x \to  -\infty
+	\end{align*}
+
+	We now consider the asymptotics of the Airy equation in the complex plane. So as from the Liouville-Green method,
+
+	\[
+		y(z) \sim  Az^{-\frac{1}{4}} e^{-\frac{2}{3}z^{\frac{3}{2}}} + B z^{-\frac{1}{4}}e^{\frac{2}{3} z^{\frac{3}{2}}}
+	\] 
+
+	Our goal is to find an expression in all of $\C$ for the asymptotics of the Airy function. As such, we compare $e^{\frac{2}{3}z^{\frac{3}{2}}}$ and $e^{-\frac{2}{3}z^{\frac{3}{2}}}$ to find our Stokes curves.
+
+	\begin{align*}
+		\Re \left( \frac{4}{3}z^{\frac{3}{2}} \right) &= 0 \\
+		\implies \frac{3}{2} \arg z &= \frac{\pi}{2} + k\pi, \quad k \in \Z \\
+		\arg z &\in \{\frac{\pi}{3}, \pi, \frac{5\pi}{3}\} 
+	\end{align*}
+
+	Hence for  $|\arg z| < \frac{\pi}{3}$, where $z^{\frac{3}{2}} > 0$, then
+	\[
+		Ai(z) \sim \frac{1}{2\sqrt{\pi} } z^{-\frac{1}{4}} e^{-\frac{2}{3}z^{\frac{3}{2}}}
+	\] 
+
+	This is in fact a good approximation for $|\arg z| < \pi$.
+
+	We need to find a better approximation for $|\arg z| > \frac{\pi}{3}$, in particular in the LHP.
+
+\begin{prop}
+	Let $\omega = e^{-\frac{2\pi i }{3}}$, a cubic root of unity.
+
+	Let $y(z)$ be a solution of Airy's equation. Then $y(\omega z), y(\omega^2 z)$ are also solutions.
+\end{prop}
+\begin{proof}
+	Put it in Airy's equation.
+\end{proof}
+
+So $Ai(\omega z), Ai(\omega^2 z), Bi(\omega z), Bi(\omega^2 z)$ are also solutions. But of course only two are linearly independent, as this is a second order ODE.
+
+\begin{prop}
+	\begin{align*}
+		Ai(z) &\equiv -\omega Ai(\omega z) - \omega^2 Ai(\omega ^2 z) \\
+		Bi(z) &\equiv i\omega Ai(\omega z) - i\omega^2 Ai(\omega^2 z)
+	\end{align*}
+\end{prop}
+
+\begin{proof}
+	Take the Taylor expansion of all terms. As the expansions are entire, and zeroes of an analytic function are isolated, the functions must in fact be equal everywhere.
+\end{proof}
+
+\begin{prop}
+	\[
+		Ai(z) \sim A z^{-\frac{1}{4}} e^{-\frac{2}{3} z^{\frac{3}{2}}} + B z^{-\frac{1}{4}} e^{\frac{2}{3}z^{\frac{3}{2}}}
+	\] 
+
+	\begin{enumerate}
+		\item $A = \frac{1}{2\sqrt{\pi} }, B = 0$ for $|\arg z| < \pi$ \\
+		\item $A = \frac{1}{2\sqrt{\pi} }, B = \frac{i}{2\sqrt{\pi} }$ for $\frac{\pi}{3} < \arg z < \frac{5\pi}{3}$
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	Let $\frac{\pi}{3} < \arg z < \frac{5\pi}{3}$. Then $-\frac{\pi}{3 } < \omega z < \pi$ and $-\pi < \arg z < \frac{\pi}{3}$ 
+
+	Then we know that 
+	\begin{align*}
+		Ai(\omega z) &\sim \frac{1}{2\sqrt{\pi} } (\omega z)^{-\frac{1}{4}} e^{-\frac{2}{3} (\omega z)^{\frac{3}{2}}} \\
+		Ai(\omega^2 z) &\sim \frac{1}{2\sqrt{\pi} } (\omega ^2 z)^{-\frac{1}{4}} e^{-\frac{2}{3}} (\omega^2 z)^{\frac{3}{2}}
+	\end{align*}
+
+	Putting this in our identity for $Ai(z)$, we get the claimed result.
+\end{proof}
+\end{eg}
+
+
 \end{document}
