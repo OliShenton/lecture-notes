@@ -878,7 +878,7 @@ The integral on the LHS is entire in $z$ and smooth in $t$, and hence provides a
 	The residue
 	\begin{align*}
 		\res(\zeta(z); 1) &= \lim_{z\to 1} \frac{(z-1) \Gamma(1-z)}{2\pi i} \int_{-\infty}^{0^{+}} \frac{t^{z-1}}{e^{-t} - 1} dt \\
-		&= \lim_{z\to 1} \frac{(z-1)\Gamma(1-z)}{2\pi i} \cint_{|z| = \frac{1}{2}} \frac{dt}{e^{-t} - 1} dt
+		&= \lim_{z\to 1} \frac{(z-1)\Gamma(1-z)}{2\pi i} \oint_{|z| = \frac{1}{2}} \frac{dt}{e^{-t} - 1} dt
 	\end{align*}
 
 	Note that for $z = -n$, $n \in \N_0$, then $\Gamma(z) = \frac{(-1)^{n}}{n!} \frac{1}{z+n} + \text{ analytic function}$.
@@ -908,13 +908,1006 @@ What about the zeroes of $\zeta(z)$?
 \begin{proof}
 	We derive this for $\Re z < 0$, and then use analytic continuation.
 
-	We modify the Hankel contour as follows, closing in a rectangle with vertices at $z = \pm R \pm (2n + 1) \pi i$:
+	We modify the Hankel contour as follows, closing in a rectangle with vertices at \[z = \pm R \pm (2n + 1) \pi i\]:
 \begin{figure}[H]
     \centering
     \incfig{hankel2}
 \end{figure}
 
-The integral has a branch cut on the negative real axis, with branch point at $0$, and poles at $z = 2\pi i n$, $n \in \Z\setminus \{0\} $. The residues at these points are given by $\frac{1}{(2\pi i n)^{1-z}}$. 
+Let $J(z) = \int_{C} \frac{t^{z-1}}{e^{-t} -1} dt$
 
+The integral has a branch cut on the negative real axis, with branch point at $0$, and poles at $z = 2\pi i n$, $n \in \Z\setminus \{0\} $. The residues at these points are given by $\lim_{z\to 2\pi i n} \frac{(t-2\pi i n)}{e^{-t} - 1} t^{z-1} = \frac{-1}{(2\pi i n)^{1-z}}$ by l'H\^{o}pital's rule. 
+
+So, by our Hankel representation, 
+\begin{align*}
+	\frac{2\pi i}{\Gamma(1-z)} \zeta(z) &= -2\pi i \sum_{n=1}^{N} (-2\pi i n)^{z-1} - (2\pi i n)^{z-1} \\
+	&= 2\pi i (2\pi)^{z-1} \frac{(i)^{z} - (-i)^{z}}{i} \sum_{n=1}^{N} \frac{1}{n^{1-z}} \\
+	&\to 2\pi i (2\pi)^{z-1} 2\sin\left( \frac{\pi z}{2} \right) \zeta(1-z)
+\end{align*} 
+
+It can be shown that the contributions from the rectangular sides vanish in the limit $R, N \to \infty$.
 \end{proof}
+
+It follows easily from the functional equation that $\zeta(-2n) = 0$ for  $n \in \N$. We can see that $\zeta(2n) \neq 0$ because the zeroes of the sin are cancelled by the poles of the Gamma function. 
+\zeta(1 + 2n) = \Gamma(-2n) \zeta(-2n) \neq  0, and similarly $\zeta(0) \neq 0$.
+
+\subsubsection*{The Riemann Hypothesis}
+
+The Riemann Hypothesis states that all non-trivial zeroes of the zeta function lie on the critical line $z = \frac{1}{2} + it$.
+
+\subsection{Elliptic Functions}
+
+\begin{defn}
+	A \textit{doubly periodic} function $f(z)$ is one that has two periods, $\omega_1$ and $\omega_2$ such that $\frac{\omega_1}{\omega_2} \not\in \R$, with $f(z + \omega_1) = f(z + \omega_2) = f(z)$, and more generally $f(z + m\omega_1 + n\omega_2) = f(z)$ for all $m,n \in \Z$.
+\end{defn}
+
+\begin{defn}
+	A double-periodic function which is meromorphic is called \textit{elliptic}.
+\end{defn}
+
+Assume wlog that $\omega_1 \in \R$. The parallelogram with sides $\omega_1$ and $\omega_2$ is called a cell, and can be extended to form a lattice of periodicity in $\C$. 
+
+Then all zeroes and poles of an Elliptic function correspond to zeroes and poles in any one cell.
+
+\begin{prop}
+	\begin{enumerate}
+		\item The number of zeroes and poles in one cell is finite. \\
+		\item An elliptic function with no poles in a cell is constant.
+	\end{enumerate}
+\end{prop}
+
+(No proof given)
+
+\subsubsection*{The Weierstrass $\mathcal{P}$-function}
+
+Let  $\omega_{m,n} = m\omega_1 + n\omega_2$, and define
+\[
+	\mathcal{P}(z) = \frac{1}{z^2}  + \sum_{m,n \in \Z^2\setminus{\{(0,0)\} }} \frac{1}{(z-\omega_{m,n})^2} -\frac{1}{\omega_{m,n}^2}
+\] 
+
+It is meromorphic, with infinitely many poles at lattice points.
+
+To show ellipticity, consider $\mathcal{P}(z+\omega_{k,l})$ for given $k,l$, and shift the summation to be centered there. 
+
+\begin{prop}
+	The $\mathcal{P}$ function satisfies
+	\[
+		\left( \mathcal{P}' \right)^2 = 4 \mathcal{P}^3 - g_2 \mathcal{P} - g_3 
+	,\] where $g_2 = 60 \sum_{(m,n)\in \Z^2\setminus (0,0)} \frac{1}{\omega_{m,n}^{4}}$, and $g_3 = 140 \sum_{m,m \in \Z^3\setminus (0,0}\frac{1}{\omega_{m,n}^{6}}$ 
+\end{prop}
+
+\begin{proof}
+	See example sheet 3. Hint: Consider $Q(z) = \mathcal{P}(z) - \frac{1}{z^2}$, and argue that $Q$ is analytic and even in the region of $z=0$. Then, Taylor expand it.
+\end{proof}
+
+Rearranging our ODE and integrating, we get
+ \[
+	 z = \int_{w(z)}^{\infty} \frac{ds}{4s^3 - g_2s - g_3} = \mathcal{P}^{-1}(w) - \alpha
+ ,\] where $w = \mathcal{P}(z+\alpha)$. Thus,  $\mathcal{P}$ can be given as the  inverse of an elliptic integral (we call this integral and elliptic integral of the first kind). Note - compare this to the relation
+ \[
+ \arcsin z = \int_{0}^{z} \frac{ds}{\sqrt{1-s^2}}
+ \] 
+
+\begin{eg} (General Elliptic ODE)
+	
+	Consider $w' = (w-a)(w-b)(w-c)(w-d)$. This is solved by an elliptic integral
+	\[
+		z + \alpha = \int_{w}^{\infty} \frac{ds}{\left[ (s-a)(s-b)(s-c)(s-d) \right]^{\frac{1}{2}} }
+	\] 
+
+	This can be reduced to a more useful form by moving one root to $\infty$, and shifting the remaining roots as follows. Let $t= \frac{1}{u-d}$. Then
+	\[
+		\frac{du}{\left[ (u-a)(u-b)(u-c)(u-d) \right]^{\frac{1}{2}} } \mapsto \frac{-dt}{t^2 \left[ (\frac{1}{t} - \tilde{a})(\frac{1}{t} - \tilde{b})(\frac{1}{t} - \tilde{c})\frac{1}{t} \right]^{\frac{1}{2}} } = \frac{Adt}{\left[ (t-t_1)(t-t_2)(t-t_3) \right]^{\frac{1}{2}} }
+	,\] 
+	where A is some constant. Thus, the quartic integrand has been reduced to a cubic with one root moves to $\infty$ (assuming the original d is not \infty). Finally, set $t = s + \gamma$, with $\gamma$ chosen such that  $t_1 + t_2 + t_3$ is moved to 0, and then rescale $s$ such that the leading term has coefficient 4. We then arrive at our previous equation.
+\end{eg}
+
+\begin{eg} (Euler's Top)
+
+	Consider
+	\begin{align*}
+		w_1' &= w_2w_3 \\
+		w_2' &= w_3w_1 \\
+		w_3' &= w_1w_2
+	\end{align*}
+	which gives 
+	\begin{align*}
+		w_2'w_2 - w_3'w_3 = w_1'w_1 - w_3'w_3 = 0
+	,\end{align*} and so there exists constants $B, C$ such that $w_3^{2} = w_2^2 + B = w_1^2 + C$
+	
+	Then we can write
+	\[
+		(w_3')^2 = (w_3^2 - B)(w_3^2 - C)
+	\] which is a special case of the elliptic ODE. 
+\end{eg}
+
+\section{Solving Differential Equations by Transform Methods}
+
+\subsection{Solution of ODEs by integral representation}
+
+Our idea is to look at general solutions given by integrals in $\C$. We will motivate this with an example.
+
+\begin{eg} (Airy's Equation)
+
+	\[
+		\omega''(x) + x\omega(x) = 0
+	\] 
+	
+	In this course, the convention is that we take $+$, often you will see the Airy equation written with a $-$. Let us first attempt to solve via the Fourier transform.
+	\[
+		\hat{\omega}(k) = \int_{-\infty}^{\infty} e^{-ikx}\omega(x) dx,
+	\] 
+	so
+	\[
+		-k^2 \hat{\omega}(k) + i \hat{\omega}'(k) = 0
+	\] 
+	Solving and inverting gives us
+	\[
+		\omega(x) = \frac{A}{2\pi} \int_{-\infty}^{\infty} \exp\left(-\frac{ik^3}{3} + ikx  \right) dk 
+	\] 
+
+	There exists a second, linearly independent solution which is not bounded for large $x$ and doesn't admit a Fourier transform. Instead, we consider the equation in $\C$, with $\omega(z)$.
+
+	Let
+	 \[
+		 w(z) = \int_{\gamma} e^{zt}f(t)dt
+	,\] 
+	where we will determine $f(t)$ uniquely, and then establish suitable contours $\gamma$.
+
+	Assume  $\frac{\partial f}{\partial z} =0$, then
+	\[
+		w''(z) = \int_{\gamma} t^2 e^{zt} f(t) dt
+	\] 
+	Our equation now becomes
+	\[
+		\int_{\gamma} (t^2 + z) f(t) e^{zt} dt = 0
+	\]
+	After integrating $\int_{\gamma} zf(t)e^{zt}dt$ by parts, we obtain
+	\[
+		\left[ e^{zt}f(t) \right]_{\gamma} + \int_{\gamma} e^{zt} \left( t^2f(t) - \frac{df}{dt} dt \right)  
+	\] 
+	Note that if  $f(t)$ is entire, and $\gamma$ is closed, then $\left[ e^{zt}f(t) \right]_{\gamma} = 0$.
+
+	We now pick $f(t)$ such that $t^2f(t) - \frac{df}{dt} = 0$, and hence
+	\[
+		f(t) = Ae^{\frac{t^3}{3}}
+	\]
+
+	Having found $f$, we can choose $\gamma$ such that $\left[ e^{zt}e^{\frac{t^3}{3}} \right]_{\gamma} = 0$. We choose $\gamma$ which starts/ends at $\infty$ (a closed contour will give a trivial solution $w \equiv 0$). Set $t = |t| e^{i\theta}$. For large $|t|$, we can write  $e^{zt + \frac{t^3}{3}} \sim e^{\frac{t^3}{3}} = e^{\frac{1}{3}|t|^3\cos 3\theta}e^{\frac{i}{3}|t|^3\sin 3\theta}$.
+
+	So, we require $\cos 3\theta < 0$ for this to vanish.
+
+	As such, a conventional choice of contour is as such:
+
+\begin{figure}[ht]
+    \centering
+    \incfig{airy-contour}
+\end{figure}
+
+By Cauchy,
+\[
+\oint_{\gamma_1 + \gamma_2 + \gamma_3} = 0 
+\] 
+
+So only 2 of the contours give linearly independent solutions (no proof of linear independence).
+
+So, we choose any pair of contours.
+
+We deform $\gamma_1$ to the Imaginary axis, getting
+
+\begin{align*}
+	 w_1(z) &= C  i\int_{-\infty}^{\infty} e^{izy - i \frac{y^3}{3}}dy \\
+		&= C \left[ i \underbrace{\int_{-\infty}^{\infty} \cos\left( zy - \frac{y^3}{3} \right) dy}_{\text{real for real z}} - \underbrace{\int_{-\infty}^{\infty} \sin\left( zy - \frac{y^3}{3} \right) dy}_{\text{real for real z}} \right]  \\
+ \end{align*} which is the solution obtained by Fourier transform.
+
+We from here define Airy's function of the 1st kind:
+\[
+	Ai(z) = \frac{1}{\pi} \int_{0}^{\infty} \cos\left( zy - \frac{y^3}{3} \right) dy
+\] 
+
+
+Now, instead we deform $\gamma_2$ such that it follows the axes as such: 
+\[
+	\gamma_2 = \{t = iy, y \in (\infty, 0)\} \bigcup \{t = -x, x \in [0, \infty)\} 
+\]
+
+Then
+\begin{align*}
+	w_2(z) = C \left[ i \int_{\infty}^{0} e^{izy - i \frac{y^3}{3}}dy - \int_{0}^{\infty} e^{-zx - \frac{x^3}{3}} dx\right] 
+\end{align*} is our second linearly independent solution. We can see that the second integral is unbounded as $z \to  -\infty$.
+
+We write
+\[
+	Bi(x) = \frac{1}{\pi} \int_{0}^{\infty} \left[ \sin\left( \frac{x^3}{3} - zx \right) - \exp\left(-zx - \frac{x^3}{3} \right)  \right] 
+\] to be Airy's function of the second kind (real part of the above with $C = -\frac{1}{\pi}$).
+\end{eg}
+
+\subsection{Solving ODE by integral representation: General Method}
+
+For equations of the form
+\[
+aw'' + bw' + cw =0
+\]
+Where $w=w(z)$, and $a,b and c$ are low-order polynomials in $z$ (so that we can integrate by parts),set
+ \[
+	 w(z) = \int_{\gamma} K(z,t)f(t)dt
+\]
+
+Substituting back into the ODE, we integrate by parts to eliminate the terms with $z^{n}$, choosing $f(t)$ appropriately to do so. The factor $K(z,t)$ is called a \textit{kernel}. The three following kernels are commonly used:
+\begin{align*}
+	e^{zt} & \text{(Laplace kernel)} \\
+	(z-t)^{\gamma} & \text{(Euler kernel)}\\
+	t^{z} & \text{(Mellin kernel)}
+\end{align*}
+
+An example of the Euler kernel is given by:
+\[
+	w(z) = \int_{\gamma} t^{a-c} (a-t)^{c-b-1} (t-z)^{-a} dt
+,\] which satisfies the hypergeometric equation
+\[
+	z(1-z)w'' + [c - (a+b-1)z] w' -abw = 0
+\] with constants $a,b,c$, provided that
+\[
+	\left[ t^{a-c+1} (1-t)^{c-b} (t-z)^{1-a}\right]_{\gamma} = 0  
+\] 
+
+The integrand might have branch points, possible at $t = 0, 1, z$, depending on the values of $a, b, c$ and whether the exponents are integers. If there are any branch cuts, then of course $\gamma$ must not cross them (see q6 on ES3).
+
+\subsection{Solving PDEs by Integral Transform}
+
+\begin{defn} (Laplace Transform)
+
+	For functions which have support on semi-intervals, e.g  $f(x) = 0$ for $x < 0$, we define the Laplace transform
+	 \[
+		 \hat{f}(p) :=  \int_{0}^{\infty} e^{-px}f(x) dx
+	,\]  with inverse
+
+	\[
+		f(x) =\frac{1}{2\pi i} \int_{c - i\infty}^{c + i\infty} e^{px} \hat{f}(p) dp
+	\] 
+	where we are integrating over a Bromwich contour such that 
+	\[ c > \sup\{x \in \R: \exists y  \in \R, \, f(x + iy) \text{ is singular}\} \]
+
+	Closing the Bromwich contour to the right yields  $f(x) = 0$ for $x < 0$. Closing to the left gives us $f(x)$ for $x \ge 0.$
+\end{defn}
+
+\begin{eg} (Waves on a finite string)
+
+	We consider small transverse oscillations, with displacement $y(x)$, satisfying the wave equation
+
+\[
+y_{t t} - c^2 y_{x x} = 0
+,\] with $y, y_t = 0$ for $t < 0$, $y(0,t) = 0$  $y(l, t) = y_0$ (sudden displacement). 
+
+(An alternative model for this might be a capacitor plate given some charge).
+
+Taking Laplace transforms (as it is an IVP),
+\[
+	p^2 \hat{y}(x, p) = c^2 \hat{y}_{x x}(x,p)
+\] 
+And so 
+\[
+	\hat{y}(x,p) = A(p) \sinh\left( \frac{px}{c} \right) + B(p) \cosh\left( \frac{px}{c} \right) 
+\] 
+Our boundary conditions give
+\begin{align*}
+	\hat{y}(0,p) &= 0 \\
+	\implies B(p) &\equiv 0
+\end{align*}
+And also
+\[
+	y(l,t) = y_0 \implies \hat{y}(l,p) = \int_0^{\infty} y_0 e^{-pt} dt = \frac{y_0}{p}
+\]
+So  \[
+	A(p) \sinh\left( \frac{lp}{c} \right) = \frac{y_0}{p}
+\] 
+
+Hence \[
+	\hat{y}(x, p) = \frac{y_0}{p} \frac{\sinh\left( \frac{xp}{c} \right) }{\sinh \left( \frac{lp}{c} \right) }
+\] 
+
+Then 
+\[
+	y(x,t) = \frac{1}{2\pi i} \int_{\tilde{c} - i\infty}^{\tilde{c} + i\infty} e^{pt} \frac{y_0}{p} \frac{\sinh \left( \frac{xp}{c} \right) }{\sinh\left( \frac{lp}{c} \right) } dp
+\] 
+	
+Our integrand has simple poles at $p = \frac{m \pi c i}{l}$. As $|p| \to \infty$ with $\Re p >0$, our integrand is approximately $\frac{e^{\frac{xp}{c}}e^{pt}}{pe^{\frac{lp}{c}}} = \frac{1}{p} e^{(x-l+ct)\frac{p}{c}}$.
+
+So if $x - l + ct <0$, we close in the RHP, and so $y(x,t) = 0$ by Cauchy's theorem.
+
+If $-x + l + ct > 0$, we close in the LHP, our radial contributions vanish, and so get that 
+\begin{align*}
+	y(x,t) = y_0 \sum_{m=-\infty}^{\infty} \res\left( \frac{e^{pt}}{p} \sinh\left( \frac{xp}{c} \right) \frac{1}{\sinh\left( \frac{lp}{c} \right) } ; \frac{m\pi c i}{l}\right)
+\end{align*} 
+
+For $m=0$, by l'H\^{o}pital's rule our residue is \[
+		\lim_{p\to 0} \frac{\frac{x}{c} \cosh(\frac{xp}{c}) e^{pt} + p\sinh(\frac{xp}{c}) e^{pt}}{\frac{l}{c} \cosh(\frac{lp}{c})} = \frac{x}{l}
+	\] 
+For $m \neq 0$, our residue is similarly
+\begin{align*}
+	\frac{\sinh(\frac{im \pi}{c}) \exp(i \frac{m\pi c}{l} t) }{im \pi \cosh(i m \pi)} &= \frac{i \sin(\frac{m\pi x}{l}) \exp(i \frac{m\pi c}{l}t)}{i m \pi \cos(m\pi)} \\
+\end{align*}
+
+Hence for $t > \frac{x-l}{c}$,
+\[
+	y(x,t) = \frac{x}{l}y_0 + y_0 \sum_{m=1}^{\infty}(-1)^{m} \frac{\sin \left( \frac{m \pi x}{l} \right) \cos\left( \frac{m\pi ct}{l} \right)  }{m \pi}
+\] 
+
+Note that for $-l + x < ct < l-x$, both our solutions are valid. Thankfully, the Fourier series solution is $0$ here (no proof). So, as we expect, our solution 'switches on' at $t=\frac{l-x}{c}$, so the disturbance propagates from the right at speed c.
+\end{eg}
+
+\begin{remark}
+	For an alternative inversion method, see handout. By this method, we get
+	\[
+		y(x,t) = y_0 \sum_{n=0}^{\infty} \Theta(ct + x - (2n+1)l) - \Theta(ct - x - (2n+1)l)
+	,\] which is equivalent. We can see that this represents a linear superposition of waves caused by reflections at the two ends of the string. 
+\end{remark}
+
+\section{Second-Order ODEs in the Complex Plane}
+
+We start with what is essentially a revision of IA.
+
+Consider 
+\[
+	w'' + p(z)w' + q(z)w = 0 \tag{1}
+,\] where p, q and w are meromorphic on $\C$. 
+
+\subsection{Classification of Singular Points}
+
+\begin{defn}
+	The point $z=z_0$ is an \textit{ordinary point} of (1) if $p$ and $q$ are both analytic at $z_0$. Otherwise $z_0$ is a \textit{singular point}.
+
+	If $z_0$ is a singular point, but $(z-z_0)p(z)$ and $(z-z_0)^2q(z)$ are analytic at $z_0$, then $z_0$ is a \textit{regular singular point}. Otherwise, $z_0$ is an irregular singular point.
+\end{defn}
+
+For linear ODEs, the singularities of the solutions are independent of the initial conditions - they are fully determined by $p$ and $q$. This does not hold for non-linear ODEs. For example,
+
+\[
+	w' + w^2 = 0 \quad \implies \frac{dw}{w^2} = -dz \quad \implies w(z) = (z-z_0)^{-1}
+,\] where the singularity at $z_0$ is movable, depending on the constant of integration.
+
+We can extend our definitions to $z=\infty$ by setting $z=\frac{1}{t}$ as follows:
+
+By the chain rule,
+\[
+	\frac{d^2w}{dt^2} + \left( \frac{2}{t} - \frac{p\left( \frac{1}{t} \right) }{t^2} \right) \frac{dw}{dt} + \frac{q\left( \frac{1}{t} \right) }{t^{4}} w =0
+\] 
+Hence $t=0$ (so $z=\infty$ ) is an ordinary point if $P(t) := \frac{2}{t} - \frac{p\left( \frac{1}{t} \right) }{t^2}$ is analytic at $t=0$.
+
+So,  \[
+	p(z) = \frac{2}{z} + \frac{P\left( \frac{1}{z} \right) }{z^2}
+,\] and similarly
+\[
+	q(z) = \frac{Q\left(\frac{1}{z}\right)}{z^{4}}
+\] 
+Where $Q(z)$ and  $P(z)$ are analytic at $0$.
+
+Similarly,  $ t=0 (z=\infty)$ is a regular singular point if
+\[
+	2 - \frac{p\left(\frac{1}{t}\right)}{t}, \quad \frac{q\left(\frac{1}{t}\right)}{t^2}
+\] are analytic at $t=0$.
+
+Or equivalently, we can find  $f, g$ analytic at $0$ such that
+\[
+	p(z) = \frac{2}{z} + \frac{1}{z}f\left( \frac{1}{z} \right), \qquad q(z) = \frac{1}{z^2}g\left( \frac{1}{z} \right) 
+\] 
+
+Note that $p$ has at most a simple pole at $\infty$, and $q$ has at most a double pole.
+
+\begin{eg} Legendre's Equation
+	\[
+		w'' - \frac{2z}{1-z^2} + \frac{n(n+1)}{1-z^2} w =0
+	,\] which immediately has regular singular points at $z = \pm 1$
+
+	We now check the behaviour at $\infty$.
+
+	\begin{align*}
+		q(z) = \frac{n(n+1)}{1-z^2} = \frac{1}{z^{4}} \frac{n(n+1)z^{4}}{1-z^2} := \frac{1}{z^{4}} g(\frac{1}{z})
+	\end{align*}
+
+	$g$ is not analytic at $z=\infty$, so this is not an ordinary point.
+
+	\[
+		p(z) = \frac{-2z}{1-z^2} = \frac{2}{z} + \frac{f\left( \frac{1}{z} \right) }{z}
+	,\] for $f\left( \frac{1}{z} \right) = -\frac{2}{1-z^2}$, which is analytic at $\infty$.
+
+	Similarly,
+	\[
+		q(z) = \frac{1}{z^2}g\left( \frac{1}{z} \right), \qquad g\left(\frac{1}{z}\right) := \frac{n(n+1)z^2}{1-z^2}
+	,\] which is analytic at $\infty$.
+
+	Hence $z=\infty$ is a regular singular point of Legendre's Equation.
+\end{eg}
+
+\begin{remark}
+	In many cases, the differential equations can be approximated at infinity. For example, here $\frac{1}{1-z^2} \sim -\frac{1}{z^2}$, which allows as to see clearly that $z=\infty$ is a regular singular point.
+\end{remark}
+
+\subsection{Indicial Equations}
+
+Consider a regular singular point at $z=0$, and write
+\[
+	w(z) = z^{\sigma} \sum_{n=0}^{\infty} a_n z^{n} \tag{2}
+\]
+Let $p(z) = \sum_{m=-1}^{\infty} p_m z^{m}$, $q(z) = \sum_{m=-2}^{\infty} q_m z^{m}$.
+
+Then our coefficients $p_m, q_m$ determine $\sigma$ and the coefficients $a_n$ (up to constants).
+That is,
+\[
+\sum_{n=0}^{\infty} \left[a_n (n+\sigma)(n+\sigma - 1) z^{n+\sigma -2} + \sum_{m=-1}^{\infty} p_m a_n(n+\sigma) z^{n+m+\sigma - 1} + \sum_{m=-2}^{\infty} q_m a_n z^{n+m+\sigma}\right] = 0
+\] 
+
+Then considering our lowest order coefficients of $z$, we get an indicial equation for $\sigma$:
+ \[
+	 a_0 \left[ \sigma(\sigma-1) + p_{-1}\sigma + q_{-2} \right] = 0
+\]
+And so assuming $a_0\neq 0$,
+\[
+	\sigma  =\frac{1 - p_{-1} \pm \sqrt{\left( p_{-1} -1 \right)^2 - 4q_{-2}} }{2}
+\] 
+
+And so $w_1(z) = z^{\sigma_1}(a_0 + a_1z + \ldots)$, and $w_2(z) = z^{\sigma_2}(a_0 + a_1z  \ldots) $. As such, in this context $\sigma$ is sometimes referred to as the exponent at $z=0$.
+
+Now, consider a regular singular point at  $z=\infty$.
+
+\begin{align*}
+	w &= t^{\sigma} \sum_{n=0}^{\infty}a_n t^{n} = z^{-\sigma} \sum_{n=0}^{\infty} a_n z^{-n} \\
+	p(z) &= \frac{2}{z} + \frac{1}{z}f\left(\frac{1}{z}\right)  =\frac{2}{z} + \frac{1}{z} \sum_{n=0}^{\infty} f_n z^{-n} =: \sum_{m=1}^{\infty}p_m z^{-m}\\
+	q(z) = \frac{1}{z^2} g\left( \frac{1}{z} \right) =: \sum_{m=2}^{\infty}q_m z^{-m}
+\end{align*}
+
+So
+\[
+	\sum_{n=0}^{\infty} \left[ a_n(-n-\sigma)(-n - \sigma - 1)z^{-n-\sigma-2} + \sum_{m=1}^{\infty} p_m a_n (-n-\sigma)z^{-m-m-\sigma-1} + \sum_{m=2}^{\infty} q_m a_n z^{-n-m-\sigma}\right] =0
+\] 
+Hence our indicial equation is
+\[
+	-\sigma(-\sigma-1) - p_1\sigma + q_2 = 0
+\] 
+
+\subsection{Solutions Near a Regular Singular Point}
+
+(see handouts also)
+
+Consider a regular singular point at $z=0$. For $|z|\ll 1$, we can our ODE by
+\[
+w'' + \frac{p_{-1}}{z}w' + \frac{q_{-2}}{z^2}w \approx 0
+\] 
+
+The solutions are $w_1 = z^{\sigma_1}$, $w_2 =z^{\sigma_2}$ if $\sigma_1, \sigma_2$ are distinct, and $w_1 = z^{\sigma_1}$ if they are equal.
+
+\begin{thm}
+	Let $z=0$ be a regular singular point of
+	\[
+	w'' + p w' + qw = 0 
+	\] 
+	Then there are two linearly independent solutions  $w_1, w_2$ such that if
+	\begin{enumerate}
+		\item $\sigma_1 - \sigma_2 \not\in \Z$: 
+			\[
+				w_1(z) = z^{\sigma_1} u_1(z), \quad w_2(z) = z^{\sigma_2}u_2(z)
+			,\] where $u_1, u_2$ are analytic on some neighbourhood of 0, and $u_i(0) \neq 0$. \\
+		\item $\sigma_1 = \sigma_2$:
+			\[
+				w_1(z) = z^{\sigma_1}u_1(z), \quad w_2(z) = z^{\sigma_2}u_2(z) + w_1(z) \ln z
+			,\] $u_i$ as above. \\ 
+		\item $\sigma_1 - \sigma_2 \in \Z\setminus \{0\} $ and wlog $\sigma_1 > \sigma_2$ :
+			\[
+				w_1(z) = z^{\sigma_1}u_1(z), \quad w_2(z) = z^{\sigma_2}u_2(z) + cw_1(z) \ln z
+			,\] where $u_i$ as above, and $c$ is a constant that might be zero. 
+			
+	\end{enumerate}
+\end{thm}
+
+\begin{proof}
+	We here prove case 1, and leave the other cases to a handout.
+
+	Substituting $w(z) = \sum_{n=0}^{\infty} a_n z^{n+\sigma}$ into our ODE, equating coefficients, and assuming $a_0 \neq 0$, we get
+
+	\begin{align*}
+		a_0 F(\sigma) &= 0 \\
+		a_n F(n+\sigma) &= - \sum_{k=0}^{\infty} a_k \left( (k+\sigma) p_{n-k-1} + q_{n-k-2} \right) \quad (n > 0) 
+	\end{align*}
+	where $F(x):= x(x-1) + p_{-1}x + q_{-2} = (x-\sigma_1)(x-\sigma_2)$
+
+	Since $a_0 \neq 0$, $F(\sigma) = 0$ is the indicial equation, and so 
+	\[
+	\sigma_1 + \sigma_2 = 1 - p_{-1}, \quad \sigma_1\sigma_2 = q_{-2}
+	\] 
+
+	If $\sigma_1 - \sigma_2 \not\in \Z$, then we get a recurrence relation for $a_k$ with two linearly independent solutions.
+\end{proof}
+
+\begin{eg} Bessel's Equation
+
+	\[
+		w'' + \frac{1}{z} w' + \left(1-\frac{\gammma^2}{z^2}\right)w =0
+\]
+Our non-zero coefficients are $p_-1 = 1, q_0 = 1, q_{-2} = -\gamma^2$. So (ignoring $\gamma = 0$) we obtain (near $z=0$):
+
+\begin{align*}
+	a_0F(\sigma) &= a_0(\sigma^2 - \gamma^2) = 0 \\
+	a_1 F(\sigma + 1) &= 0 \\
+	\vdots \\
+	a_nF(\sigma + n) &= -a_{n-2}
+\end{align*}
+so $\sigma_{1,2} = \pm \gamma$
+\end{eg}
+
+\subsection{Fuchsion Equations}
+
+We consider second order ODEs as before with at most three regular singular points.
+
+\subsubsection{No singular points}
+
+\begin{prop}
+	There are no ODEs without singular points in $\C_{\infty}$.
+\end{prop}
+
+\begin{proof}
+	If there are no singular points, then  $p(z)$ is entire on $C_{\infty}$ and is thus constant by Liouville's theorem. But $z = \infty$ is an ordinary point, so $p(z) = \frac{2}{z} + f\left( \frac{1}{z} \right) $, so it is not a constant.
+\end{proof}
+
+\subsubsection{One regular singular point}
+
+Wlog we can assuming the singular point is at $z=0$ (as we can move it via M\"{o}bius transforms), and all other points are ordinary.
+
+At  $z=0$, 
+\[
+	zp(z) = P(z), \quad z^2q(z) = Q(z)
+,\] where $P$ and $Q$ are entire on $\C_{\infty}$.
+
+At $z=\infty$,
+\[
+	p(z) = \frac{2}{z}+\frac{1}{z^2}A\left( \frac{1}{z} \right), \quad q(z) = \frac{1}{z^{4}}B\left( \frac{1}{z} \right)  
+,\] where $A$ and $B$ are entire on $C_{\infty}$.
+
+So $P(z) = 2 + \frac{1}{z}A\left( \frac{1}{z} \right) $ is entire, and so $A=0$ by Liouville's Theorem. $Q(z) = \frac{1}{z^2}B\left( \frac{1}{z} \right)$ is also entire, and so also $B = 0$.
+
+Hence our ODE takes the form
+\[
+	w'' + \frac{2}{z} w' = 0
+,\] which has solution 
+\[
+	w(z) = \alpha + \frac{\beta}{z}
+\] for some constants $\alpha, \beta$.
+
+\begin{lemma}
+	 A M\"{o}bius transformation $M: z\to t$ will transform an ODE of the form
+	 \[
+		 w'' + p(z) w' + q(z) w = 0
+	 \] into another ODE of the same form. The singular points move according to $z_0 \mapsto M(z_0)$, with exponents unchanged/
+\end{lemma}
+
+Proof is not given - consider the generators of scaling, translation and inversion.
+
+\vspace{1em}
+Thus, if the singular point is at $z=z_0 \neq \infty$, then we let $t = z-z_0$, and trivially our solution is 
+\[
+w = \alpha + \frac{\beta}{z-z_0}
+\] 
+
+If $z_0 = \infty$, we let $t =\frac{1}{z}$, and so by chain rule,
+\[
+\frac{d^2w}{dt^2} = 0 \quad\implies w = \alpha + \frac{\beta}{t} = \alpha + \beta z
+\] 
+\subsubsection{Two regular singular points}
+
+Wlog we can assume that $z=0, 1$ are the singular points, with all other points ordinary.
+
+So
+\[
+	p(z) = \frac{1+A}{z} + \frac{1+B}{z-1}  + \underbrace{P(z)}_{\text{entire}}
+\] 
+
+$z=\infty$ is an ordinary point, so $p(z) = \frac{2}{z} + \mathcal{O}\left( \frac{1}{z^2} \right) $ as $z\to \infty$.
+
+Hence  \[
+\frac{1+A}{z} + \frac{1+B}{z-1} \to \frac{2}{z}
+,\] and so $A+B = 0$.
+
+As  $p(z) \to 0$ at infinity, $P(z) = 0$ by Liouville's theorem.
+
+Hence 
+\[
+	p(z) = \frac{1+A}{z} + \frac{1-A}{z-1}
+\] 
+
+
+Now, $q(z) = \frac{Cz+D}{z^2} + \frac{Ez + F}{(z-1)^2} + Q_2(z)$, with $Q_2$ entire. So
+\[
+	q(z) =: \frac{Q_1(z)}{z^2(z-1)^2} + Q_2(z)
+,\] for some polynomial $Q_1$ of degree at most $3$.
+
+As $z=\infty$ is an ordinary point, $z^{4}q(z)$ is bounded at infinity, and so $Q_2$ = 0.
+
+Further,
+\[
+	\frac{z^{4}Q_1(z)}{z^2(z-1)^2} \to Q_1(z) \text{ as } z\to \infty
+,\] so $Q_1(z) = Q$ constant. 
+
+Hence
+\[
+	w'' + \left( \frac{1+A}{z} + \frac{1-A}{z-1} \right)w' + \frac{Q}{z^2(1-z)^2} w = 0
+,\] for constant A, where $z = 0, 1$ are our regular singular points.
+
+Consider exponents in the vicinity of $z = 0$. Then we can approximate
+\[
+w'' + \frac{1+A}{z}w' + \frac{Q}{z^2}w \sim 0
+\] 
+and so get indicial equation
+\[
+\sigma^2 + A \sigma + Q = 0
+\] 
+
+Similarly, at $z=1$ we get
+\[
+	w'' + \frac{1-A}{z-1}w + \frac{Q}{(z-1)^2}w \sim 0 \quad \implies \sigma^2 - A\sigma + Q =0
+\] 
+
+We can use M\"{o}bius transforms to move the singular points. In particular, we can use $t=\frac{1}{2}$ to map $0 \mapsto \infty, 1 \mapsto 1$.
+
+So \[
+	t^{4} w_{t t} + \left[ 2t^3 - t^2\left( t(1+A) + \frac{t(a-A)}{1-t} \right)  \right]w_t + t^{4}\frac{Q}{(t-1)^2} w = 0
+\] 
+And we thus obtain
+\[
+	w'' + \frac{1-A}{t-1}w' + \frac{Q}{(t-1)^2}w = 0
+\] 
+
+So our indicial equation at $t=1$ is given by
+\[
+\sigma^2 - A\sigma + Q = 0
+,\] the same as before at $z=1$, and at $t=\infty$ we get
+\[
+\sigma^2 + A\sigma + Q = 0
+,\] the same as before at $z=0$.
+
+Note that solutions near  $z=0$ take the form $z^{\sigma_1} u_1(z) + z^{\sigma_2} u_2(z)$, where $U_i$ is analytic. The solutions at $t=\infty$ take the form $w(t) = t^{-\sigma_1}u_1\left(\frac{1}{t}\right) + t^{-\sigma_2} u_2\left( \frac{1}{t} \right) $
+
+\subsubsection{Three Regular Singular Points - The Papperitz Equation (Riemann's P-Equation)}
+
+(also see handout)
+
+We show that there are $8$ parameters in the P-equation: 3 from positions of the singular points, 6 for exponents (2 per singular point), but -1 from a constraint on the exponents as they must add up to 1.
+
+Suppose the three regular singular points are at $z= a, b, c$ with all other points regular. Then wlog we can write $p(z)$ in the form
+\[
+	p(z) = \frac{1-\alpha - \alpha'}{z-\alpha} + \frac{1-\beta - \beta'}{z-\beta} + \frac{1-\gamma - \gamma'}{z-c} + P(z)
+,\] where $P$ is entire.
+
+As $z=\infty$ is an ordinary point, then $p(z)$ is bounded at $\infty$, and so by Liouville's theorem $P(z)$ is constant (wlog 0).
+
+Further,
+\[
+	zp(z) \to 2 \text{ as } z\to \infty \quad \implies (1-\alpha - \alpha') + (1-\beta - \beta') + (1-\gamma - \gamma') = 2
+,\]
+so
+\[
+\alpha + \alpha' + \beta + \beta' + \gamma + \gamma' =1
+\]
+
+Next, wlog
+\begin{align*}
+	q(z) &= \frac{k_{\alpha} z - k_{\alpha}'}{(z-\alpha)^2} + \frac{k_{\beta} z - k_{\beta}'}{(z-\beta)^2} + \frac{k_{\gamma}z + k_{\gamma}'}{(z-\gamma)^2} + Q_2(z) \\
+	=: \frac{Q_1(z)}{(z-a)^2(z-b)^2(z-c)^2} + Q_2(z)
+\end{align*}
+	where $Q_2$ is entire, and $Q_1$ is a polynomial of degree at most $5$.
+
+	As  $z=\infty$ is an ordinary point, $z^{4}q(z)$ is bounded as $z\to \infty$, and so by Liouville's theorem,  $Q_2$ is constant (wlog 0), and $Q_1$ is at most quadratic.
+
+	Hence we can write
+	\[
+		q(z) = \frac{1}{(z-a)(z-b)(z-c)}\left( \frac{q_a}{z-a} + \frac{q_b}{z-b} + \frac{q_c}{z-c} \right) 
+	\] 
+
+	We can now specify $\alpha, \alpha', \beta, \beta', \gammma, \gamma'$ by writing
+	\begin{align*}
+		q_a &= \alpha\alpha' (a-b)(a-c) \\
+		q_b &= \beta \beta' (b-a)(b-c)\\
+		q_c &= \gamma \gamma' (c-a)(c-b)
+	\end{align*}
+	and so we can fix our constants under  $\alpha + \alpha' + \beta + \beta' + \gamma + \gamma'$ =1, giving us our 8 degrees of freedom.
+
+	This gives the Papperitz equation:
+
+	\begin{align*}
+		w'' + &\left( \frac{1-\alpha - \alpha'}{z-a} + \frac{1-\beta - \beta'}{z-b} + \frac{1- \gamma - \gamma'}{z-c} \right) w' \\ - &\frac{(b-c)(c-a)(a-b)}{(z-a)(z-b)(z-c)} \left[ \frac{\alpha\alpha'}{(z-a)(b-c)} + \frac{\beta\beta'}{(z-b)(c-a)} + \frac{\gamma\gamma'}{(z-c)(a-b)} \right] w = 0
+	\end{align*}
+
+	Near $z=a$, the Papperitz equation can be approximated as
+	\[
+		w'' + \frac{1-\alpha - \alpha'}{z-a}w' + \frac{\alpha\alpha'}{(z-a)^2}w \sim 0
+	,\] so our indicial equation is
+	\[
+		\sigma^2 + (\alpha + \alpha')\sigma + \alpha\alpha' = 0
+	,\] and so $\alpha $ and$ \alpha'$ are the exponents are $z=a$, and similarly at $b$ and $c$. 
+
+	We write
+	\[
+		P \begin{Bmatrix} a & b & c & \\
+				\alpha & \beta & \gamma & z \\
+				\alpha' & \beta' & \gamma' &
+		\end{Bmatrix} 
+	\] for the $2d$ vector space of solutions of the P-equation. This is known as the Papperitz (P) - symbol.
+
+	It is a common abuse of notation to write $w(z) = P \begin{Bmatrix} \ldots \end{Bmatrix} $ to mean that $w$ solves the P equation.
+
+\subsection{The Hypergeometric Equation}
+
+A M\"{o}bius transform acts on a P-symbol as follows: 
+ \begin{align*}
+	 (a,b,c,z) &\to (a', b', c', z') \\
+	 P \begin{Bmatrix} a & b & c & \\
+                                \alpha & \beta & \gamma & z \\
+				\alpha' & \beta' & \gamma' &
+			\end{Bmatrix} & \mapsto P \begin{Bmatrix} a' & b' & c' & \\
+                                \alpha & \beta & \gamma & z \\
+				\alpha' & \beta' & \gamma' &
+			\end{Bmatrix}
+\end{align*}
+
+We also need to transform P-symbol by exponent shifting.
+
+\begin{prop}
+	\[
+		\left( \frac{z-a}{z-b} \right)^{\sigma} \left( \frac{z-b}{z-c} \right)^{\delta} P \begin{Bmatrix} a & b & c & \\
+                                \alpha & \beta & \gamma & z \\
+				\alpha' & \beta' & \gamma' &
+			\end{Bmatrix}
+			= P \begin{Bmatrix} a & b & c & \\
+                                \alpha + \sigma & \beta - \sigma + \delta & \gamma - \delta& z \\
+				\alpha' + \sigma & \beta - \sigma + \delta & \gamma - \delta &
+			\end{Bmatrix}
+	\] 
+
+	And our solution 
+	\[
+		w(z) \mapsto \left(\frac{z-a}{z-b}\right)^{\sigma} \left( \frac{z-b}{z-c} \right) ^{\delta} w(z)
+	\]
+
+\end{prop}
+
+\begin{proof} 
+	We prove the case $\delta = 0$, but the proof is easily extended.
+
+	Let us prove the equivalent 
+	\[
+		\left( \frac{z-a}{z-b} \right)^{\sigma} P \begin{Bmatrix} a & b & c & \\
+                                \alpha - \sigma & \beta+\sigma & \gamma & z \\
+				\alpha' -\sigma & \beta + \sigma & \gamma&
+			\end{Bmatrix}
+			= P \begin{Bmatrix} a & b & c & \\
+                                \alpha & \beta & \gamma & z \\
+				\alpha' & \beta' & \gamma' &
+			\end{Bmatrix}
+	\] 
+
+	We assume that $w(z)$ is a solution of the RHS, and want to show that $w_1(z) = \left( \frac{z-a}{z-b} \right)^{-\sigma} w(z) $ is a solution to the LHS.
+
+Near $z=a$, 
+ \[
+	 w(z) = \sum_{n=0}^{\infty} a_n \left( z-a \right)^{n+\alpha}
+,\]
+so
+\begin{align*}
+	w_1(z) &= \left( z -a \right)^{\alpha - \sigma} \left( z-\beta \right)^{\sigma} \sum_{n=0}^{\infty} a_n (z-a)^{n} \\
+	&= (z-a)^{\alpha - \sigma} \sum_{n=0}^{\infty} c_n (z-a)^{n}
+\end{align*} as $(z-b)^{\sigma}$ is analytic at $z=a$.
+
+So  $\alpha$ is shifted to $\alpha - \sigma$, and the result follows.
+\end{proof}
+
+Note: If multiply  by$(-b)^{\sigma}$ and take when $b \mapsto \infty$, 
+
+\[
+	(z-a)^{\sigma} P \begin{Bmatrix} a & \infty & c & \\
+                                \alpha & \beta & \gamma & z \\
+				\alpha' & \beta' & \gamma' &
+			\end{Bmatrix} = P \begin{Bmatrix} a & \infty & c & \\
+                                \alpha + \sigma  & \beta - \sigma & \gamma & z \\
+				\alpha' + \sigma & \beta' - \sigma & \gamma' &
+			\end{Bmatrix}
+\] 
+
+
+To obtain the Hypergeometric equation, we perform the following operations.
+\begin{enumerate}
+	\item Map $(a,b,c) \mapsto (0, 1, \infty)$ by M\"{o}bius transform \\
+	\item Shift exponents so $\alpha = \beta = 0$ \\
+	\item Relabel  $\gamma = A$, $\gamma' = B$,  $\alpha' = 1-C$, then  $\beta' = C - A - B$
+\end{enumerate}
+
+So the P-symbol becomes
+\[
+P \begin{Bmatrix} 0 & 1 & \infty & \\
+                                0 & 0 & A & z \\
+				1-C & C - A - B & B &
+			\end{Bmatrix}
+,\]
+
+which corresponds to the hypergeometric equation
+\[
+	w'' + \left( \frac{C}{z} + \frac{1 + A + B - C}{z-1} \right) w' + \frac{AB}{z(z-1)}w = 0 \tag{\dagger}
+\] with regular singular points $0, 1, \infty$. Note that the hypergeometric equation is generally written with lower case letters, not to be confused with our original singular points.
+
+Now, one of the exponents is $0$, so there is a solution that is analytic at $z=0$ with $w(0)=1$. This is known as the hypergeometric function  $F(a, b; c, z) = F(b, a; c, z)$
+
+\begin{prop}
+	\[
+		F(a, b; c, z) = \sum_{n=0}^{\infty} \frac{(a)_{n} (b)_{n}}{(c)_{n}} \frac{z^{n}}{n!}
+	,\] where $(x)_n = x(x+1)\ldots(x+n-1)$, $(x)_0 = 1$ is the \textit{Pochhammer symbol}.
+	The series is convergent in $|z| <1$. The singular point at $z=1$ prohibits the series from converging further.
+\end{prop}
+
+\begin{proof}
+	Since the solution $w(z)$ is analytic, it can be written as a Taylor series
+	\[
+		w(z) = \sum_{n=0}^{\infty} a_n z^{n}
+	\] 
+	substituting this into $(\dagger)$ and multiplying by $z-1$, we get
+	\begin{align*}
+		n(n-1)a_n z^{n-2} + &(n+1)na_{n+1}z^{n-1} + cn a_n z^{n-2} + c(n+1) a_{n+1}z^{n-1} \\
+									    &+ (1+a+b-c)(na_n z^{n-1} + (n+1)a_{n+1}z^{n}) + ab(a_nz^{n-1} + a_{n+1}z^{n}) = 0
+	\end{align*} 
+
+	The coefficients of $z^{n-1}$ give
+	\[
+		n(n-1)a_n + (n_1)n a_{n+1} + cn a_n - c(n+1)a_{n+1} + (1+a+b-c)na_n + aba_n = 0
+	\] 
+	and thus 
+	\[
+		a_n (n^2 + an + bn + ab) = a_{n+1}(n+1)(c+n)
+	\]
+	Hence,
+	\[
+		a_{n+1} = \frac{(a+n)(b+n)}{(c+n)} \frac{1}{n+1} a_n
+	,\] which gives the claimed result 
+\end{proof}
+
+\begin{remark}
+	Many special functions are special cases of the Hypergeometric function:
+	\begin{align*}
+		(1-z)^{n} &= F(-n, 1; 1, z)\\
+		\log(1-z) &= zF(1, 1; 2, z) \\
+		e^{z} &= \lim_{b\to 0} F(1, b; 1, \frac{z}{b})
+	\end{align*}
+\end{remark}
+
+\begin{prop}
+	The hypergeometric function has integral representation
+	\[
+		F(a, b; c, z) = \frac{\Gamma(c)}{\Gamma(b)\Gamma(c-b)} \int_{0}^{1} t^{b-1} (1-t)^{c-b-1}(1-zt)^{-1}dt
+	\] 
+	for $\Re c > \Re b > 0$ and  $|z| < 1$ so that the integral converges at branch points $0, 1, \frac{1}{z}$.
+\end{prop}
+
+\begin{proof}
+	See example sheet 4.
+\end{proof}
+
+
+\subsubsection{Second Solution to the Hypergeometric Equation}
+
+Near $ z=0$, there is a solution with exponent $1-c$. It can be expressed in terms of the Hypergeometric function. It has the form  $w(z) = z^{1-c} g(z)$, where $g$ is analytic at $z=0$ and $g(0) = 1$.
+
+We have 
+\[
+	w(z) = P \begin{Bmatrix} 0 & 1 & \infty & \\
+		0 & 0 & a & z \\
+		1-c & c-a-b & b & 
+	\end{Bmatrix} 
+,\] and so by shifting
+\[
+	g(z) = P \begin{Bmatrix} 0 & 1 & \infty & \\
+                c-1 & 0 & a+c+1 & z \\
+                0 & c-a-b & b-c+1 & 
+        \end{Bmatrix} \equiv P \begin{Bmatrix} 0 & 1 & \infty & \\
+                0 & 0 & a-c+1 & z \\
+                c-1 & c-a-b & b-c+1 & 
+        \end{Bmatrix}
+\] as the order of our exponents does not matter.
+
+We let $c' = 2-c$, $a' = a +c - a$,  $b' = b-c+1$. Then
+\[
+	g(z) = P \begin{Bmatrix} 0 & 1 & \infty & \\
+                0 & 0 & a' & z \\
+                1-c' & c'-a'-b' & b' & 
+        \end{Bmatrix}
+\] 
+
+Hence 
+ \[
+	 w(z) = z^{1-c} F(a-c+1, b-c+1,; 2-c, 2)
+\] is the second solution at $z=0$.
+
+\begin{note}
+	This works for $c \not\in \Z$.
+\end{note}
+
+\subsubsection{Solutions near $z=\infty$ }
+
+The two principal branches at $z=\infty$ of a hypergeometric P-function can be written in terms of hypergeometric functions as follows. Note first that the branches are of the form
+\[
+	P_a(z) = z^{-a} g_a(z) \qquad \text{and} \qquad P_b(z) = z^{-b} g_b(z)
+\] where $g_a(t^{-1})$ and $g_b(t^{-1})$ are analytic at $t=0$.
+
+Now, $P_a(z)$ is a branch of the hypergeometric P-function
+\[
+P\begin{Bmatrix} 0 & \infty & 1 & \\
+                0 & a &  & z \\
+                1-c & b & c-a-b & 
+        \end{Bmatrix}
+\] 
+
+So by exponent shifting, $g_a(z)$ is a branch of
+\begin{align*}
+	P&\begin{Bmatrix} 0 & \infty & 1 & \\
+                a & 0 & 0 & z \\
+                1-c+a & b-a & c-a-b & 
+        \end{Bmatrix} \\
+	&= P \begin{Bmatrix} \infty & 0 & 1 & \\
+                a & 0 &  & z^{-1} \\
+                1-c+a & b-a & c-a-b & 
+	\end{Bmatrix} \text{ by M\"{o}bius transform}\\
+	&= P \begin{Bmatrix} 0 & \infty & 1 & \\
+                0 & a & 0 & z^{-1} \\
+                b-a & 1-c+a & c-a-b & 
+        \end{Bmatrix} \text{ reordering columns}\\
+	&\equiv P\begin{Bmatrix} 0 & \infty & 1 & \\
+                0 & a' & 0 & z \\
+                1-c' & b' & c'-a'-b' & 
+        \end{Bmatrix}
+\end{align*} where $c' = 1+a-b$,  $b' = 1-c+a$, and  $a' = a$
+
+Now, $g_a(z)$ is analytic at $z^{-1} = 0$ and $g(\infty) = 1$, so $g_a(z)$ must e the principle branch of the above P-function corresponding to the exponent 0 at the point $z^{-1} = 0$, which by definition is a hypergeometric function.
+
+Thus
+\[
+	w(z) = z^{-a} F(a, 1-a+c; 1+a-b, z^{-1})
+\] 
+
+The other branch is obtained from this by interchanging $a$ and $b$. Note that since there are only two linearly independent branches at each point, we can express the analytic continuation of $F(a, b; c,z)$ to large $z$ in the form
+\[
+	F(a, b; c, z) = A z^{-a}F(a, 1-a+c; 1+a-b, z^{-1}) + B z^{-b} F(b, 1-b+c; 1+b-a, z^{-1})
+,\] where $A$ and $B$ are constants which can be found using, for example, integral representations of the hypergeometric function. 
+
+\subsection{Monodromy - the need for a logarithmic term}
+
+We briefly revisit our general linear second order ODE
+\[
+	w'' + p(z)w' + q(z)w = 0 
+\] 
+
+For a regular singular point at $z=0$, there exist two linearly independent solutions such that if $\sigma_1 = \sigma_2$, then $w_1(z) = z^{\sigma} u_1(z)$, and $w_2(z) = w_1(z) \log z$.
+
+We now justify why the log term arises.
+
+Consider $\mathcal{D} = \{z: 0 < |z| < R\} $ to be the largest punctured disk with no other singularities. Let $z_0 \in \mathcal{D}$. Then $z_0$ is an ordinary point, so there exists an open disk $\mathcal{D}_0 \subset \mathcal{D}$ which has analytic solutions, wlog $w_1(z) w_2(z)$ which form a Vieta space of dimension 2.
+
+Let $C = \{|z| = |z_0|\} $. We perform analytic continuation using a sequence of disks along $C$ back to $\mathcal{D}_0$. Let $\hat{w}_{1}(z) = w_1\left( e^{2\pi i }z \right) $, $\hat{w}_2(z) = w_2\left( e^{2\pi i } z \right) $ to be the result of analytic continuation back into $\mathcal{D}_0$.
+
+Then we can find a non-singular matrix  $M$ such that
+\[
+\begin{pmatrix} \hat{w}_1 \\ \hat{w}_2 \end{pmatrix} = M \begin{pmatrix} w_1 \\ w_2 \end{pmatrix} 
+\] 
+
+This is known as the Monodromy matrix.
+
+M has two possible Jordan normal forms:
+\[
+	\begin{pmatrix} e^{2\pi i \sigma} & 0 \\ 0 & e^{2\pi i \sigma} \end{pmatrix} \qquad \text{or} \qquad \begin{pmatrix} e^{2\pi i \sigma} & 0 \\ 1 & e^{2\pi i \sigma} \end{pmatrix} 
+\] 
+
+In both cases, $w_1\left(e^{2\pi i} z\right) = \left(e^{2\pi}z\right)^{-\sigma} w_1(z)$. Letting 
+
+In the second case, we have
+\[
+	w_2\left( e^{2\pi i }z \right) = w_1(z) + e^{2\pi i \sigma} w_2(z)
+\]
+We let $f(z) = z^{-\sigma} w_2(z) - \frac{e^{-2\pi i \sigma}z^{-\sigma} \log z}{2\pi i} w_1(z)$. Then under the analytic continuation, 
+\[
+	f\left( e^{2\pi i} z \right) = f(z)
+\] 
+Now, $f(z)$ is 
 \end{document}
